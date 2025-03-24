@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MapLayersConfiguration>
+
+    <!-- raster layer definitions -->
+
+    <WSIRasterLayerConfiguration>
+    
+        <!--
+         Everything uses Pangea now.
+         LayerID values are unique and used in master_config_map to set
+         up layers that should actually be used.
+         DataProvider type can be Sun or Tessera.
+         ProductSet is optional product set string (if product in another product set).
+         DataType is Raster, OverlayEarthquakes, Alerts etc.
+         and controls how the data is shown on the map when the layer is shown.
+         All layers have one or more ObservedID which is used for showing
+         data that has been observed in the past (including very recently).
+         Layers which have forecast / predicted data have a PredictedID.
+         This currently only applies to raster layers but feature data (e.g storm
+         tracks) could have future data at some point.
+         New raster layers can be added here and should show up on the map using
+         the default Raster data type.
+         It should also be possible to add new Alerts layers although those will
+         use a default coloring scheme for now.
+         New point features can be added but only with the OverlayGenericPoint
+         data type which will simply display an icon at the location for each
+         feature.
+         If there are multiple observed / predicted products set up for a given
+         layer, the later ones will be drawn over the earlier ones (e.g. radar
+         over satellite).
+         -->
+        
+        <!-- ########################### radar ########################### -->
+
+        <Layer>
+            <LayerID>wsi_LayerRadar</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>radar</ProductKey>
+                </ObservedData>
+                <PredictedData>
+                    <ProductKey>radarFcst</ProductKey>
+                </PredictedData>
+            </DataProvider>
+            <Looping RangeObservedMinutes="60" RangePredictedMinutes="360" StepSizeSeconds="300"/>
+        </Layer>
+
+        <Layer>
+            <LayerID>wsi_LayerRadarSmooth</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>twcRadarMosaic</ProductKey>
+                </ObservedData>
+                <PredictedData>
+                    <ProductKey>radarFcst</ProductKey>
+                </PredictedData>
+            </DataProvider>
+            <Looping RangeObservedMinutes="60" RangePredictedMinutes="360" StepSizeSeconds="300"/>
+        </Layer>
+
+        <Layer>
+            <LayerID>wsi_LayerRadarOverSatellite</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>sat</ProductKey>
+                    <ProductKey>radar</ProductKey>
+                </ObservedData>
+                <PredictedData>
+                    <ProductKey>cloudsFcst</ProductKey>
+                    <ProductKey>radarFcst</ProductKey>
+                </PredictedData>
+            </DataProvider>
+            <Looping RangeObservedMinutes="60" RangePredictedMinutes="360" StepSizeSeconds="300"/>
+        </Layer>
+
+        <Layer>
+            <LayerID>wsi_LayerRadarOverSatelliteSmooth</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>sat</ProductKey>
+                    <ProductKey>twcRadarMosaic</ProductKey>
+                </ObservedData>
+                <PredictedData>
+                    <ProductKey>cloudsFcst</ProductKey>
+                    <ProductKey>radarFcst</ProductKey>
+                </PredictedData>
+            </DataProvider>
+            <Looping RangeObservedMinutes="60" RangePredictedMinutes="360" StepSizeSeconds="300"/>
+        </Layer>
+
+        <Layer>
+            <LayerID>wsi_LayerRoadWeather</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>rwi</ProductKey>
+                </ObservedData>
+            </DataProvider>
+            <Looping RangeObservedMinutes="120" StepSizeSeconds="900"/>
+        </Layer>
+
+        <Layer>
+            <LayerID>wsi_LayerSatellite</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>sat</ProductKey>
+                </ObservedData>
+                <PredictedData>
+                    <ProductKey>cloudsFcst</ProductKey>
+                </PredictedData>
+            </DataProvider>
+            <Looping RangeObservedMinutes="240" RangePredictedMinutes="420" StepSizeSeconds="900"/>
+        </Layer>
+        
+        <Layer>
+            <LayerID>wsi_LayerSnowfall</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>snow24hr</ProductKey>
+                </ObservedData>
+            </DataProvider>
+            <Looping RangeObservedMinutes="120" StepSizeSeconds="900"/>
+        </Layer>
+
+        <Layer>
+            <LayerID>wsi_LayerSurfaceTemperatureAll</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>tempWsi</ProductKey>
+                </ObservedData>
+                <PredictedData>
+                    <ProductKey>tempFcstWsi</ProductKey>
+                </PredictedData>
+                <Coverage>LandAndWater</Coverage>
+            </DataProvider>
+            <Looping RangeObservedMinutes="120" RangePredictedMinutes="420" StepSizeSeconds="900"/>
+        </Layer>
+
+        <Layer>
+            <LayerID>wsi_LayerSurfaceTemperatureLand</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>tempWsi</ProductKey>
+                </ObservedData>
+                <PredictedData>
+                    <ProductKey>tempFcstWsi</ProductKey>
+                </PredictedData>
+                <Coverage>Land</Coverage>
+            </DataProvider>
+            <Looping RangeObservedMinutes="120" RangePredictedMinutes="420" StepSizeSeconds="900"/>
+        </Layer>
+
+        <Layer>
+            <LayerID>wsi_LayerSurfaceTemperatureWater</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>tempWsi</ProductKey>
+                </ObservedData>
+                <PredictedData>
+                    <ProductKey>tempFcstWsi</ProductKey>
+                </PredictedData>
+                <Coverage>Water</Coverage>
+            </DataProvider>
+            <Looping RangeObservedMinutes="120" RangePredictedMinutes="420" StepSizeSeconds="900"/>
+        </Layer>
+
+        <Layer>
+            <LayerID>wsi_LayerWindSpeed</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Raster</DataType>
+                <ObservedData>
+                    <ProductKey>windSpeedNM</ProductKey>
+                </ObservedData>
+                <PredictedData>
+                    <ProductKey>windSpeedFcstNM</ProductKey>
+                </PredictedData>
+            </DataProvider>
+            <Looping RangeObservedMinutes="120" RangePredictedMinutes="420" StepSizeSeconds="900"/>
+        </Layer>
+
+    </WSIRasterLayerConfiguration>
+
+
+    <!-- ######################### overlays ######################### -->
+
+    <WSIOverlayConfiguration>
+        <Overlay>
+            <LayerID>wsi_OverlayCurrentConditions</LayerID>
+            <DataProvider type="Sun">
+                <DataType>OverlayCurrentConditions</DataType>
+                <ObservedData>
+                    <ProductKey>613</ProductKey>
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+        
+        <Overlay>
+            <LayerID>wsi_OverlayEarthquakes</LayerID>
+            <DataProvider type="Sun">
+                <DataType>OverlayEarthquakes</DataType>
+                <ObservedData>
+                    <ProductKey>601</ProductKey>
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+
+        <Overlay>
+            <LayerID>wsi_OverlayLightning</LayerID>
+            <DataProvider type="Sun">
+                <DataType>OverlayLightning</DataType>
+                <ObservedData>
+                    <ProductKey>403</ProductKey>
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+        
+        <Overlay>
+            <LayerID>wsi_OverlayStormTracks</LayerID>
+            <DataProvider type="Sun">
+                <DataType>OverlayStormTracks</DataType>
+                <ObservedData>
+                    <ProductKey>790</ProductKey>
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+        
+        <Overlay>
+            <LayerID>wsi_OverlayTemperaturePlots</LayerID>
+            <DataProvider type="Sun">
+                <DataType>OverlayTemperaturePlots</DataType>
+                <ObservedData>
+                    <ProductKey>613</ProductKey>
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+        
+        <Overlay>
+            <LayerID>wsi_OverlayTrafficFlow</LayerID>
+            <DataProvider type="Sun">
+                <DataType>OverlayTrafficFlow</DataType>
+                <ObservedData>
+                    <ProductKey>901</ProductKey>
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+
+        <Overlay>
+            <LayerID>wsi_OverlayTrafficIncidents</LayerID>
+            <DataProvider type="Sun">
+                <DataType>OverlayTrafficIncidents</DataType>
+                <ObservedData>
+                    <ProductKey>900</ProductKey>
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+
+        <Overlay>
+            <LayerID>wsi_OverlayTropicalTracks</LayerID>
+            <DataProvider type="Sun">
+                <DataType>OverlayTropicalTracks</DataType>
+                <ObservedData>
+                    <ProductKey>9066</ProductKey>
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+
+        <Overlay>
+            <LayerID>wsi_OverlayTropicalTracksTest</LayerID>
+            <DataProvider type="Sun">
+                <DataType>OverlayTropicalTracks</DataType>
+                <ObservedData>
+                    <ProductKey>mockactivetropicaltracks</ProductKey>
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+
+        <Overlay>
+            <LayerID>wsi_WeatherAlertsAll</LayerID>
+            <DataProvider type="Sun">
+                <DataType>Alerts</DataType>
+                <ObservedData>
+                    <ProductKey>648</ProductKey> <!-- global - have to set filters to control which alerts are shown -->
+                </ObservedData>
+            </DataProvider>
+        </Overlay>
+
+    </WSIOverlayConfiguration>
+
+</MapLayersConfiguration>
+

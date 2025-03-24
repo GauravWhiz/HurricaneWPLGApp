@@ -1,0 +1,79 @@
+
+source 'https://cdn.cocoapods.org/'
+
+# Uncomment this line to define a global platform for your project
+platform :ios, '14.0'
+
+use_frameworks!
+
+def shared_pods
+    pod 'GoogleAnalytics', '~>3.23.0'
+    pod 'GoogleIDFASupport', '~>3.14.0'
+    pod 'Reachability', '~>3.7.5'  # Added PI
+    pod 'SVGKit', '~> 3.0.0'  # Added PI
+    pod 'Google-Mobile-Ads-SDK', '~> 11.5.0'  # Added PI
+    pod 'Firebase/Crashlytics', '~> 10.29.0'  # Added PI
+    pod 'ComScore','6.12.2' # Added PI
+    pod 'FirebaseAnalytics', '~> 10.29.0'  # Added PI
+    pod 'Firebase/RemoteConfig', '~> 10.29.0'  # Added PI
+    pod 'BlueConicClient', '~> 3.2.0'  # Added PI
+    # for livestream video ads
+    pod 'GoogleAds-IMA-iOS-SDK', '~> 3.20.0'  # Not Added PI
+    pod 'Alamofire', '~> 5.10.0'  # Added PI
+    pod 'SDWebImage', '~> 5.19.7' # Added PI
+    pod 'BrazeKit', '~> 11.1.0'  # Added PI
+    pod 'BrazeLocation', '~> 11.1.0' # Added PI
+end
+
+target 'KPRC' do
+  shared_pods
+end
+
+target 'KSAT' do
+  shared_pods
+end
+
+target 'WJXT' do
+  shared_pods
+end
+
+target 'WKMG' do
+  shared_pods
+end
+
+target 'WPLG' do
+  shared_pods
+end
+
+target 'Demo' do
+  shared_pods
+end
+
+pre_install do |installer|
+    def installer.verify_no_static_framework_transitive_dependencies; end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = 'NO'
+      config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf'
+      config.build_settings["DEVELOPMENT_TEAM"] = "AEJ335Y6NL"
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64 i386"
+      
+      xcconfig_path = config.base_configuration_reference.real_path
+      xcconfig = File.read(xcconfig_path)
+      xcconfig_mod = xcconfig.gsub(/DT_TOOLCHAIN_DIR/, "TOOLCHAIN_DIR")
+      File.open(xcconfig_path, "w") { |file| file << xcconfig_mod }
+      IO.write(xcconfig_path, IO.read(xcconfig_path).gsub("DT_TOOLCHAIN_DIR", "TOOLCHAIN_DIR"))
+    end
+    
+        
+    
+  end
+  installer.pods_project.build_configuration_list.build_configurations.each do |configuration|
+    configuration.build_settings['CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES'] = 'YES'
+    
+  end
+end

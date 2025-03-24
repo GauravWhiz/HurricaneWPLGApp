@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad10_2" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="GridCellIdentifier" rowHeight="791" id="2" customClass="GridCell" customModule="Demo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="592" height="791"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2" id="jqL-TR-C6P">
+                <rect key="frame" x="0.0" y="0.0" width="592" height="791"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQe-Ty-fIA">
+                        <rect key="frame" x="20.5" y="1" width="551" height="819"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="107">
+                                <rect key="frame" x="20" y="0.0" width="239" height="239"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="107" secondAttribute="height" multiplier="1:1" id="63e-Zq-EOL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="tropicWatchButtonImage">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tropicWatchButtonTapped:" destination="2" eventType="touchDown" id="153"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="108" userLabel="LocalRadar">
+                                <rect key="frame" x="292" y="0.0" width="239" height="239"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="localRadarButtonImage">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="selected" image="localRadarButtonImage~iPad.png"/>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="radarButtonTapped:" destination="2" eventType="touchDown" id="154"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="110" userLabel="WatchesWarnings">
+                                <rect key="frame" x="20" y="272" width="239" height="239"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="warningsButtonImage">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="warningButtonTapped:" destination="2" eventType="touchDown" id="155"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="111" userLabel="StormTracker">
+                                <rect key="frame" x="292" y="272" width="239" height="239"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="stormTrackerButtonImage">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="stormTrackerButtonTapped:" destination="2" eventType="touchDown" id="156"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="126" userLabel="PlanPrepare">
+                                <rect key="frame" x="20" y="544" width="239" height="239"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="planAndPrepareButtonImage">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="planAndPrepareButtonTapped:" destination="2" eventType="touchDown" id="157"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="127" userLabel="WeatherNews">
+                                <rect key="frame" x="292" y="544" width="239" height="239"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="newsButtonImage">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="newsButtonTapped:" destination="2" eventType="touchDown" id="158"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="107" firstAttribute="width" secondItem="126" secondAttribute="width" id="3na-e5-NDV"/>
+                            <constraint firstItem="107" firstAttribute="height" secondItem="111" secondAttribute="height" id="5Pw-vM-wlI"/>
+                            <constraint firstItem="107" firstAttribute="height" secondItem="126" secondAttribute="height" id="5Xx-Ay-cpB"/>
+                            <constraint firstAttribute="trailing" secondItem="108" secondAttribute="trailing" constant="20" id="6p2-5L-k4a"/>
+                            <constraint firstItem="127" firstAttribute="top" secondItem="111" secondAttribute="bottom" constant="20" id="8oG-Fz-d8F">
+                                <variation key="heightClass=regular-widthClass=regular" constant="33"/>
+                            </constraint>
+                            <constraint firstItem="107" firstAttribute="width" secondItem="127" secondAttribute="width" id="DFp-EX-6kf"/>
+                            <constraint firstAttribute="bottom" secondItem="126" secondAttribute="bottom" constant="36" id="FXq-nj-3Dx"/>
+                            <constraint firstItem="107" firstAttribute="width" secondItem="111" secondAttribute="width" id="HAd-DA-8Zd"/>
+                            <constraint firstItem="107" firstAttribute="top" secondItem="lQe-Ty-fIA" secondAttribute="top" id="I2M-3U-0YL"/>
+                            <constraint firstItem="107" firstAttribute="height" secondItem="127" secondAttribute="height" id="PiL-qR-ucK"/>
+                            <constraint firstItem="126" firstAttribute="top" secondItem="110" secondAttribute="bottom" constant="20" id="Qxf-th-QVV">
+                                <variation key="heightClass=regular-widthClass=regular" constant="33"/>
+                            </constraint>
+                            <constraint firstItem="110" firstAttribute="top" secondItem="107" secondAttribute="bottom" constant="20" id="VDX-ac-kBF">
+                                <variation key="heightClass=regular-widthClass=regular" constant="33"/>
+                            </constraint>
+                            <constraint firstItem="108" firstAttribute="top" secondItem="107" secondAttribute="top" id="XFO-B6-UZn"/>
+                            <constraint firstItem="127" firstAttribute="leading" secondItem="126" secondAttribute="trailing" constant="20" id="ZWV-QK-C1C">
+                                <variation key="heightClass=regular-widthClass=regular" constant="33"/>
+                            </constraint>
+                            <constraint firstItem="107" firstAttribute="leading" secondItem="lQe-Ty-fIA" secondAttribute="leading" constant="20" id="abg-GU-WFd"/>
+                            <constraint firstItem="107" firstAttribute="leading" secondItem="110" secondAttribute="leading" id="csQ-wa-NpX"/>
+                            <constraint firstItem="107" firstAttribute="width" secondItem="110" secondAttribute="width" id="hX5-6i-S29"/>
+                            <constraint firstItem="107" firstAttribute="height" secondItem="108" secondAttribute="height" id="jUi-xY-XBq"/>
+                            <constraint firstItem="111" firstAttribute="top" secondItem="108" secondAttribute="bottom" constant="20" id="n68-A0-27B">
+                                <variation key="heightClass=regular-widthClass=regular" constant="33"/>
+                            </constraint>
+                            <constraint firstItem="107" firstAttribute="leading" secondItem="126" secondAttribute="leading" id="p60-DR-phx"/>
+                            <constraint firstItem="111" firstAttribute="leading" secondItem="110" secondAttribute="trailing" constant="20" id="reo-gU-kAe">
+                                <variation key="heightClass=regular-widthClass=regular" constant="33"/>
+                            </constraint>
+                            <constraint firstItem="107" firstAttribute="height" secondItem="110" secondAttribute="height" id="sKk-8r-1fE"/>
+                            <constraint firstItem="107" firstAttribute="width" secondItem="108" secondAttribute="width" id="uKK-aN-RIj"/>
+                            <constraint firstItem="108" firstAttribute="leading" secondItem="107" secondAttribute="trailing" constant="20" id="uks-49-35D">
+                                <variation key="heightClass=regular-widthClass=regular" constant="33"/>
+                            </constraint>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="lQe-Ty-fIA" secondAttribute="bottom" constant="1" id="1hZ-10-OaR"/>
+                    <constraint firstItem="lQe-Ty-fIA" firstAttribute="centerX" secondItem="jqL-TR-C6P" secondAttribute="centerX" id="2Gy-0l-jSN"/>
+                    <constraint firstItem="lQe-Ty-fIA" firstAttribute="top" secondItem="jqL-TR-C6P" secondAttribute="top" constant="1" id="FOx-uE-dOw"/>
+                    <constraint firstItem="lQe-Ty-fIA" firstAttribute="centerX" secondItem="jqL-TR-C6P" secondAttribute="centerX" id="G2h-yZ-fex"/>
+                    <constraint firstItem="107" firstAttribute="width" secondItem="jqL-TR-C6P" secondAttribute="width" multiplier="0.33" id="uMg-tB-2kL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="topPaddingConstraint" destination="I2M-3U-0YL" id="AWs-Hf-ujO"/>
+                <outlet property="tropicWatchButton" destination="107" id="cby-6D-Iwv"/>
+            </connections>
+            <point key="canvasLocation" x="11.851851851851851" y="120.83333333333333"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="localRadarButtonImage" width="239" height="239"/>
+        <image name="localRadarButtonImage~iPad.png" width="239" height="239"/>
+        <image name="newsButtonImage" width="239" height="239"/>
+        <image name="planAndPrepareButtonImage" width="239" height="239"/>
+        <image name="stormTrackerButtonImage" width="239" height="239"/>
+        <image name="tropicWatchButtonImage" width="239" height="239"/>
+        <image name="warningsButtonImage" width="239" height="239"/>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

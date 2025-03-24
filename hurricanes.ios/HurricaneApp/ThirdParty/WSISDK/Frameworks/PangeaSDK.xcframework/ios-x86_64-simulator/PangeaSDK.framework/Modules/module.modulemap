@@ -1,0 +1,11 @@
+framework module PangeaSDK {
+  umbrella header "PangeaSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module PangeaSDK.Swift {
+    header "PangeaSDK-Swift.h"
+    requires objc
+}

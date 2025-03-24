@@ -1,0 +1,266 @@
+{
+    "CONFIG_URL": "https://s3.amazonaws.com/pnsdigital.com/hurricane/KSAT/config.json",
+    "FLAVOR_MINIMUM_USAGE_FOR_RATING_REQUEST": 6,
+    "SERVICES_GOOGLE_ANALYTICS_TAG": "UA-17700582-6",
+    "FLAVOR_DEFAULT_COORDINATES":"{\"latitude\":29.422,\"longitude\":-98.497}",
+    "FLAVOR_VIDEO_FORECAST_URL":"https://dg62i0ajie.execute-api.us-east-1.amazonaws.com/Prod/video/KSAT",
+    "FLAVOR_LIVESTREAM_URL":"https://dist.grahamdigital.com/KSAT/video/live/app/weather.json",
+    "FLAVOR_WEATHER_NEWS_URL": "https://www.ksat.com/weather-news",
+    "FLAVOR_PLAN_PREPARE_URL": "https://www.ksat.com/plan-and-prepare",
+    "ADS_TAG": "/15466288/KSAT/App/Hurricane",
+    "ITUNES_APP_ID": "549850567",
+    "FLAVOR_MET_BRAND_PUSH_ALERT_TITLE": "Updates from KSAT12, \nYour Weather Authority",
+    "FLAVOR_HURRICANES_API_URL": "https://s3.amazonaws.com/gmg-hurricanes/hurricanes/KSAT.json",
+    "FLAVOR_APP_GROUP": "group.grahamdigital.hurricane.ksat",
+    "MIN_VERSION": "0.0",
+    "ITUNES_URL": "https://itunes.apple.com/us/app/ksat12-hurricane-tracker/id549850567",
+    "ADS_IMA_URL" : "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%s&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]",
+    "ADS_FREQUENCY_MAX_ENGAGE" : 4 ,
+    "FLAVOR_HEADLINES" :  "https://www.ksat.com/appfeeds/topic/weather_news/?outputType=appfeeds",
+    "SERVICES_SAILTHRU_APP_KEY": "2c873c8ec008cc4d3034bb2aab208c2408e4f30f",
+    "SERVICES_BLUECONIC_ATT_DIALOG_ENABLED": true,
+    "SERVICES_COMSCORE": {
+        "C2_VALUE": "32799204",
+        "C4_VALUE": "KSAT Hurricane App",
+        "PUBLISHER_SECRET_CODE": "7a4fa75513b461050f0c03910aaf27e2"
+    },
+    "BRAZE_API_KEY":"fdafafc7-c3bb-4427-bbd8-a8cac79403ec",
+    "BRAZE_ENDPOINT":"sdk.iad-05.braze.com",
+    "WSI_MAXMAP_WATCHESWARNINGS_MEMBER_ID": "1164",
+    "WSI_MAXMAP_WATCHESWARNINGS_MAP_ID": "0007",
+    "WSI_MAXMAP_WATCHESWARNINGS_TEMPLATE_ID": "0003",
+    "WSI_MAXMAP_WATCHESWARNINGS_SDK_KEY": "7B4966DE-936F-4A88-BD45-95FDA697766F",
+    "WSI_WXWORKS_KEY": "772e5d5b-ae6f-42f7-b623-b2d7d0950042",
+    "WSI_MAXMAP_STORMTRACKER": {
+        "overlays": ["wsi_OverlayTropicalTracks"],
+        "layer": "wsi_LayerHDSatelliteTropics",
+        "category": "wsi_WeatherAlertsTropical",
+        "transparency": 70,
+        "initial_tracker_coords": {
+            "lat": 14.0,
+            "lon": -65.00
+        },
+        "initial_tracker_zoom": {
+            "zoom_x": 130.0,
+            "zoom_y": 30.0,
+            "zoom_level": 2.2
+        }
+    },
+    "WSI_MAXMAP_LOCALRADAR": {
+        "layer": "wsi_LayerRadar",
+        "category": "wsi_WeatherAlertsSevere",
+        "loop": true,
+        "transparency": 10,
+        "initial_tracker_zoom": {
+            "zoom_x": 0.4,
+            "zoom_y": 0.4,
+            "zoom_level": 10.5
+        }
+    },
+    "WSI_LOCALRADAR_LAYERS": [
+        {
+          "title": "Precipitation",
+          "map": {
+            "layer": "wsi_LayerRadar",
+            "overlays": [],
+            "legend_name": "legend_radar.png",
+            "legend_transparency": 90,
+            "loop": true,
+            "transparency": 30
+          }
+        },
+        {
+          "title": "FutureCast",
+          "map": {
+            "layer": "wsi_LayerRadar",
+            "overlays": [
+              "wsi_WeatherAlertsSevere"
+            ],
+            "legend_name": "legend_radar.png",
+            "legend_transparency": 90,
+            "future_loop": true,
+            "transparency": 30
+          }
+        },
+        {
+          "title": "Storm Tracker",
+          "map": {
+            "layer": "wsi_LayerRadar",
+            "overlays": [
+              "wsi_OverlayStormTracks"
+            ],
+            "legend_name": "legend_radar.png",
+            "legend_transparency": 90,
+            "transparency": 70
+          }
+        },
+        {
+          "title": "Lightning",
+          "map": {
+            "layer": "wsi_LayerRadar",
+            "overlays": [
+              "wsi_OverlayLightning"
+            ],
+            "legend_name": "legend_lightning.png",
+            "legend_transparency": 90,
+            "transparency": 70
+          }
+        },
+        {
+          "title": "Watches & Warnings",
+          "map": {
+            "layer": "wsi_LayerRadar",
+            "overlays": [
+              "wsi_WeatherAlertsSevere",
+              "wsi_WeatherAlertsFlood",
+              "wsi_WeatherAlertsTropical",
+              "wsi_WeatherAlertsMarine",
+              "wsi_WeatherAlertsOther",
+              "wsi_WeatherAlertsWinter"
+            ],
+            "transparency": 70
+          }
+        },
+        {
+          "title": "Flood Alerts",
+          "map": {
+            "layer": "wsi_LayerRadar",
+            "overlays": [
+              "wsi_WeatherAlertsFlood"
+            ],
+            "transparency": 70
+          }
+        },
+        {
+          "title": "Traffic",
+          "map": {
+            "layer": "wsi_LayerRadar",
+            "overlays": [
+              "wsi_OverlayTrafficFlow",
+              "wsi_OverlayTrafficIncidents"
+            ],
+            "legend_name": "legend_traffic.png",
+            "legend_transparency": 90
+          }
+        },
+        {
+          "title": "Road Weather",
+          "map": {
+            "layer": "wsi_LayerRoadWeather",
+            "legend_name": "legend_roadWeather",
+            "legend_transparency": 90,
+            "loop": true
+          }
+        },
+        {
+          "title": "Temperatures",
+          "map": {
+            "layer": "wsi_LayerSurfaceTemperatureLand",
+            "legend_name": "legend_temperature.png",
+            "legend_transparency": 90,
+            "overlays": [
+              "wsi_OverlayTemperaturePlot"
+            ]
+          }
+        },
+        {
+          "title": "Cloud Cover",
+          "map": {
+            "layer": "wsi_LayerSatellite",
+            "loop": true
+          }
+        },
+        {
+          "title": "Wind Speed",
+          "map": {
+            "layer": "wsi_LayerWindSpeed",
+            "legend_name": "legend_windSpeed.png",
+            "legend_transparency": 90,
+            "loop": true
+          }
+        },
+        {
+          "title": "Conditions",
+          "map": {
+            "overlays": [
+              "wsi_OverlayCurrentConditions"
+            ]
+          }
+        },
+        {
+          "title": "Snow Cover",
+          "map": {
+            "layer": "wsi_LayerSnowfall",
+            "legend_name": "legend_snow.png",
+            "legend_transparency": 90,
+            "loop": true
+          }
+        },
+        {
+          "title": "Earthquakes",
+          "map": {
+            "overlays": [
+              "wsi_OverlayEarthquakes"
+            ]
+          }
+        }
+      ],
+    "FLAVOR_MORE_MENU":[
+        {
+
+            "title":"Radar",
+            "screen":"Radar"
+        },
+        {
+            "title":"Plan & Prepare",
+            "screen":"PlanAndPrepare",
+            "url":"https://www.ksat.com/plan-and-prepare"
+        },
+        {
+            "title":"Watches & Warnings",
+            "screen":"WatchesAndWarnings"
+        },
+        {
+            "title": "Weather News",
+            "screen":"WeatherNews",
+            "url": "https://www.ksat.com/weather-news"
+        },
+        {
+            "title":"Headlines",
+            "screen":"Headlines"
+        },
+        {
+            "url": "https://www.ksat.com/pins/",
+            "title": "KSAT Connect",
+            "screen":"Pins"
+        },
+        {
+          "screen": "AppLink",
+          "title": "Weather App",
+          "data": {
+            "appName": "Weather - KSAT",
+            "appSchema": "KSATWeather://",
+            "iOSInstallURL": "itms-apps://itunes.apple.com/us/app/ksat-12-weather-authority/id706099804",
+            "packageName": "com.pnsdigital.weather.ksat",
+            "AndroidInstallURL": "https://play.google.com/store/apps/details?id=com.pnsdigital.weather.ksat",
+            "installPreview": "https://is4-ssl.mzstatic.com/image/thumb/Purple123/v4/c7/64/aa/c764aa18-8342-0f63-471c-93c3de1a0ec1/AppIcon-1x_U007emarketing-0-4-0-85-220.png/300x300bb.png"
+          }
+        },
+        {
+          "screen": "AppLink",
+          "title": "News App",
+          "data": {
+            "appName": "News - KSAT",
+            "appSchema": "ksatnewsmobile://",
+            "iOSInstallURL": "itms-apps://itunes.apple.com/us/app/ksat-12-news/id426129542",
+            "packageName": "com.ibsys.app.pns_ant",
+            "AndroidInstallURL": "https://play.google.com/store/apps/details?id=com.ibsys.app.pns_ant",
+            "installPreview": "https://is2-ssl.mzstatic.com/image/thumb/Purple112/v4/69/95/c6/6995c64d-b396-c70f-af0a-97f29ec17ae0/AppIcon-1x_U007emarketing-0-4-85-220.png/300x300bb.png"
+          }
+        },
+        {
+            "title":"Settings",
+            "screen":"Settings"
+        }
+    ]
+}

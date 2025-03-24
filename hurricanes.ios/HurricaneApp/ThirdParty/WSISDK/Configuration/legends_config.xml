@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+ This file is used to set up legends for the various raster layers.
+ See MapLegends.txt for more information.
+ -->
+
+<LegendViewsConfig>
+    <!-- defaults for all Views (can be overridden for sub views) -->
+    <Frame ax="0.0" ay="0.0" width="320.0" height="30.0"/>
+    <Font color="White" name="OpenSans-Bold" size="10"/> <!-- we override this for some legends -->
+
+    <View id="PrecipRadar">
+        <View>
+            <!-- Add the bitmap with the 3 precip ramps then add the icons on top of those -->
+            <Frame ax="0.0" ay="13.0" width="320.0" height="10.0" flexiblewidth="1" flexibleheight="1" />
+            <Image name="legend_precipitation"/>
+            <View>
+                <Frame rx="0.150" ry="-0.60" width="13.0" height="7.0" flexibleleftmargin="1" flexiblerightmargin="1"/>
+                <Image name="legend_icon_precip_rain"/>
+            </View>
+            <View>
+                <Frame rx="0.500" ry="-0.60" width="15.0" height="8.0" flexibleleftmargin="1" flexiblerightmargin="1"/>
+                <Image name="legend_icon_precip_mixed"/>
+            </View>
+            <View>
+                <Frame rx="0.850" ry="-0.60" width="8.0" height="8.0" flexibleleftmargin="1" flexiblerightmargin="1"/>
+                <Image name="legend_icon_precip_snow"/>
+            </View>
+        </View>
+    </View>
+
+    <View id="RoadWeather">
+        <View>
+            <Frame ax="0.0" ay="10.0" width="320.0" height="10.0" flexiblewidth="1"/>
+            <Font color="Black" size="7"/>
+            <Image name="legend_roadindex"/>
+            <View>
+                <Frame rx="0.085" ry="0.5" width="54.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexibleheight="1" flexiblerightmargin="1"/>
+                <TextLocalized text="wsi_LegendRoadWind"/>
+            </View>
+            <View>
+                <Frame rx="0.245" ry="0.5" width="54.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexibleheight="1" flexiblerightmargin="1"/>
+                <TextLocalized text="wsi_LegendRoadFog"/>
+            </View>
+            <View>
+                <Frame rx="0.415" ry="0.5" width="54.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexibleheight="1" flexiblerightmargin="1"/>
+                <TextLocalized text="wsi_LegendRoadWet"/>
+            </View>
+            <View>
+                <Frame rx="0.580" ry="0.5" width="54.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexibleheight="1" flexiblerightmargin="1"/>
+                <TextLocalized text="wsi_LegendRoadIce"/>
+            </View>
+            <View>
+                <Frame rx="0.745" ry="0.5" width="54.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexibleheight="1" flexiblerightmargin="1"/>
+                <TextLocalized text="wsi_LegendRoadSnow"/>
+            </View>
+            <View>
+                <Frame rx="0.915" ry="0.5" width="54.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexibleheight="1" flexiblerightmargin="1"/>
+                <Font color="White"/>
+                <TextLocalized text="wsi_LegendRoadPonding"/>
+            </View>
+        </View>
+    </View>
+
+    <View id="Snowfall">
+        <View>
+            <Frame ax="18.0" ay="5.0" width="302.0" height="10.0" flexiblewidth="1"/>
+            <Image name="legend_snow"/>
+            <View>
+                <Frame rx="-0.03" ry="0.5" width="11.0" height="11.0" flexibleleftmargin="0" flexiblerightmargin="0"/>
+                <Image name="legend_icon_snow"/>
+            </View>
+            <View>
+                <Frame rx="-0.03" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="0" flexiblerightmargin="0"/>
+                <UnitTextDistance imperial="wsi_LegendDistInches" metric="wsi_LegendDistCentimeters"/>
+            </View>
+            <View>
+                <Frame rx="0.050" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="2" metric="5"/>
+            </View>
+            <View>
+                <Frame rx="0.150" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="4" metric="10"/>
+            </View>
+            <View>
+                <Frame rx="0.260" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="6" metric="15"/>
+            </View>
+            <View>
+                <Frame rx="0.370" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="8" metric="20"/>
+            </View>
+            <View>
+                <Frame rx="0.510" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="12" metric="30"/>
+            </View>
+            <View>
+                <Frame rx="0.700" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="18" metric="45"/>
+            </View>
+            <View>
+                <Frame rx="0.960" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="24+" metric="60+"/>
+            </View>
+        </View>
+    </View>
+
+    <View id="Temperature">
+        <View>
+            <Frame ax="10.0" ay="5.0" width="310.0" height="10.0" flexiblewidth="1"/>
+            <Image name="legend_temperature"/>
+            <!-- Do separate views for the degree symbol and the C/F so we can get those closer together -->
+            <View>
+                <Frame rx="-0.025" ry="0.56" width="4.0" height="10.0"/>
+                <Text text="˚"/>
+            </View>
+            <View>
+                <Frame rx="-0.013" ry="0.45" width="4.0" height="10.0"/>
+                <UnitTextTemperature imperial="wsi_LegendTempFarenheitNoSymbol" metric="wsi_LegendTempCelciusNoSymbol"/>
+            </View>
+            <View>
+                <Frame rx="0.040" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="-40" metric="-40"/>
+            </View>
+            <View>
+                <Frame rx="0.165" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="0" metric="-18"/>
+            </View>
+            <View>
+                <Frame rx="0.280" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="20" metric="6"/>
+            </View>
+            <View>
+                <Frame rx="0.390" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="32" metric="0"/>
+            </View>
+            <View>
+                <Frame rx="0.470" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="50" metric="10"/>
+            </View>
+            <View>
+                <Frame rx="0.570" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="70" metric="21"/>
+            </View>
+            <View>
+                <Frame rx="0.720" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="90" metric="32"/>
+            </View>
+            <View>
+                <Frame rx="0.950" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="120+" metric="50+"/>
+            </View>
+        </View>
+    </View>
+
+    <View id="TrafficFlow">
+        <View>
+            <!--
+                Here we make the traffic image background out of a set of 6 subviews
+                with a fill color.
+                We round the corners of the subviews on left of first section and right
+                of last section. Since there's currently no support for only  rounding
+                certain corners of a view, we use a second, smaller view to "patch" the
+                corners where we don't want rounding.
+                We then place icons over the colored background views, centered within
+                those horizontally and vertically.
+                -->
+            
+            <!-- left section -->
+            <Frame ax="0.0" ay="10.0" width="64.0" height="10.0" cornerradius="4.0"/>
+            <FillColor red="0" green="0" blue="0" alpha="1.0"/>
+            <View>
+                <Frame rx="0.500" ry="0.50" width="23.0" height="6.0"/>
+                <Image name="legend_icon_traffic_closed"/>
+            </View>
+            <View>
+                <Frame ax="48.0" ay="10.0" width="16.0" height="10.0"/>
+                <FillColor red="0" green="0" blue="0" alpha="1.0"/>
+            </View>
+        </View>
+        <View>
+            <Frame ax="64.0" ay="10.0" width="64.0" height="10.0"/>
+            <FillColor red="147" green="14" blue="16" alpha="1.0"/>
+            <View>
+                <Frame rx="0.500" ry="0.50" width="22.0" height="8.0"/>
+                <Image name="legend_icon_traffic_veryslow"/>
+            </View>
+        </View>
+        <View>
+            <Frame ax="128.0" ay="10.0" width="64.0" height="10.0"/>
+            <FillColor red="244" green="14" blue="15" alpha="1.0"/>
+            <View>
+                <Frame rx="0.500" ry="0.50" width="36.0" height="8.0"/>
+                <Image name="legend_icon_traffic_slow"/>
+            </View>
+        </View>
+        <View>
+            <Frame ax="192.0" ay="10.0" width="64.0" height="10.0"/>
+            <FillColor red="252" green="209" blue="0" alpha="1.0"/>
+            <View>
+                <Frame rx="0.500" ry="0.50" width="36.0" height="8.0"/>
+                <Image name="legend_icon_traffic_medium"/>
+            </View>
+        </View>
+        <View>
+            <!-- right section -->
+            <Frame ax="256.0" ay="10.0" width="64.0" height="10.0" cornerradius="4.0"/>
+            <FillColor red="88" green="195" blue="35" alpha="1.0"/>
+            <View>
+                <Frame rx="0.500" ry="0.50" width="36.0" height="8.0"/>
+                <Image name="legend_icon_traffic_fast"/>
+            </View>
+            <View>
+                <Frame ax="256.0" ay="10.0" width="16.0" height="10.0"/>
+                <FillColor red="88" green="195" blue="35" alpha="1.0"/>
+            </View>
+        </View>
+    </View>
+
+    <View id="WaterTemperature">
+        <View>
+            <Frame ax="10.0" ay="5.0" width="310.0" height="10.0" flexiblewidth="1"/>
+            <Image name="legend_watertemperature"/>
+            <!-- Do separate views for the degree symbol and the C/F so we can get those closer together -->
+            <View>
+                <Frame rx="-0.025" ry="0.56" width="4.0" height="10.0"/>
+                <Text text="˚"/>
+            </View>
+            <View>
+                <Frame rx="-0.013" ry="0.45" width="4.0" height="10.0"/>
+                <UnitTextTemperature imperial="wsi_LegendTempFarenheitNoSymbol" metric="wsi_LegendTempCelciusNoSymbol"/>
+            </View>
+            <View>
+                <Frame rx="0.035" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="32" metric="0"/>
+            </View>
+            <View>
+                <Frame rx="0.160" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="40" metric="5"/>
+            </View>
+            <View>
+                <Frame rx="0.320" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="50" metric="10"/>
+            </View>
+            <View>
+                <Frame rx="0.480" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="60" metric="15"/>
+            </View>
+            <View>
+                <Frame rx="0.650" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="70" metric="20"/>
+            </View>
+            <View>
+                <Frame rx="0.800" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="80" metric="25"/>
+            </View>
+            <View>
+                <Frame rx="0.960" ry="1.65" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextTemperature imperial="90+" metric="30+"/>
+            </View>
+        </View>
+    </View>
+
+    <View id="WindSpeed">
+        <View>
+            <Frame ax="22.0" ay="5.0" width="298.0" height="10.0" flexiblewidth="1"/>
+            <Image name="legend_windspeed"/>
+            <View>
+                <Frame rx="-0.035" ry="0.5" width="12.0" height="9.0"/>
+                <Image name="legend_icon_wind"/>
+            </View>
+            <View>
+                <Frame rx="-0.027" ry="1.70" width="32.0" height="10.0"/>
+                <UnitTextDistance imperial="wsi_LegendSpeedMPH" metric="wsi_LegendSpeedKPH"/>
+            </View>
+            <View>
+                <Frame rx="0.080" ry="1.70" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="15" metric="25"/>
+            </View>
+            <View>
+                <Frame rx="0.220" ry="1.70" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="25" metric="40"/>
+            </View>
+            <View>
+                <Frame rx="0.360" ry="1.70" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="35" metric="55"/>
+            </View>
+            <View>
+                <Frame rx="0.500" ry="1.70" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="45" metric="70"/>
+            </View>
+            <View>
+                <Frame rx="0.630" ry="1.70" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="55" metric="85"/>
+            </View>
+            <View>
+                <Frame rx="0.810" ry="1.70" width="32.0" height="10.0" flexibleleftmargin="1" flexiblewidth="1" flexiblerightmargin="1"/>
+                <UnitTextDistance imperial="65+" metric="105+"/>
+            </View>
+        </View>
+    </View>
+
+</LegendViewsConfig>
+
+

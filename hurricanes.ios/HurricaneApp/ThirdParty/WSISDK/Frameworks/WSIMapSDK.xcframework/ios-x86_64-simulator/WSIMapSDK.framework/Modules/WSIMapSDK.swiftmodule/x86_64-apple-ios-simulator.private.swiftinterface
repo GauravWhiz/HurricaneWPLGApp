@@ -1,0 +1,283 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
+// swift-module-flags: -target x86_64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name WSIMapSDK
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CoreLocation.CLLocation
+import CoreLocation
+import Foundation
+import MapKit
+import Mapbox
+import PangeaSDK
+import Swift
+import UIKit
+@_exported import WSIMapSDK
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public typealias PWStringsDict = [Swift.String : Swift.String]
+public typealias PWValidTimeSecondsDict = [Swift.String : [Swift.Int64]]
+public typealias PWDataInfoDict = [Swift.String : PWValidTimeSecondsDict]
+public typealias PWFrameInfoDict = [Swift.String : Swift.String]
+public typealias PWLayerInfoDict = [Swift.String : Swift.String]
+public typealias PWLayerInfoList = [PWLayerInfoDict]
+public typealias PWAnnotationInfoList = [Swift.String]
+public typealias PWFeatureInfoDict = [Swift.String : Swift.String]
+public typealias PWFeatureInfoList = [PWFeatureInfoDict]
+@objc public protocol PangeaWrapperProtocol {
+  @objc func pwActiveRasterLayerDataChanged()
+  @objc func pwActiveRasterLayerFrameChanged()
+  @objc func pwMapAnnotationsTapped(_ gestureRecognizer: UIKit.UIGestureRecognizer, tapCoordinate: CoreLocation.CLLocationCoordinate2D, annotationInfoList: PWAnnotationInfoList)
+  @objc func pwMapFeaturesGotDetails(_ featureInfoList: PWFeatureInfoList)
+  @objc func pwMapFeaturesTapped(_ gestureRecognizer: UIKit.UIGestureRecognizer, featureInfoList: PWFeatureInfoList, hasDetails: Swift.Bool)
+  @objc func pwMapGestureOneFingerSingleTap(_ gestureRecognizer: UIKit.UIGestureRecognizer)
+  @objc func pwMapRegionDidChange()
+  @objc func pwMapRegionWillChange()
+  @objc func pwMapViewDidFinishLoading()
+  @objc func pwMapViewDidStartLoading()
+  @objc func pwMapZoomLevelDidChange()
+  @objc func pwStyleForDefaultUserLocationAnnotationView() -> [Swift.String : ObjectiveC.NSObject]?
+}
+@objc public enum PWMapStyle : Swift.Int {
+  case None
+  case Custom
+  case Custom2
+  case Custom3
+  case B2BSatelliteDarkWithLabels
+  case B2BSatelliteLightWithLabels
+  case B2BTerrainDarkWithLabels
+  case B2BTerrainLightWithLabels
+  case WUSatelliteNoLabels
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWLayerType : Swift.Int {
+  case Invalid
+  case FeatureAlerts
+  case FeatureCurrentConditions
+  case FeatureEarthquakes
+  case FeatureGenericPoint
+  case FeatureLightning
+  case FeatureStormTracks
+  case FeatureTemperaturePlots
+  case FeatureTrafficFlow
+  case FeatureTrafficIncidents
+  case FeatureTropicalTracks
+  case LocalRadar
+  case Raster
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWLayerCoverageType : Swift.Int {
+  case Invalid
+  case CoverageAll
+  case CoverageLand
+  case CoverageWater
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWLayerDataState : Swift.Int {
+  case PastOnly
+  case PastAndFuture
+  case FutureOnly
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWUnitsType : Swift.Int {
+  case Imperial
+  case Metric
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class GRAFProductInfo : PangeaSDK.RasterProductInfo {
+  override public var validTimes: [Swift.Int64] {
+    get
+  }
+  public static func == (lhs: GRAFProductInfo, rhs: GRAFProductInfo) -> Swift.Bool
+  @objc override dynamic open func isEqual(_ object: Any?) -> Swift.Bool
+  @objc override dynamic public init()
+  override public init(productKey: Swift.String, metaData: PangeaSDK.RasterProductInfo.MetaDataType, modelRunTime: Swift.Int64, allValidTimes: [Swift.Int64 : [Swift.Int64]])
+  override public init(productKey: Swift.String, metaData: PangeaSDK.RasterProductInfo.MetaDataType, validTimes: [Swift.Int64])
+  override public init(productKey: Swift.String)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class FeatureDataStyler : PangeaSDK.DefaultFeatureStyler {
+  @objc override open func style(feature: PangeaSDK.DefaultFeature) -> (any PangeaSDK.Overlay)?
+  override public func createIconMarker(feature: PangeaSDK.PointFeature) -> PangeaSDK.IconMarker
+  override public func createCircleMarker(feature: PangeaSDK.PointFeature) -> PangeaSDK.CircleMarker
+  override public func createPolylineOverlay(feature: PangeaSDK.PolylineFeature) -> PangeaSDK.PolylinePath
+  override public func createOverlayForPolygonFeature(_ feature: PangeaSDK.PolygonFeature) -> PangeaSDK.DefaultOverlay?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class PWLayersManager : ObjectiveC.NSObject {
+  @objc public class func sharedInstance() -> PWLayersManager
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class PangeaWrapperStyles {
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class PangeaWrapper : ObjectiveC.NSObject {
+  public var _mapView: PWMapView!
+  @objc public class func sharedInstance() -> PangeaWrapper
+  @objc public func getActiveRasterLayerFrameTime() -> Swift.Double
+  @objc public func resetSweepArmAnnotations()
+  @objc public static func getVersionString() -> Swift.String
+  @objc public func getPangeaSDKVersionString() -> Swift.String
+  @objc public static func setDebugLogLevel(_ level: Swift.UInt)
+  @objc public static func setUseDeviceLogs(_ useDeviceLogs: Swift.Bool)
+  @objc public func initialize(containingView: UIKit.UIView, delegate: any PangeaWrapperProtocol, mapStyle: PWMapStyle, enableMap: Swift.Bool)
+  @objc public func setForceMapResetOnForeground(_ val: Swift.Bool)
+  @objc public func setForceMapResetOnForegroundOnce()
+  @objc public func forceMapReset()
+  @objc public var showUserLocation: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public func getMapCenterCoordinate() -> CoreLocation.CLLocationCoordinate2D
+  @objc public func getMapZoomLevel() -> Swift.Double
+  @objc public func getMapRegion() -> MapKit.MKCoordinateRegion
+  @objc public func getCoordinateFromMap(point: CoreFoundation.CGPoint) -> CoreLocation.CLLocationCoordinate2D
+  @objc public func setMapCenter(coordinate: CoreLocation.CLLocationCoordinate2D, zoomLevel: Swift.Double, animated: Swift.Bool)
+  @objc public func setMapCenter(coordinate: CoreLocation.CLLocationCoordinate2D, animated: Swift.Bool)
+  @objc public func setMapZoomLevel(_ zoomLevel: Swift.Double, animated: Swift.Bool)
+  @objc public func setMapStyle(_ styleType: PWMapStyle)
+  @objc public func getMapStyle() -> PWMapStyle
+  @objc public func setMapStyle(_ styleString: Swift.String, roadsAndLinesLayerName: Swift.String?, labelsAndShieldsLayerName: Swift.String?)
+  @objc public func configureLayerForPWID(_ pwID: Swift.String, productSet: Swift.String, layerType: PWLayerType, observedProductKeys: [Swift.String], predictedProductKeys: [Swift.String], coverageType: PWLayerCoverageType, orderingRank: Swift.Int, transparencyPercent: CoreFoundation.CGFloat, rangeObservedMinutes: Swift.Int, rangePredictedMinutes: Swift.Int, stepSizeSeconds: Swift.Int64)
+  @objc public func configureLayerInfoForPWID(_ pwID: Swift.String, layerInfoList: PWLayerInfoList)
+  @objc public func enableAlertCategory(_ category: Swift.String)
+  @objc public func disableAlertCategory(_ category: Swift.String)
+  @objc public func isAlertCategoryEnabled(_ category: Swift.String) -> Swift.Bool
+  @objc public func getNumEnabledAlertCategories() -> Swift.Int
+  @objc public func getAlertCategories() -> PWStringsDict
+  @objc public func getAlertMinimumPriority() -> Swift.Int
+  @objc public func resetAlertMinimumPriority()
+  @objc public func setAlertMinimumPriority(_ priority: Swift.Int)
+  @objc public func getEmphasizeOutlines() -> Swift.Bool
+  @objc public func setEmphasizeOutlines(_ val: Swift.Bool)
+  @objc public func toggleEmphasizeOutlines()
+  @objc public func getPutOverRoads() -> Swift.Bool
+  @objc public func setPutOverRoads(_ val: Swift.Bool)
+  @objc public func togglePutOverRoads()
+  @objc public func getShowAllAlerts() -> Swift.Bool
+  @objc public func setShowAllAlerts(_ val: Swift.Bool)
+  @objc public func toggleShowAllAlerts()
+  @objc public func configureLocalRadarForPWID(_ pwID: Swift.String, location: CoreLocation.CLLocationCoordinate2D, radiusMeters: Swift.Double, sweepTimeSeconds: CoreFoundation.CFTimeInterval, sweepArmOpacity: CoreFoundation.CGFloat, sweepArmImageName: Swift.String)
+  @objc public func updateLocalRadarForPWID(_ pwID: Swift.String, sweepTimeSeconds: CoreFoundation.CFTimeInterval, sweepArmOpacity: CoreFoundation.CGFloat, sweepArmImageName: Swift.String)
+  @objc public func setAccessibilityEnabled(_ value: Swift.Bool)
+  @objc public func setLocalRadarHideSweepArmWhenLooping(_ value: Swift.Bool)
+  @objc public func setLocalRadarShowSweepArmScrubbingRange(_ value: Swift.Double)
+  @objc public func isFeatureForPWID(_ pwID: Swift.String) -> Swift.Bool
+  @objc public func featuresRequestDetails(_ featureInfoList: PWFeatureInfoList)
+  @objc public func featuresCancelRequestDetails()
+  @objc public func hideLayerForPWID(_ pwID: Swift.String)
+  @objc public func showLayerForPWID(_ pwID: Swift.String)
+  @objc public func setLayerForPWID(_ pwID: Swift.String, regionLocation: CoreLocation.CLLocationCoordinate2D, radiusMeters: Swift.Double)
+  @objc public func setLayerForPWID(_ pwID: Swift.String, regionLocation: CoreLocation.CLLocationCoordinate2D)
+  @objc public func setLayerForPWID(_ pwID: Swift.String, radiusMeters: Swift.Double)
+  @objc public func getRegionLocationForPWID(_ pwID: Swift.String) -> CoreLocation.CLLocationCoordinate2D
+  @objc public func getRegionRadiusMetersForPWID(_ pwID: Swift.String) -> Swift.Double
+  @objc public func getLayerDataState() -> PWLayerDataState
+  @objc public func setLayerDataState(_ state: PWLayerDataState)
+  @objc public func setOverlaysMasked(_ masked: Swift.Bool)
+  @objc public func getTransparencyPercentForPWID(_ pwID: Swift.String) -> CoreFoundation.CGFloat
+  @objc public func setTransparencyPercentForPWID(_ pwID: Swift.String, transparencyPercent: CoreFoundation.CGFloat)
+  @objc public func getLoopingDwellTimeMS() -> Swift.Int64
+  @objc public func setLoopingDwellTimeMS(_ animatorDwellTimeMS: Swift.Int64)
+  @objc public func getTouchSizeAnnotation() -> CoreFoundation.CGFloat
+  @objc public func setTouchSizeAnnotation(_ touchSize: CoreFoundation.CGFloat)
+  @objc public func getTouchSizeFeature() -> CoreFoundation.CGFloat
+  @objc public func setTouchSizeFeature(_ touchSize: CoreFoundation.CGFloat)
+  @objc public func getIsLooping() -> Swift.Bool
+  @objc public func setIsLooping(_ newValue: Swift.Bool)
+  @objc public func addSweepArmAnnotationForPWID(_ pwID: Swift.String)
+  @objc public func removeSweepArmAnnotationForPWID(_ pwID: Swift.String)
+  @objc public func updateSweepArmAnnotationForPWID(_ pwID: Swift.String)
+  @objc public func hideViewBasedAnnotations()
+  @objc public func showViewBasedAnnotations()
+  @objc public func pauseLooping(_ timeSpan: Swift.Double)
+  @objc public func unPauseLooping()
+  @objc public func getRangeObservedMinutesForPWID(_ pwID: Swift.String) -> Swift.Int
+  @objc public func getRangePredictedMinutesForPWID(_ pwID: Swift.String) -> Swift.Int
+  @objc public func setActiveRasterLayerTime(_ timeIntervalSince1970: Swift.Double)
+  @objc public func getLayerDataOffset() -> Swift.Double
+  @objc public func setLayerDataOffset(_ newOffset: Swift.Double)
+  @objc public func getActiveRasterLayerData() -> PWDataInfoDict?
+  @objc public func getActiveRasterLayerFrameInfo() -> PWFrameInfoDict?
+  @objc public func getDistanceUnits() -> PWUnitsType
+  @objc public func getWeatherUnits() -> PWUnitsType
+  @objc public func setDistanceUnits(_ units: PWUnitsType)
+  @objc public func setWeatherUnits(_ units: PWUnitsType)
+  @objc public func setMapboxAttributionMasked(_ masked: Swift.Bool)
+  @objc public func setMapboxButtonDisabled(_ disabled: Swift.Bool)
+  @objc public func setMapboxButtonHidden(_ hidden: Swift.Bool)
+  @objc public func setMapboxLogoHidden(_ hidden: Swift.Bool)
+  @objc public func getMapboxButtonFrame() -> CoreFoundation.CGRect
+  @objc public func getMapboxLogoFrame() -> CoreFoundation.CGRect
+  @objc public func setMapboxButtonOffset(_ buttonOffset: CoreFoundation.CGPoint, logoOffset: CoreFoundation.CGPoint)
+  @objc public func clearCache()
+  @objc public static func getLabelsAndShieldsRank() -> Swift.Int
+  @objc public static func getRoadsAndLinesRank() -> Swift.Int
+  @objc public func addImageAnnotationWithUniqueID(_ uniqueID: Swift.String, coordinate: CoreLocation.CLLocationCoordinate2D, image: UIKit.UIImage)
+  @objc public func removeImageAnnotationWithUniqueID(_ uniqueID: Swift.String)
+  @objc public func updateImageAnnotationWithUniqueID(_ uniqueID: Swift.String, coordinate: CoreLocation.CLLocationCoordinate2D, image: UIKit.UIImage)
+  @objc public func addViewAnnotationWithUniqueID(_ uniqueID: Swift.String, coordinate: CoreLocation.CLLocationCoordinate2D, view: UIKit.UIView)
+  @objc public func removeViewAnnotationWithUniqueID(_ uniqueID: Swift.String)
+  @objc public func updateViewAnnotationWithUniqueID(_ uniqueID: Swift.String, coordinate: CoreLocation.CLLocationCoordinate2D)
+  @objc public func getLocationForViewAnnotationWithUniqueID(_ uniqueID: Swift.String) -> CoreLocation.CLLocationCoordinate2D
+  @objc override dynamic public init()
+  @objc deinit
+}
+public let kPangeaDebugLogLevelNone: Swift.UInt
+public let kPangeaDebugLogLevelAnimation: Swift.UInt
+public let kPangeaDebugLogLevelAnnotations: Swift.UInt
+public let kPangeaDebugLogLevelBasic: Swift.UInt
+public let kPangeaDebugLogLevelLayers: Swift.UInt
+public let kPangeaDebugLogLevelMap: Swift.UInt
+public let kPangeaDebugLogLevelSpam: Swift.UInt
+public let kPangeaDebugLogLevelTime: Swift.UInt
+public let kPangeaDebugLogLevelUpdate: Swift.UInt
+public let kPangeaDebugLogLevelAll: Swift.UInt
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class PWMapLayersManager : ObjectiveC.NSObject {
+  @objc public class func sharedInstance() -> PWMapLayersManager
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class PWMapView : PangeaSDK.PangeaMapView {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func accessibilityElementCount() -> Swift.Int
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func accessibilityElement(at index: Swift.Int) -> Any?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func index(ofAccessibilityElement element: Any) -> Swift.Int
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+extension PWMapStyle : Swift.Equatable {}
+extension PWMapStyle : Swift.Hashable {}
+extension PWMapStyle : Swift.RawRepresentable {}
+extension PWLayerType : Swift.Equatable {}
+extension PWLayerType : Swift.Hashable {}
+extension PWLayerType : Swift.RawRepresentable {}
+extension PWLayerCoverageType : Swift.Equatable {}
+extension PWLayerCoverageType : Swift.Hashable {}
+extension PWLayerCoverageType : Swift.RawRepresentable {}
+extension PWLayerDataState : Swift.Equatable {}
+extension PWLayerDataState : Swift.Hashable {}
+extension PWLayerDataState : Swift.RawRepresentable {}
+extension PWUnitsType : Swift.Equatable {}
+extension PWUnitsType : Swift.Hashable {}
+extension PWUnitsType : Swift.RawRepresentable {}

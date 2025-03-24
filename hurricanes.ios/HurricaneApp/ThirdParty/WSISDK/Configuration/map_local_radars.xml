@@ -1,0 +1,116 @@
+<?xml version='1.0'?>
+<LocalRadars>
+    <!-- standalone local radar example setup (needs location and radius etc.) -->
+    <LocalRadar
+        LayerID="wsi_LayerLocalRadar"
+        PastProductKey="wla5-refl"
+        Latitude="30.222778"
+        Longitude="-92.055833"
+        RadiusMiles="300"
+        SweepTimeSeconds="15"
+        SweepArmOpacity="0.5" />
+        
+    <!-- SmartRadar example setup - location and radius come from SmartRadar service, sweep arm can be changed in code -->
+    <LocalRadar
+        LayerID="nca0"
+        LegendID="PrecipRadar"
+        PastProductKey="nca0-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="nca0"
+        DataRangeObservedMinutes="30"
+        DataStepSizeSeconds="60"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="nca1"
+        LegendID="PrecipRadar"
+        PastProductKey="nca1-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="nca1"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="nca2"
+        LegendID="PrecipRadar"
+        PastProductKey="nca2-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="nca2"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="nfl1"
+        LegendID="PrecipRadar"
+        PastProductKey="nfl1-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="nfl1"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="nny1"
+        LegendID="PrecipRadar"
+        PastProductKey="nny1-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="nny1"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="ntx2"
+        LegendID="PrecipRadar"
+        PastProductKey="ntx2-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="ntx2"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="wfl8"
+        LegendID="PrecipRadar"
+        PastProductKey="wfl8-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="wfl8"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="wfl7"
+        LegendID="PrecipRadar"
+        PastProductKey="wfl7-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="wfl7"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="kamx"
+        LegendID="PrecipRadar"
+        PastProductKey="kamx-refl"
+        ProductSet="nexradSiteRadarRefl-east"
+        LocalizedName="kamx"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="kmlb"
+        LegendID="PrecipRadar"
+        PastProductKey="kmlb-refl"
+        ProductSet="nexradSiteRadarRefl-east"
+        LocalizedName="kmlb"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+    <LocalRadar
+        LayerID="ktbw"
+        LegendID="PrecipRadar"
+        PastProductKey="ktbw-refl"
+        ProductSet="nexradSiteRadarRefl-east"
+        LocalizedName="ktbw"
+        TransparencyPercent="0"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1" />
+</LocalRadars>
+

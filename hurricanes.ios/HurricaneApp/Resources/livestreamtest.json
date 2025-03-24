@@ -1,0 +1,68 @@
+{
+  "title": "DEMO Weather Livestreams",
+  "identifier": "DEMO",
+  "timestamp": 1701079304,
+  "assets": [
+      {
+            "title": "AH Test Demo Weather Livestream for Bryan <3",
+            "id": "fc7cde3d-76b3-4238-b034-e8b7cddbc3bd",
+            "duration": 0,
+            "abstract": "(just you, only you)",
+            "canonical_website": "demo",
+            "canonical_url": "/2022/08/05/ah-test-demo-weather-livestream-for-bryan-3/",
+            "image": "http://res.cloudinary.com/graham-media-group/image/upload/w_640/v1/arc-cf/08-05-2022/t_b53b96fe8ce6412fb6c87c35cb662af1_name_t_e1079c580a93463081a36d7474996623_name_watchLive",
+            "url": "https://pubads.g.doubleclick.net/ssai/event/GoV_JT2NS4ufX68_pf6RvA/master.m3u8",
+            "published": "2023-11-28T05:06:09Z",
+            "updated": "2023-11-28T05:05:07Z",
+            "taxonomy": {
+              "tags": [
+                {
+                  "text": "Live Events"
+                }
+              ],
+              "primary_site": {
+                "type": "site",
+                "_id": "/weather",
+                "version": "0.5.8",
+                "name": "Weather",
+                "path": "/weather",
+                "primary": true
+              },
+              "sites": [
+                {
+                  "type": "site",
+                  "_id": "/weather",
+                  "version": "0.5.8",
+                  "name": "Weather",
+                  "path": "/weather",
+                  "primary": true
+                }
+              ],
+              "primary_section": {
+                "type": "section",
+                "_id": "/weather",
+                "_website": "demo",
+                "version": "0.6.0",
+                "name": "Weather",
+                "path": "/weather",
+                "primary": true
+              },
+              "sections": [
+                {
+                  "type": "section",
+                  "_id": "/weather",
+                  "_website": "demo",
+                  "version": "0.6.0",
+                  "name": "Weather",
+                  "path": "/weather",
+                  "primary": true
+                }
+              ],
+              "seo_keywords": [
+                
+              ]
+            },
+            "streamclass": "event"
+          }
+  ]
+}

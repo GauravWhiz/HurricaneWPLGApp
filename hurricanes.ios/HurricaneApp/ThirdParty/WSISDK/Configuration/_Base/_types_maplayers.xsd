@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="./_types_shared_basic.xsd" />
+    <xs:include schemaLocation="./_types_shared_wsi.xsd" />
+    <xs:include schemaLocation="./_types_shared_wsi_layer_enums.xsd" />
+
+    <xs:simpleType name="DataProviderEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Sun" />
+            <xs:enumeration value="Tessera30" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LayerTypeEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Alerts" />
+            <xs:enumeration value="OverlayCurrentConditions" />
+            <xs:enumeration value="OverlayEarthquakes" />
+            <xs:enumeration value="OverlayGenericPoint" />
+            <xs:enumeration value="OverlayLightning" />
+            <xs:enumeration value="OverlayStormTracks" />
+            <xs:enumeration value="OverlayTemperaturePlots" />
+            <xs:enumeration value="OverlayTrafficFlow" />
+            <xs:enumeration value="OverlayTrafficIncidents" />
+            <xs:enumeration value="OverlayTropicalTracks" />
+            <xs:enumeration value="Raster" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="LoopingType">
+        <xs:attribute name="RangeObservedMinutes" type="integer-0-or-greater"/>
+        <xs:attribute name="RangePredictedMinutes" type="integer-0-or-greater"/>
+        <xs:attribute name="StepSizeSeconds" type="integer-0-or-greater"/>
+    </xs:complexType>
+
+    <xs:complexType name="DataListType">
+        <xs:sequence>
+            <xs:element name="ProductKey" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:simpleType name="CoverageTypeEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Land" />
+            <xs:enumeration value="LandAndWater" /> <!-- default -->
+            <xs:enumeration value="Water" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="DataProviderType">
+        <xs:sequence>
+            <xs:element name="ProductSet" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="DataType" type="LayerTypeEnum" minOccurs="1" maxOccurs="1" />
+            <xs:element name="ObservedData" type="DataListType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="PredictedData" type="DataListType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="Coverage" type="CoverageTypeEnum" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="type" type="DataProviderEnum" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="WSIRasterLayerDefinitionType">
+        <xs:sequence>
+            <xs:element name="LayerID" type="WSIRasterLayerLayerID" minOccurs="1" maxOccurs="1" />
+            <xs:element name="DataProvider" type="DataProviderType" minOccurs="1" maxOccurs="1" />
+            <xs:element name="Looping" type="LoopingType" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="WSIRasterLayerConfigurationType">
+        <xs:sequence>
+            <xs:element name="Layer" type="WSIRasterLayerDefinitionType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="WSIOverlayDefinitionType">
+        <xs:sequence>
+            <xs:element name="LayerID" type="WSIOverlayLayerID" minOccurs="1" maxOccurs="1" />
+            <xs:element name="DataProvider" type="DataProviderType" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="WSIOverlayConfigurationType">
+        <xs:sequence>
+            <xs:element name="Overlay" type="WSIOverlayDefinitionType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

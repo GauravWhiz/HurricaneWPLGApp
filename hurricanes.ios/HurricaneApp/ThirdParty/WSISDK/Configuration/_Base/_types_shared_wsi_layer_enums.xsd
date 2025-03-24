@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- enumerated types for layer and overlay definition ids -->
+
+    <!-- layer id is a localizable layer name key -->
+    <xs:simpleType name="WSIRasterLayerLayerID">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="wsi_LayerRadar"/>
+            <xs:enumeration value="wsi_LayerRadarSmooth"/>
+            <xs:enumeration value="wsi_LayerRadarOverSatellite"/>
+            <xs:enumeration value="wsi_LayerRadarOverSatelliteSmooth"/>
+            <xs:enumeration value="wsi_LayerRoadWeather"/>
+            <xs:enumeration value="wsi_LayerSatellite"/>
+            <xs:enumeration value="wsi_LayerSnowfall"/>
+            <xs:enumeration value="wsi_LayerSurfaceTemperatureAll"/>
+            <xs:enumeration value="wsi_LayerSurfaceTemperatureLand"/>
+            <xs:enumeration value="wsi_LayerSurfaceTemperatureWater"/>
+            <xs:enumeration value="wsi_LayerWindSpeed"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- alerts overlay id is a localizable layer name key -->
+    <xs:simpleType name="WSIAlertsOverlayLayerID">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="wsi_WeatherAlertsAll"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- features overlay id is a localizable layer name key -->
+    <xs:simpleType name="WSIFeaturesOverlayLayerID">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="wsi_OverlayCurrentConditions"/>
+            <xs:enumeration value="wsi_OverlayEarthquakes"/>
+            <xs:enumeration value="wsi_OverlayLightning"/>
+            <xs:enumeration value="wsi_OverlayStormTracks"/>
+            <xs:enumeration value="wsi_OverlayTemperaturePlots"/>
+            <xs:enumeration value="wsi_OverlayTrafficFlow"/>
+            <xs:enumeration value="wsi_OverlayTrafficIncidents"/>
+            <xs:enumeration value="wsi_OverlayTropicalTracks"/>
+            <xs:enumeration value="wsi_OverlayTropicalTracksTest"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WSIOverlayLayerID">
+        <xs:union memberTypes="WSIAlertsOverlayLayerID WSIFeaturesOverlayLayerID"></xs:union>
+    </xs:simpleType>
+
+    <!-- for specifying layer ordering -->
+    <xs:simpleType name="WSIMapLayerID">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MapLayerLabelsAndShields"/>
+            <xs:enumeration value="MapLayerRoadsAndLines"/>
+            <xs:enumeration value="MapLocalRadarLayers"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- layer OR overlay id union -->
+    <xs:simpleType name="WSIRasterLayerOrOverlayLayerID">
+        <xs:union memberTypes="WSIRasterLayerLayerID WSIOverlayLayerID"></xs:union>
+    </xs:simpleType>
+
+    <!-- layer OR overlay id union -->
+    <xs:simpleType name="WSIMapLayerOrderID">
+        <xs:union memberTypes="WSIRasterLayerLayerID WSIOverlayLayerID WSIMapLayerID"></xs:union>
+    </xs:simpleType>
+
+</xs:schema>

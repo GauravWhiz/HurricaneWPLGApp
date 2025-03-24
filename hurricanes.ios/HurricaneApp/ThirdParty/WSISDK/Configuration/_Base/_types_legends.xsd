@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+    <xs:include schemaLocation="./_types_shared_basic.xsd" />
+    <xs:include schemaLocation="./_types_shared_wsi_layer_enums.xsd" />
+
+    <xs:simpleType name="LegendIDEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PrecipRadar"/>
+            <xs:enumeration value="RoadWeather"/>
+            <xs:enumeration value="Snowfall"/>
+            <xs:enumeration value="Temperature"/>
+            <xs:enumeration value="TrafficFlow"/>
+            <xs:enumeration value="WaterTemperature"/>
+            <xs:enumeration value="WindSpeed"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LegendTitleKeyEnum">
+        <xs:restriction base="string-non-empty">
+            <xs:enumeration value="wsi_LegendPrecipHeavy"/>
+            <xs:enumeration value="wsi_LegendPrecipLight"/>
+            <xs:enumeration value="wsi_LegendPrecipRain"/>
+            <xs:enumeration value="wsi_LegendPrecipMixed"/>
+            <xs:enumeration value="wsi_LegendPrecipSnow"/>
+            <xs:enumeration value="wsi_LegendRoadFog"/>
+            <xs:enumeration value="wsi_LegendRoadIce"/>
+            <xs:enumeration value="wsi_LegendRoadPonding"/>
+            <xs:enumeration value="wsi_LegendRoadSnow"/>
+            <xs:enumeration value="wsi_LegendRoadWet"/>
+            <xs:enumeration value="wsi_LegendRoadWind"/>
+            <xs:enumeration value="wsi_LegendTemp"/>
+            <xs:enumeration value="wsi_LegendWater"/>
+            <xs:enumeration value="wsi_LegendTrafficClosed"/>
+            <xs:enumeration value="wsi_LegendTrafficFast"/>
+            <xs:enumeration value="wsi_LegendTrafficMedium"/>
+            <xs:enumeration value="wsi_LegendTrafficSlow"/>
+            <xs:enumeration value="wsi_LegendTrafficStopped"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="FontColorEnum">
+        <xs:restriction base="string-non-empty">
+            <xs:enumeration value="Black"/>
+            <xs:enumeration value="Blue"/>
+            <xs:enumeration value="Brown"/>
+            <xs:enumeration value="Cyan"/>
+            <xs:enumeration value="Gray85"/>
+            <xs:enumeration value="Gray170"/>
+            <xs:enumeration value="Green"/>
+            <xs:enumeration value="Magenta"/>
+            <xs:enumeration value="Orange"/>
+            <xs:enumeration value="Purple"/>
+            <xs:enumeration value="Red"/>
+            <xs:enumeration value="Yellow"/>
+            <xs:enumeration value="White"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LegendLocalizedTextEnum">
+        <xs:restriction base="string-non-empty">
+            <xs:enumeration value="wsi_LegendPrecipHeavy"/>
+            <xs:enumeration value="wsi_LegendPrecipLight"/>
+            <xs:enumeration value="wsi_LegendPrecipRain"/>
+            <xs:enumeration value="wsi_LegendPrecipMixed"/>
+            <xs:enumeration value="wsi_LegendPrecipSnow"/>
+            <xs:enumeration value="wsi_LegendRoadFog"/>
+            <xs:enumeration value="wsi_LegendRoadIce"/>
+            <xs:enumeration value="wsi_LegendRoadPonding"/>
+            <xs:enumeration value="wsi_LegendRoadSnow"/>
+            <xs:enumeration value="wsi_LegendRoadWet"/>
+            <xs:enumeration value="wsi_LegendRoadWind"/>
+            <xs:enumeration value="wsi_LegendTemp"/>
+            <xs:enumeration value="wsi_LegendWater"/>
+            <xs:enumeration value="wsi_LegendTrafficClosed"/>
+            <xs:enumeration value="wsi_LegendTrafficFast"/>
+            <xs:enumeration value="wsi_LegendTrafficMedium"/>
+            <xs:enumeration value="wsi_LegendTrafficSlow"/>
+            <xs:enumeration value="wsi_LegendTrafficStopped"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- For Views that are inside another "super View", you can use rx= and ry=
+         to position the View relative to the "super View". Use ax= and ay= to
+         specify absolute positions within the main frame.
+         For rx= and ry=, 0.5 will position the View centered on the "super View"
+         horizontally or vertically whereas 0.0 / 1.0 will center the View on the
+         top or left / bottom or right respectively. Values outside of 0.0..1.0
+         will progressively shift the View out of the "super View".
+         -->
+    <xs:complexType name="FrameType">
+        <xs:attribute name="ax" type="float-0.0-or-greater"/>
+        <xs:attribute name="ay" type="float-0.0-or-greater"/>
+        <xs:attribute name="rx" type="xs:float"/>
+        <xs:attribute name="ry" type="xs:float"/>
+        <xs:attribute name="height" type="float-0.0-or-greater"/>
+        <xs:attribute name="width" type="float-0.0-or-greater"/>
+        <xs:attribute name="cornerradius" type="float-0.0-or-greater"/>
+        <xs:attribute name="flexibleleftmargin" type="integer-0-or-1"/>
+        <xs:attribute name="flexiblewidth" type="integer-0-or-1"/>
+        <xs:attribute name="flexiblerightmargin" type="integer-0-or-1"/>
+        <xs:attribute name="flexibletopmargin" type="integer-0-or-1"/>
+        <xs:attribute name="flexibleheight" type="integer-0-or-1"/>
+        <xs:attribute name="flexiblebottommargin" type="integer-0-or-1"/>
+    </xs:complexType>
+
+    <xs:complexType name="FontType">
+        <xs:attribute name="color" type="FontColorEnum"/>
+        <xs:attribute name="name" type="string-non-empty"/>
+        <xs:attribute name="size" type="xs:integer"/>
+    </xs:complexType>
+
+    <xs:complexType name="ImageType">
+        <xs:attribute name="name" type="string-non-empty"/>
+    </xs:complexType>
+
+    <xs:complexType name="LegendTextLocalizedType">
+        <xs:attribute name="text" type="LegendLocalizedTextEnum" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="LegendTextType">
+        <xs:attribute name="text" type="string-non-empty" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="UnitTextType">
+        <xs:attribute name="imperial" type="string-non-empty" use="required"/>
+        <xs:attribute name="metric" type="string-non-empty" use="required"/>
+    </xs:complexType>
+
+    <!-- If you define a View within a View, you can make the frame relative to the
+         "super view" using rx=#.# and ry=#.#. The View will also "inherit" the font
+         settings from the "super view (or the View can override those). -->
+    <xs:complexType name="ViewType">
+        <xs:sequence>
+            <xs:element name="Frame" type="FrameType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Font" type="FontType" minOccurs="0" maxOccurs="1"/>
+            
+            <!-- A View can contain a FillColor and/or Image name and/or text of some type.
+                 So you could specify localized text over a gray background, for example. -->
+            <xs:element name="FillColor" type="RGBAColorType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="Image" type="ImageType" minOccurs="0" maxOccurs="1"/>
+            <xs:choice>
+                <xs:element name="Text" type="LegendTextType" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="TextLocalized" type="LegendTextLocalizedType" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="UnitTextDistance" type="UnitTextType"  minOccurs="0" maxOccurs="1"/>
+                <xs:element name="UnitTextSpeed" type="UnitTextType"  minOccurs="0" maxOccurs="1"/>
+                <xs:element name="UnitTextTemperature" type="UnitTextType"  minOccurs="0" maxOccurs="1"/>
+            </xs:choice>
+            
+            <xs:element name="View" type="ViewType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="LegendIDEnum"/>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<Configuration>
+    <!-- layers and overlays -->
+
+    <LayerDefinitions>
+        <Layer>
+            <LayerID>wsi_LayerRadar</LayerID>
+            <LegendID>PrecipRadar</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerRadarOverSatellite</LayerID>
+            <LegendID>PrecipRadar</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerRadarOverSatelliteCombined</LayerID>
+            <LegendID>PrecipRadar</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerRoadWeather</LayerID>
+            <LegendID>RoadWeather</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerSatellite</LayerID>
+            <TransparencyPercent>0</TransparencyPercent>
+        </Layer>
+        
+        <!-- tbd: configure this via map_smartradar.xml?
+        <Layer>
+            <LayerID>wsi_LayerSmartRadar</LayerID>
+            <LegendID>PrecipRadar</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        -->
+        <Layer>
+            <LayerID>wsi_LayerSnowfall</LayerID>
+            <LegendID>Snowfall</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+            <DisableLooping>TRUE</DisableLooping>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerSurfaceTemperatureAll</LayerID>
+            <LegendID>Temperature</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerSurfaceTemperatureLand</LayerID>
+            <LegendID>Temperature</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerSurfaceTemperatureWater</LayerID>
+            <LegendID>Temperature</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <!--
+        <Layer>
+            <LayerID>wsi_LayerWaterTemperature</LayerID>
+            <LegendID>WaterTemperature</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+            <DisableLooping>TRUE</DisableLooping>
+        </Layer>
+        -->
+        <Layer>
+            <LayerID>wsi_LayerWindSpeed</LayerID>
+            <LegendID>WindSpeed</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+    </LayerDefinitions>
+        
+    <OverlayDefinitions>
+        <!-- general -->
+        <Overlay>
+            <LayerID>wsi_OverlayCurrentConditions</LayerID>
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayEarthquakes</LayerID>
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayLightning</LayerID>
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayStormTracks</LayerID>
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayTemperaturePlot</LayerID>
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayTrafficFlow</LayerID>
+            <LegendID>TrafficFlow</LegendID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayTrafficIncidents</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayTropicalTracks</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        
+        <!-- alerts -->
+        <Overlay>
+            <LayerID>wsi_WeatherAlertsFlood</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_WeatherAlertsMarine</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_WeatherAlertsOther</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_WeatherAlertsSevere</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_WeatherAlertsTropical</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_WeatherAlertsWinter</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+    </OverlayDefinitions>
+</Configuration>

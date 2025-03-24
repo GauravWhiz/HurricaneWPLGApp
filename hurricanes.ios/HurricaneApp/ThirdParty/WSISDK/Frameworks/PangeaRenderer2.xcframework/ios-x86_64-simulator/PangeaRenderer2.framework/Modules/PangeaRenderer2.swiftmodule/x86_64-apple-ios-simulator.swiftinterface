@@ -1,0 +1,154 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6 (swiftlang-5.6.0.323.62 clang-1316.0.20.8)
+// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name PangeaRenderer2
+import Foundation
+@_exported import PangeaRenderer2
+import Swift
+import _Concurrency
+@_hasMissingDesignatedInitializers public class Camera {
+  @objc deinit
+  public func update(queue: PangeaRenderer2.RendererCommandQueue, longitude: Swift.Double, latitude: Swift.Double, zoom: Swift.Double, viewportSize: CoreGraphics.CGSize)
+  public func queryVisibleTiles(queue: PangeaRenderer2.RendererCommandQueue, query: PangeaRenderer2.TilesQuery)
+  public func setViewport(queue: PangeaRenderer2.RendererCommandQueue, width: Swift.Int, height: Swift.Int)
+  public func setLocation(queue: PangeaRenderer2.RendererCommandQueue, longitude: Swift.Double, latitude: Swift.Double, zoom: Swift.Double)
+  public func setPixelsPerPoint(queue: PangeaRenderer2.RendererCommandQueue, value: Swift.Double)
+  public func setZoomOffset(queue: PangeaRenderer2.RendererCommandQueue, value: Swift.Double)
+  public func setZoomConstraint(queue: PangeaRenderer2.RendererCommandQueue, minZoom: Swift.Double, maxZoom: Swift.Double)
+}
+public protocol Layer {
+  func draw(queue: PangeaRenderer2.RendererCommandQueue, withCamera camera: PangeaRenderer2.Camera)
+  func setName(queue: PangeaRenderer2.RendererCommandQueue, name: Swift.String)
+  func queryMissingTiles(queue: PangeaRenderer2.RendererCommandQueue, withCamera camera: PangeaRenderer2.Camera, query: PangeaRenderer2.TilesQuery)
+  func setOpacity(queue: PangeaRenderer2.RendererCommandQueue, value: Swift.Float)
+  func setTileFilter(queue: PangeaRenderer2.RendererCommandQueue, filter: PangeaRenderer2.TileFilter)
+  func addEmptyTile(queue: PangeaRenderer2.RendererCommandQueue, x: Swift.Int, y: Swift.Int, z: Swift.Int)
+}
+public enum TileDataError : Swift.Error {
+  case invalidHeader(header: Swift.UInt32)
+  case noSuchProductIndex(givenIndex: Swift.Int, productCount: Swift.Int)
+}
+@_hasMissingDesignatedInitializers public class ClientSideRenderingLayer : PangeaRenderer2.Layer {
+  @objc deinit
+  public func addSmallTile(queue: PangeaRenderer2.RendererCommandQueue, data: inout [Swift.Float], x: Swift.Int, y: Swift.Int, z: Swift.Int)
+  public func addSmallTile(queue: PangeaRenderer2.RendererCommandQueue, bigEndianData: Foundation.Data, x: Swift.Int, y: Swift.Int, z: Swift.Int)
+  public func addSmallTile(queue: PangeaRenderer2.RendererCommandQueue, bigEndianData: Foundation.Data, x: Swift.Int, y: Swift.Int, z: Swift.Int, productIndex: Swift.Int) throws
+  public func draw(queue: PangeaRenderer2.RendererCommandQueue, withCamera camera: PangeaRenderer2.Camera)
+  public func setName(queue: PangeaRenderer2.RendererCommandQueue, name: Swift.String)
+  public func setPalette(queue: PangeaRenderer2.RendererCommandQueue, palette: PangeaRenderer2.Palette)
+  public func setTileDataRange(queue: PangeaRenderer2.RendererCommandQueue, lowerBound: Swift.Float, upperBound: Swift.Float)
+  public func setTileDataRange(queue: PangeaRenderer2.RendererCommandQueue, range: Swift.ClosedRange<Swift.Float>)
+  public func enableTileDataFiltering(queue: PangeaRenderer2.RendererCommandQueue, enabled: Swift.Bool)
+  public func queryMissingTiles(queue: PangeaRenderer2.RendererCommandQueue, withCamera camera: PangeaRenderer2.Camera, query: PangeaRenderer2.TilesQuery)
+  public func setOpacity(queue: PangeaRenderer2.RendererCommandQueue, value: Swift.Float)
+  public func setTileFilter(queue: PangeaRenderer2.RendererCommandQueue, filter: PangeaRenderer2.TileFilter)
+  public func addEmptyTile(queue: PangeaRenderer2.RendererCommandQueue, x: Swift.Int, y: Swift.Int, z: Swift.Int)
+}
+@_hasMissingDesignatedInitializers public class ServerSideRenderingLayer : PangeaRenderer2.Layer {
+  @objc deinit
+  public func addSmallTile(queue: PangeaRenderer2.RendererCommandQueue, imageData: Foundation.Data, x: Swift.Int, y: Swift.Int, z: Swift.Int)
+  public func addSmallTile(queue: PangeaRenderer2.RendererCommandQueue, image: UIKit.UIImage, x: Swift.Int, y: Swift.Int, z: Swift.Int)
+  public func draw(queue: PangeaRenderer2.RendererCommandQueue, withCamera camera: PangeaRenderer2.Camera)
+  public func setName(queue: PangeaRenderer2.RendererCommandQueue, name: Swift.String)
+  public func queryMissingTiles(queue: PangeaRenderer2.RendererCommandQueue, withCamera camera: PangeaRenderer2.Camera, query: PangeaRenderer2.TilesQuery)
+  public func setOpacity(queue: PangeaRenderer2.RendererCommandQueue, value: Swift.Float)
+  public func setTileFilter(queue: PangeaRenderer2.RendererCommandQueue, filter: PangeaRenderer2.TileFilter)
+  public func addEmptyTile(queue: PangeaRenderer2.RendererCommandQueue, x: Swift.Int, y: Swift.Int, z: Swift.Int)
+}
+@_hasMissingDesignatedInitializers public class Logger {
+  @objc deinit
+  public func setLevel(level: Swift.Int32)
+}
+@_hasMissingDesignatedInitializers public class Palette {
+  public enum Kind : Swift.UInt32 {
+    case interpolated
+    case stepped
+    public init?(rawValue: Swift.UInt32)
+    public typealias RawValue = Swift.UInt32
+    public var rawValue: Swift.UInt32 {
+      get
+    }
+  }
+  public struct Color : Swift.Codable {
+    public init(from decoder: Swift.Decoder) throws
+    public func encode(to encoder: Swift.Encoder) throws
+  }
+  public struct Entry : Swift.Codable {
+    public func encode(to encoder: Swift.Encoder) throws
+    public init(from decoder: Swift.Decoder) throws
+  }
+  @objc deinit
+  public func decodeJSON(queue: PangeaRenderer2.RendererCommandQueue, jsonString: Swift.String)
+  public func setEntries(queue: PangeaRenderer2.RendererCommandQueue, entries: [PangeaRenderer2.Palette.Entry])
+  public func changeKind(queue: PangeaRenderer2.RendererCommandQueue, to kind: PangeaRenderer2.Palette.Kind)
+}
+public struct TilePosition {
+  public var x: Swift.Int32
+  public var y: Swift.Int32
+  public var z: Swift.Int32
+}
+public typealias MissingTilesQuery = PangeaRenderer2.TilesQuery
+@_hasMissingDesignatedInitializers public class TilesQuery {
+  @objc deinit
+  public func isCompleted() -> Swift.Bool
+  public func getTileCount() -> Swift.Int
+  public func getTiles() -> [PangeaRenderer2.TilePosition]
+}
+public class RendererCommandQueue {
+  public init?()
+  @objc deinit
+}
+public protocol Renderer {
+  var handle: PangeaRenderer2.PangeaRendererHandle? { get }
+  func enqueue(queue: PangeaRenderer2.RendererCommandQueue)
+  func submit()
+  func contextLost()
+  func createPalette(ofKind kind: PangeaRenderer2.Palette.Kind) -> PangeaRenderer2.Palette?
+  func createClientSideRenderingLayer(withCapacity capacity: Swift.Int) -> PangeaRenderer2.ClientSideRenderingLayer?
+  func createServerSideRenderingLayer(withCapacity capacity: Swift.Int) -> PangeaRenderer2.ServerSideRenderingLayer?
+  func createCamera() -> PangeaRenderer2.Camera?
+  func createTilesQuery() -> PangeaRenderer2.TilesQuery?
+  func setViewport(width: Swift.Int32, height: Swift.Int32)
+}
+extension PangeaRenderer2.Renderer {
+  public func enqueueAndSubmit(queue: PangeaRenderer2.RendererCommandQueue)
+  public func enqueue(queue: PangeaRenderer2.RendererCommandQueue)
+  public func submit()
+  public func contextLost()
+  public func createPalette(ofKind kind: PangeaRenderer2.Palette.Kind) -> PangeaRenderer2.Palette?
+  public func createClientSideRenderingLayer(withCapacity capacity: Swift.Int) -> PangeaRenderer2.ClientSideRenderingLayer?
+  public func createServerSideRenderingLayer(withCapacity capacity: Swift.Int) -> PangeaRenderer2.ServerSideRenderingLayer?
+  public func createCamera() -> PangeaRenderer2.Camera?
+  public func createTilesQuery() -> PangeaRenderer2.TilesQuery?
+  public func createNullTileFilter() -> PangeaRenderer2.NullTileFilter?
+  public func createZoomTileFilter(keepTilesWithinZoomRange: Swift.ClosedRange<Swift.Int>) -> PangeaRenderer2.ZoomTileFilter?
+  public func setViewport(width: Swift.Int32, height: Swift.Int32)
+}
+public class SyncRenderer : PangeaRenderer2.Renderer {
+  public var handle: PangeaRenderer2.PangeaRendererHandle?
+  public init?()
+  @objc deinit
+}
+public protocol TileFilter {
+  var tileFilterHandle: PangeaRenderer2.PangeaTileFilterHandle { get }
+}
+@_hasMissingDesignatedInitializers public class NullTileFilter : PangeaRenderer2.TileFilter {
+  @objc deinit
+  public var tileFilterHandle: PangeaRenderer2.PangeaTileFilterHandle {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class ZoomTileFilter : PangeaRenderer2.TileFilter {
+  @objc deinit
+  public var tileFilterHandle: PangeaRenderer2.PangeaTileFilterHandle {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class BoundedTileFilter : PangeaRenderer2.TileFilter {
+  @objc deinit
+  public var tileFilterHandle: PangeaRenderer2.PangeaTileFilterHandle {
+    get
+  }
+}
+extension PangeaRenderer2.Palette.Kind : Swift.Equatable {}
+extension PangeaRenderer2.Palette.Kind : Swift.Hashable {}
+extension PangeaRenderer2.Palette.Kind : Swift.RawRepresentable {}

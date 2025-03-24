@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+    <xs:include schemaLocation="./_Base/_types_legends.xsd" />
+
+    <xs:element name="LegendViewsConfig">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Frame" type="FrameType" minOccurs="0" maxOccurs="1"/>
+            <!-- control font settings for all legend views (can be overriden per LegendView and per SubView) -->
+            <xs:element name="Font" type="FontType" minOccurs="0" maxOccurs="1"/>
+            <xs:choice>
+                <xs:element name="FillColor" type="RGBAColorType" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="ImageName" type="string-non-empty" minOccurs="0" maxOccurs="1" />
+            </xs:choice>
+            <xs:element name="View" type="ViewType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+

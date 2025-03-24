@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="22D68" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="2.0">
+    <entity name="LiveStream" representedClassName="LiveStream" syncable="YES">
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoURL" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Notification" representedClassName="Notification" syncable="YES">
+        <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="banner" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="callleters" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="endTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idx" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageNameWithPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timesince" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="StormCenter" representedClassName="StormCenter" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="Integer 16" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="discussion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idx" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stormName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stormNum" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stormPriority" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stormSurge" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subhead" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updated" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stormCenterDetail" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StormCenterDetail" inverseName="stormCenter" inverseEntity="StormCenterDetail" syncable="YES"/>
+    </entity>
+    <entity name="StormCenterDetail" representedClassName="StormCenterDetail" syncable="YES">
+        <attribute name="discussion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageNameWithPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pressureText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pressureValue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="windSpeedText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="windSpeedValue" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stormCenter" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StormCenter" inverseName="stormCenterDetail" inverseEntity="StormCenter" syncable="YES"/>
+        <relationship name="stormCenterImages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StormCenterImages" inverseName="stormCenterDetail" inverseEntity="StormCenterImages" syncable="YES"/>
+    </entity>
+    <entity name="StormCenterImages" representedClassName="StormCenterImages" syncable="YES">
+        <attribute name="imageNameWithPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stormCenterDetail" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StormCenterDetail" inverseName="stormCenterImages" inverseEntity="StormCenterDetail" syncable="YES"/>
+    </entity>
+    <entity name="TropicWatch" representedClassName="TropicWatch" syncable="YES">
+        <attribute name="idx" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subhead" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tropicWatchDetail" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TropicWatchDetail" inverseName="tropicWatch" inverseEntity="TropicWatchDetail" syncable="YES"/>
+    </entity>
+    <entity name="TropicWatchDetail" representedClassName="TropicWatchDetail" syncable="YES">
+        <attribute name="discussion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageNameWithPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tropicWatch" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TropicWatch" inverseName="tropicWatchDetail" inverseEntity="TropicWatch" syncable="YES"/>
+        <relationship name="tropicWatchImages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TropicWatchImages" inverseName="tropicWatchDetail" inverseEntity="TropicWatchImages" syncable="YES"/>
+    </entity>
+    <entity name="TropicWatchImages" representedClassName="TropicWatchImages" syncable="YES">
+        <attribute name="imageNameWithPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="tropicWatchDetail" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TropicWatchDetail" inverseName="tropicWatchImages" inverseEntity="TropicWatchDetail" syncable="YES"/>
+    </entity>
+    <entity name="WatchesAndWarnings" representedClassName="WatchesAndWarnings" syncable="YES">
+        <attribute name="idx" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subhead" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="watchesAndWarningsDetail" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WatchesAndWarningsDetail" inverseName="watchesAndWarnings" inverseEntity="WatchesAndWarningsDetail" syncable="YES"/>
+    </entity>
+    <entity name="WatchesAndWarningsDetail" representedClassName="WatchesAndWarningsDetail" syncable="YES">
+        <attribute name="discussion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageNameWithPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="watchesAndWarnings" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="WatchesAndWarnings" inverseName="watchesAndWarningsDetail" inverseEntity="WatchesAndWarnings" syncable="YES"/>
+        <relationship name="watchesAndWarningsImages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WatchesAndWarningsImages" inverseName="watchesAndWarningsDetail" inverseEntity="WatchesAndWarningsImages" syncable="YES"/>
+    </entity>
+    <entity name="WatchesAndWarningsImages" representedClassName="WatchesAndWarningsImages" syncable="YES">
+        <attribute name="imageNameWithPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="watchesAndWarningsDetail" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="WatchesAndWarningsDetail" inverseName="watchesAndWarningsImages" inverseEntity="WatchesAndWarningsDetail" syncable="YES"/>
+    </entity>
+</model>

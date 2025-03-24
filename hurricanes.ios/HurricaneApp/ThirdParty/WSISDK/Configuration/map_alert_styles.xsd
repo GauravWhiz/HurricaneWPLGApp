@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="./_Base/_types_shared_wsi_layer_enums.xsd" />
+
+    <xs:simpleType name="String1to4Type">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="4" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="StringAZType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-z]+" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="StringRGB">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{1,3},[0-9]{1,3},[0-9]{1,3}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fraction">
+        <xs:restriction base="xs:float">
+            <xs:minInclusive value="0.0" />
+            <xs:maxInclusive value="1.0" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WSIAlertCategory">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="flood"/>
+            <xs:enumeration value="marine"/>
+            <xs:enumeration value="other"/>
+            <xs:enumeration value="severe"/>
+            <xs:enumeration value="tropical"/>
+            <xs:enumeration value="winter"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="WSIAlertCountryCode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="All"/>
+            <xs:enumeration value="AU"/>
+            <xs:enumeration value="CA"/>
+            <xs:enumeration value="Europe"/>
+            <xs:enumeration value="JP"/>
+            <xs:enumeration value="US"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="AlertStyles">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="DefaultProperties">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Property" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute type="xs:string" name="name"
+                                                use="optional" />
+                                            <xs:attribute type="xs:string" name="value"
+                                                use="optional" />
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Alert" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Style" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <!-- always true <xs:attribute type="xs:boolean" name="drawFilled" use="required" /> -->
+                                    <xs:attribute type="xs:positiveInteger" name="priority" use="required" />
+                                    <xs:attribute type="StringAZType" name="significance" use="required" />
+                                    <xs:attribute type="xs:string" name="phenomena" use="required" />
+                                    <xs:attribute type="WSIAlertCountryCode" name="countryCode" use="required" />
+                                    <xs:attribute type="WSIAlertCategory" name="category" use="required" />
+                                    <xs:attribute type="xs:boolean" name="fill" use="required" />
+                                    <xs:attribute type="StringRGB" name="fillColor" use="required" />
+                                    <xs:attribute type="fraction" name="fillOpacity" use="required" />
+                                    <xs:attribute type="xs:boolean" name="outline" use="required" />
+                                    <xs:attribute type="StringRGB" name="outlineColor" use="required" />
+                                    <!--<xs:attribute type="xs:double" name="thickness" use="required" />-->
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="WSIAlertsOverlayLayerID" name="category" use="required" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="keep" use="optional" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

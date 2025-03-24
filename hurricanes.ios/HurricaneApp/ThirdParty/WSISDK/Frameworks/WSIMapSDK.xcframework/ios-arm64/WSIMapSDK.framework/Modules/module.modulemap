@@ -1,0 +1,11 @@
+framework module WSIMapSDK {
+  umbrella header "WSIMapSDK.h"
+  export *
+
+  module * { export * }
+}
+
+module WSIMapSDK.Swift {
+  header "WSIMapSDK-Swift.h"
+  requires objc
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<MapLayerDefinitions>
+    <!-- layers and overlays -->
+
+    <RasterLayerDefinitions>
+        <Layer>
+            <LayerID>wsi_LayerRadar</LayerID>
+            <LegendID>PrecipRadar</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerRadarSmooth</LayerID>
+            <LegendID>PrecipRadar</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerRadarOverSatellite</LayerID>
+            <LegendID>PrecipRadar</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerRadarOverSatelliteSmooth</LayerID>
+            <LegendID>PrecipRadar</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerRoadWeather</LayerID>
+            <LegendID>RoadWeather</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerSatellite</LayerID>
+            <TransparencyPercent>0</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerSnowfall</LayerID>
+            <LegendID>Snowfall</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+            <DisableLooping>TRUE</DisableLooping>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerSurfaceTemperatureAll</LayerID>
+            <LegendID>Temperature</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerSurfaceTemperatureLand</LayerID>
+            <LegendID>Temperature</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerSurfaceTemperatureWater</LayerID>
+            <LegendID>Temperature</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerWindSpeed</LayerID>
+            <LegendID>WindSpeed</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+    </RasterLayerDefinitions>
+        
+    <OverlayDefinitions>
+        <!-- general -->
+        <Overlay>
+            <LayerID>wsi_OverlayCurrentConditions</LayerID> <!-- don't enable these and temperature plots at the same time -->
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayEarthquakes</LayerID>
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayLightning</LayerID>
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayStormTracks</LayerID>
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayTemperaturePlots</LayerID> <!-- don't enable these and current conditions at the same time -->
+            <Decluttering>TRUE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayTrafficFlow</LayerID>
+            <LegendID>TrafficFlow</LegendID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayTrafficIncidents</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayTropicalTracks</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        <Overlay>
+            <LayerID>wsi_OverlayTropicalTracksTest</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+        
+        <!-- alerts -->
+        <Overlay>
+            <LayerID>wsi_WeatherAlertsAll</LayerID>
+            <Decluttering>FALSE</Decluttering>
+        </Overlay>
+    </OverlayDefinitions>
+</MapLayerDefinitions>

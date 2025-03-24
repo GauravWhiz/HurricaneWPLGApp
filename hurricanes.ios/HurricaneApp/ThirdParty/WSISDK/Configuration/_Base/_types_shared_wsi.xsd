@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="./_types_legends.xsd" />
+    <xs:include schemaLocation="./_types_shared_basic.xsd" />
+    <xs:include schemaLocation="./_types_shared_wsi_layer_enums.xsd" />
+
+    <!--
+    ##############################################################################
+    General
+    ##############################################################################
+    -->
+
+    <xs:complexType name="ParameterType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="string-non-empty" use="required"/>
+                <xs:attribute name="type" type="string-non-empty"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:complexType name="ParameterListType">
+        <xs:sequence>
+            <xs:element name="Parameter" type="ParameterType" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ValidDateType">
+    <xs:sequence>
+      <xs:element name="SinceDay" type="string-non-empty" />
+      <xs:element name="UpToDay" type="string-non-empty" />
+    </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="LessOrEqualType">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="units" type="string-non-empty" default="feet"/>
+      </xs:extension>
+    </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="HeightType">
+    <xs:sequence>
+      <xs:element name="LessOrEqual" type="LessOrEqualType" />
+    </xs:sequence>
+    </xs:complexType>
+
+    <!--
+    ##############################################################################
+    Layer Definitions and Configuration
+    ##############################################################################
+    -->
+
+    <xs:complexType name="RasterLayerType">
+        <xs:sequence>
+            <xs:element name="LayerID" type="WSIRasterLayerLayerID"  minOccurs="1" maxOccurs="1"/>
+            <xs:element name="LegendID" type="LegendIDEnum" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="TransparencyPercent" type="integer-0-or-greater" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="DisableLooping" type="BOOL" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RasterLayerDefinitionsType">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="Layer" type="RasterLayerType"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <!--
+    ##############################################################################
+    Overlay Definitions
+    ##############################################################################
+    -->
+    
+    <xs:complexType name="OverlayType">
+        <xs:sequence>
+            <xs:element name="LayerID" type="WSIOverlayLayerID" minOccurs="1"/>
+            <xs:element name="LegendID" type="LegendIDEnum" minOccurs="0"/>
+            <xs:element name="Decluttering" type="BOOL"/>
+            <xs:element name="Parameters" type="ParameterListType" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OverlayDefinitionsType">
+        <xs:sequence>
+            <xs:element name="Overlay" type="OverlayType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

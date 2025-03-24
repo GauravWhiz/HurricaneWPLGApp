@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Simple types -->
+
+    <xs:simpleType name="BOOL">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TRUE"/>
+            <xs:enumeration value="FALSE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="integer-0-or-greater">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="integer-0-or-1">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="integer-1-or-greater">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="float-0.0-or-greater">
+        <xs:restriction base="xs:float">
+            <xs:minInclusive value="0.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="float-0.1-or-greater">
+        <xs:restriction base="xs:float">
+            <xs:minInclusive value="0.1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="float-1.0-or-greater">
+        <xs:restriction base="xs:float">
+            <xs:minInclusive value="1.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fraction">
+        <xs:restriction base="xs:float">
+            <xs:minInclusive value="0.0"/>
+            <xs:maxInclusive value="1.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string-non-empty">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string-non-empty-max10">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="10"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string-non-empty-max32">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="32"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string-url">
+      <xs:restriction base="xs:string">
+        <xs:pattern value="[\-,&amp;=?_:\./a-zA-Z0-9]+"/>
+      </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RGBType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="255"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="RGBAColorType">
+        <xs:attribute name="red" type="RGBType"/>
+        <xs:attribute name="green" type="RGBType"/>
+        <xs:attribute name="blue" type="RGBType"/>
+        <xs:attribute name="alpha" type="xs:decimal" default="1.0"/>
+    </xs:complexType>
+
+    <xs:simpleType name="LatitudeType">
+        <xs:restriction base="xs:float">
+            <xs:minInclusive value="-90"/>
+            <xs:maxInclusive value="90"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LongitudeType">
+        <xs:restriction base="xs:float">
+            <xs:minInclusive value="-180"/>
+            <xs:maxInclusive value="180"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="LightningRadiusType">
+        <xs:restriction base="xs:float">
+            <xs:pattern value="([0-9](\.[0-9])?|[1-9][0-9]|[1][0-9][0-9]|200|99999)"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--
+    As of 4.6, all localization should be done via localization keys that are used to
+    find localized strings in Localizable[_Config|_Custom].strings files (en, es etc.).
+    -->
+    <xs:complexType name="LocalizationKey">
+        <xs:attribute name="key" type="string-non-empty" use="optional"/>
+    </xs:complexType>
+
+</xs:schema>

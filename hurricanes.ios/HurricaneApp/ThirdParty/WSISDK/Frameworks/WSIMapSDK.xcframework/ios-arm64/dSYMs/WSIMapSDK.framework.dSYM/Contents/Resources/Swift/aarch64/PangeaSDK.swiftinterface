@@ -1,0 +1,2269 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6 (swiftlang-5.6.0.323.62 clang-1316.0.20.8)
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name PangeaSDK
+import Foundation
+import Mapbox.MGLMapView
+import Mapbox
+import OpenGLES
+import PangeaRenderer2
+@_exported import PangeaSDK
+import SQLite3
+import Swift
+import UIKit
+import _Concurrency
+import os.log
+import os
+@objc @_inheritsConvenienceInitializers open class TesseraRasterDataProvider : PangeaSDK.RasterDataProvider {
+  @objc override public init(productKey: Swift.String, config: PangeaSDK.PangeaConfig, productInfoProvider: PangeaSDK.RasterProductInfoProvider = TesseraRasterProductInfoProvider())
+  override open func mapElementDownloadURL(for tile: PangeaSDK.TileMetaData) -> Foundation.URL?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc open class GridLayer : PangeaSDK.Layer {
+  open var tileDataRange: Swift.ClosedRange<Swift.Float> {
+    get
+    set
+  }
+  open var palette: PangeaSDK.PangeaPalette? {
+    get
+    set
+  }
+  @objc override open var currentTime: Swift.Int64 {
+    @objc get
+    @objc set
+  }
+  public func setNeedsDisplay()
+  @objc public var tilerDataProvider: PangeaSDK.TilerDataProvider {
+    get
+  }
+  @objc override open var opacity: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc override open var productKey: Swift.String {
+    @objc get
+  }
+  @objc override open var maximumZoom: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc public init?(dataProvider: PangeaSDK.TilerDataProvider, rendererLayerCapacity: Swift.Int = 64, palette: PangeaSDK.PangeaPalette? = nil)
+  @objc deinit
+  @objc override open func load(completionHandler: ((Swift.Error?) -> Swift.Void)? = nil)
+  override open func loadedForTime(_ time: Swift.Int64) -> Swift.Bool
+  open func tileTime(_ targetTime: Swift.Int64) -> Swift.Int64
+  @objc override open func reloadData()
+  open func getDataFor(coordinate: CoreLocation.CLLocationCoordinate2D, zoom: Swift.Int32, time: Swift.Int64, handler: @escaping (Swift.Float?) -> ())
+}
+public protocol TileDataProvider {
+  func fetchTiles(for request: PangeaSDK.TileGridRequest, handler: @escaping ([PangeaSDK.TileMetaData : PangeaSDK.TileRequestResult]) -> ())
+  func loadedFor(request: PangeaSDK.TileGridRequest) -> Swift.Bool
+  func save(request: PangeaSDK.TileGridRequest, results: [PangeaSDK.TileMetaData : PangeaSDK.TileRequestResult])
+  func fetchTile(for request: PangeaSDK.TileRequest, handler: @escaping (PangeaSDK.TileRequestResult) -> ())
+  func save(request: PangeaSDK.TileRequest, result: PangeaSDK.TileRequestResult)
+  func loadedFor(request: PangeaSDK.TileRequest) -> Swift.Bool
+  func clearCache()
+  func cancelDownloads()
+  func downloadTile(for request: PangeaSDK.TileRequest, handler: @escaping (PangeaSDK.TileRequestResult) -> ())
+}
+@objc public class Dimension : ObjectiveC.NSObject {
+  public init(runTime: Swift.Int64? = nil, validTimes: [Swift.Int64], z: [Swift.Int])
+  final public let runTime: Swift.Int64?
+  final public let validTimes: [Swift.Int64]
+  final public let z: [Swift.Int]
+  public static func == (lhs: PangeaSDK.Dimension, rhs: PangeaSDK.Dimension) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers public class TesseraFeatureProductInfo : PangeaSDK.FDSProductInfo {
+  public init(productKey: Swift.String, metaData: PangeaSDK.TesseraFeatureProductInfo.MetaDataType, validTimes: [Swift.Int64], versions: PangeaSDK.VersionsType, servers: [Swift.String], type: Swift.String)
+  @objc deinit
+}
+extension CoreLocation.CLLocationCoordinate2D : Swift.Equatable {
+  public static func == (lhs: CoreLocation.CLLocationCoordinate2D, rhs: CoreLocation.CLLocationCoordinate2D) -> Swift.Bool
+  public static func != (lhs: CoreLocation.CLLocationCoordinate2D, rhs: CoreLocation.CLLocationCoordinate2D) -> Swift.Bool
+}
+extension CoreLocation.CLLocationCoordinate2D : Swift.Comparable {
+  public static func < (lhs: CoreLocation.CLLocationCoordinate2D, rhs: CoreLocation.CLLocationCoordinate2D) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc public class GeoBoundingBox : ObjectiveC.NSObject, Swift.Codable {
+  @objc public var northEast: CoreLocation.CLLocationCoordinate2D
+  @objc public var southWest: CoreLocation.CLLocationCoordinate2D
+  @objc override dynamic public init()
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+  public static func world() -> PangeaSDK.GeoBoundingBox
+  @objc public init(northEast: CoreLocation.CLLocationCoordinate2D, southWest: CoreLocation.CLLocationCoordinate2D)
+  @objc public func contains(coordinate: CoreLocation.CLLocationCoordinate2D) -> Swift.Bool
+  @objc public func getCenter() -> CoreLocation.CLLocationCoordinate2D
+  @objc public func getHeight() -> Swift.Double
+  @objc public func getWidth() -> Swift.Double
+  @objc public func contains(_ bounds: PangeaSDK.GeoBoundingBox) -> Swift.Bool
+  @objc public func intersects(_ bounds: PangeaSDK.GeoBoundingBox) -> Swift.Bool
+  @objc public func splitAtDateLine() -> [PangeaSDK.GeoBoundingBox]
+  public static func == (lhs: PangeaSDK.GeoBoundingBox, rhs: PangeaSDK.GeoBoundingBox) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class CircleMarker : PangeaSDK.Marker {
+  @objc open var radius: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc open var fillColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  @objc open var fillOpacity: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc open var fillBlur: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc open var strokeWidth: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc open var strokeColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  @objc open var strokeOpacity: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init()
+  @objc convenience public init(marker: PangeaSDK.CircleMarker)
+  @objc override dynamic open var hash: Swift.Int {
+    @objc get
+  }
+  @objc deinit
+}
+public typealias MeasurementTuple = (x: Swift.Int, y: Swift.Int, z: Swift.Int, w: Swift.Int)
+public typealias MeasurementOffsetPair = (measurement: PangeaSDK.MeasurementTuple, offset: PangeaSDK.MeasurementTuple)
+@objc @_hasMissingDesignatedInitializers final public class DurationUpdater : PangeaSDK.ParticleSystemObject {
+  public init(maxDuration: Foundation.TimeInterval, scale: Swift.Int)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class TemperatureUpdater : PangeaSDK.ParticleSystemObject {
+  final public var latitudeRange: Swift.ClosedRange<Swift.Float> {
+    get
+    set
+  }
+  final public var longitudeRange: Swift.ClosedRange<Swift.Float> {
+    get
+    set
+  }
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class ColorUpdater : PangeaSDK.ParticleSystemObject {
+  public enum Source {
+    case none
+    case progress
+    case temperature
+    case speed
+    public static func == (a: PangeaSDK.ColorUpdater.Source, b: PangeaSDK.ColorUpdater.Source) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  final public var color: UIKit.UIColor
+  final public var weight: UIKit.UIColor
+  final public var source: PangeaSDK.ColorUpdater.Source
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class FadeUpdater : PangeaSDK.ParticleSystemObject {
+  final public var fadeInRange: Swift.ClosedRange<Swift.Float> {
+    get
+    set
+  }
+  final public var fadeOutRange: Swift.ClosedRange<Swift.Float> {
+    get
+    set
+  }
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class VelocityUpdater : PangeaSDK.ParticleSystemObject {
+  final public var latitudeRange: Swift.ClosedRange<Swift.Float> {
+    get
+    set
+  }
+  final public var longitudeRange: Swift.ClosedRange<Swift.Float> {
+    get
+    set
+  }
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class StillParticlesRemovalUpdater : PangeaSDK.ParticleSystemObject {
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class PositionUpdater : PangeaSDK.ParticleSystemObject {
+  final public var speedRange: Swift.ClosedRange<Swift.Float>
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class TailUpdater : PangeaSDK.ParticleSystemObject {
+  final public var damping: Swift.Float {
+    get
+    set
+  }
+  final public var threshold: Swift.Float {
+    get
+    set
+  }
+  final public var tailLength: Swift.Float {
+    get
+    set
+  }
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class MultiPoint : ObjectiveC.NSObject, PangeaSDK.Locatable {
+  @objc public var points: [CoreLocation.CLLocationCoordinate2D] {
+    @objc get
+    @objc set
+  }
+  @objc deinit
+  @objc public var bounds: PangeaSDK.GeoBoundingBox {
+    @objc get
+    @objc set
+  }
+  public func recalculateBounds()
+  public static func == (lhs: PangeaSDK.MultiPoint, rhs: PangeaSDK.MultiPoint) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc override dynamic public init()
+}
+@objc public enum TextJustify : Swift.Int {
+  case left = 1, right, center
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum TextAnchor : Swift.Int {
+  case center = 1, left, right, top, bottom, topLeft, topRight, bottomLeft, bottomRight
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum TextTransform : Swift.Int {
+  case none = 0, uppercase, lowercase
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class TextStyle : ObjectiveC.NSObject {
+  @objc public var textFontNames: [Swift.String]
+  @objc public var textSize: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc public var textColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  @objc public var textHaloColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  @objc public var textHaloWidth: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc public var textHaloBlur: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc public var textRotation: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc public var textOpacity: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc public var iconOptional: Swift.Bool
+  @objc public var textAllowsOverlap: Swift.Bool
+  @objc public var textIgnoresPlacement: Swift.Bool
+  @objc public var textOptional: Swift.Bool
+  @objc public var maxWidth: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc public var textLineHeight: Swift.Int
+  @objc public var textOffset: CoreGraphics.CGVector {
+    @objc get
+    @objc set
+  }
+  @objc public var textJustify: PangeaSDK.TextJustify {
+    @objc get
+    @objc set
+  }
+  @objc public var textAnchor: PangeaSDK.TextAnchor {
+    @objc get
+    @objc set
+  }
+  @objc public var letterSpacing: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc public var textTransform: PangeaSDK.TextTransform {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class FDSTileLayer : PangeaSDK.FDSLayer {
+  public var maxTimes: Swift.Int32
+  @objc override open var tileCacheCapacity: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc override open var opacity: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc override public init(_ dataProvider: PangeaSDK.FDSDataProvider)
+  @objc deinit
+  @objc override open func load(completionHandler: ((Swift.Error?) -> Swift.Void)? = nil)
+  override open func reloadData()
+  open func fetchFeatureDataFor(visibleCoordinateBounds: PangeaSDK.GeoBoundingBox, lod: Swift.Int32 = 2, completionHandler: @escaping ((PangeaSDK.Result<[PangeaSDK.DefaultFeature], Swift.Error>) -> ()))
+}
+@_inheritsConvenienceInitializers @objc open class PointFeature : PangeaSDK.DefaultFeature {
+  @objc override dynamic public init()
+  @objc override public init?(geoJson: [Swift.String : Any], featureIDKey: Swift.String = "id")
+  @objc override open func loadFromGeoJson(_ json: [Swift.String : Any])
+  @objc deinit
+}
+public typealias VersionsType = [Swift.Int64 : [Swift.Int64 : [Swift.String : Any]]]
+@objc public class TesseraRasterProductInfo : PangeaSDK.RasterProductInfo {
+  public init(productKey: Swift.String, metaData: PangeaSDK.TesseraRasterProductInfo.MetaDataType, validTimes: [Swift.Int64], versions: PangeaSDK.VersionsType, servers: [Swift.String], type: Swift.String)
+  public init(productKey: Swift.String, metaData: PangeaSDK.TesseraRasterProductInfo.MetaDataType, modelRunTime: Swift.Int64, allValidTimes: [Swift.Int64 : [Swift.Int64]], versions: PangeaSDK.VersionsType, servers: [Swift.String], type: Swift.String)
+  @objc deinit
+}
+extension PangeaSDK.TesseraRasterProductInfo {
+  public static func == (lhs: PangeaSDK.TesseraRasterProductInfo, rhs: PangeaSDK.TesseraRasterProductInfo) -> Swift.Bool
+  @objc override dynamic open func isEqual(_ object: Any?) -> Swift.Bool
+}
+extension PangeaSDK.Feature {
+  public var bounds: PangeaSDK.GeoBoundingBox {
+    get
+    set
+  }
+}
+@_inheritsConvenienceInitializers @objc open class Marker : PangeaSDK.DefaultOverlay {
+  @objc open var textStyle: PangeaSDK.TextStyle?
+  @objc open var text: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class InternationalDateLineAdjuster : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc public init(tolerance: Swift.Double)
+  @objc public func adjust(geoPoints: [CoreLocation.CLLocationCoordinate2D]) -> [CoreLocation.CLLocationCoordinate2D]
+  @objc deinit
+}
+@objc public class Icon : ObjectiveC.NSObject {
+  @objc public var image: UIKit.UIImage?
+  @objc public var imageName: Swift.String
+  @objc public init(imageName: Swift.String)
+  @objc public init(image: UIKit.UIImage, imageName: Swift.String)
+  @objc deinit
+}
+@objc public enum IconAnchor : Swift.Int {
+  case center = 1, left, right, top, bottom, topLeft, topRight, bottomLeft, bottomRight
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc open class IconMarker : PangeaSDK.Marker {
+  @objc open var icon: PangeaSDK.Icon
+  @objc override dynamic public init()
+  @objc open var iconColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  @objc open var iconHaloColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  @objc open var iconHaloBlur: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc open var iconOffset: CoreGraphics.CGVector {
+    @objc get
+    @objc set
+  }
+  @objc open var iconHaloWidth: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc open var iconOpacity: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc open var iconRotation: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc open var iconAllowsOverlap: Swift.Bool
+  @objc open var iconIgnoresPlacement: Swift.Bool
+  @objc open var iconAnchor: PangeaSDK.IconAnchor {
+    @objc get
+    @objc set
+  }
+  @objc open var iconScale: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc deinit
+}
+public class DistanceDeclutter<T> where T : PangeaSDK.Locatable {
+  public init(maximumKilometers: Swift.Double)
+  @objc deinit
+}
+extension PangeaSDK.DistanceDeclutter : PangeaSDK.SpatialFilter {
+  public func filter<T>(_ items: [T]) -> [T] where T : PangeaSDK.Locatable
+}
+@objc @_inheritsConvenienceInitializers open class DefaultFeatureStyler : ObjectiveC.NSObject, PangeaSDK.FeatureStyler {
+  @objc open func style(feature: PangeaSDK.DefaultFeature) -> PangeaSDK.Overlay?
+  open func createTextMarker(feature: PangeaSDK.Feature) -> PangeaSDK.TextMarker
+  open func createIconMarker(feature: PangeaSDK.PointFeature) -> PangeaSDK.IconMarker
+  open func createCircleMarker(feature: PangeaSDK.PointFeature) -> PangeaSDK.CircleMarker
+  open func createPolylineOverlay(feature: PangeaSDK.PolylineFeature) -> PangeaSDK.PolylinePath
+  open func createOverlay(from polygonPath: PangeaSDK.PolygonPath) -> PangeaSDK.DefaultOverlay?
+  open func createBorderOverlay(for polygonPath: PangeaSDK.PolygonPath) -> PangeaSDK.PolylinePath
+  open func createInteriorPolygonOverlayGroup(for polygonPath: PangeaSDK.PolygonPath) -> PangeaSDK.OverlayGroup?
+  open func createOverlayForPolygonFeature(_ feature: PangeaSDK.PolygonFeature) -> PangeaSDK.DefaultOverlay?
+  open func createMultiPolygonOverlayGroup(feature: PangeaSDK.MultiPolygonFeature) -> PangeaSDK.OverlayGroup
+  open func createMultiPolylineOverlayGroup(feature: PangeaSDK.MultiPolylineFeature) -> PangeaSDK.OverlayGroup
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_Concurrency.MainActor(unsafe) open class PangeaMapView : Mapbox.MGLMapView, PangeaSDK.PangeaCoordProvider, Mapbox.MGLMapViewDelegate {
+  @_Concurrency.MainActor(unsafe) public static var isDebug: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public static let mapViewLodChangedNotification: Foundation.Notification.Name
+  @objc @_Concurrency.MainActor(unsafe) open var styleString: Swift.String {
+    @objc get
+    @objc set
+  }
+  @objc @_Concurrency.MainActor(unsafe) public var mapBoxBaseLayerID: Swift.String {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public func updateBaseLayer(layerID: Swift.String)
+  @_Concurrency.MainActor(unsafe) open var opacity: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc @_Concurrency.MainActor(unsafe) open var animator: PangeaSDK.Animator? {
+    @objc get
+  }
+  @objc @_Concurrency.MainActor(unsafe) open var layerManager: PangeaSDK.LayerManager? {
+    @objc get
+  }
+  @IBOutlet @_Concurrency.MainActor(unsafe) @objc override weak dynamic open var delegate: Mapbox.MGLMapViewDelegate? {
+    @_Concurrency.MainActor(unsafe) @objc get
+    @_Concurrency.MainActor(unsafe) @objc set
+  }
+  @objc @_Concurrency.MainActor(unsafe) open var animationLoadingTimeout: Swift.Double
+  @objc @_Concurrency.MainActor(unsafe) open var isLoaded: Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc @_Concurrency.MainActor(unsafe) public func setMapAccessToken(_ token: Swift.String)
+  @_Concurrency.MainActor(unsafe) public func toggleProductInfoRefreshTimers(enabled: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func layers() -> [PangeaSDK.Layer]?
+  @objc @_Concurrency.MainActor(unsafe) open func resetLayers()
+  @_Concurrency.MainActor(unsafe) open func clear()
+  @_Concurrency.MainActor(unsafe) open func reloadLayers(completionHandler: (() -> Swift.Void)? = nil)
+  @objc @_Concurrency.MainActor(unsafe) public func insertLayerBelowMapboxLayer(layer: PangeaSDK.Layer, mapboxLayerID: Swift.String)
+  @discardableResult
+  @objc @_Concurrency.MainActor(unsafe) open func insertLayer(_ layer: PangeaSDK.Layer, above aboveLayer: PangeaSDK.Layer) -> Swift.Bool
+  @discardableResult
+  @objc @_Concurrency.MainActor(unsafe) open func addLayer(_ layer: PangeaSDK.Layer) -> Swift.Bool
+  @discardableResult
+  @objc @_Concurrency.MainActor(unsafe) open func insertLayer(_ layer: PangeaSDK.Layer, below belowLayer: PangeaSDK.Layer) -> Swift.Bool
+  @discardableResult
+  @objc @_Concurrency.MainActor(unsafe) open func insertLayer(_ layer: PangeaSDK.Layer, belowLayerName: Swift.String?) -> Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) open func removeLayer(_ layer: PangeaSDK.Layer)
+  @_Concurrency.MainActor(unsafe) open func layers(in rect: CoreGraphics.CGRect) -> [PangeaSDK.FDSTileLayer]
+  @_Concurrency.MainActor(unsafe) open func setAnimationPercentage(_ percentage: Swift.Double)
+  @available(*, deprecated, message: "use onMapRegionChanged(_ screenCoordBounds: GeoBoundingBox, lod: Int)")
+  @_Concurrency.MainActor(unsafe) open func getProjectedRectForCoordBounds(_ coordBounds: Mapbox.MGLCoordinateBounds) -> PangeaSDK.MapRect
+  @_Concurrency.MainActor(unsafe) open func getProjectedRectForBoundingBox(_ coordBounds: PangeaSDK.GeoBoundingBox) -> PangeaSDK.MapRect
+  @_Concurrency.MainActor(unsafe) open func getCoordForProjectedPoint(x: Swift.Float, y: Swift.Float) -> CoreLocation.CLLocationCoordinate2D
+  @_Concurrency.MainActor(unsafe) open func getMetersPerMapPointAtLatitude(_ latitude: Swift.Double) -> Swift.Double
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, regionDidChangeAnimated animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(styleForDefaultUserLocationAnnotationView mapView: Mapbox.MGLMapView) -> Mapbox.MGLUserLocationAnnotationViewStyle
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, didFinishLoading style: Mapbox.MGLStyle)
+  @_Concurrency.MainActor(unsafe) @objc public func mapViewWillStartLoadingMap(_ mapView: Mapbox.MGLMapView)
+  @_Concurrency.MainActor(unsafe) @objc open func mapViewDidFinishLoadingMap(_ mapView: Mapbox.MGLMapView)
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, imageFor annotation: Mapbox.MGLAnnotation) -> Mapbox.MGLAnnotationImage?
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, alphaForShapeAnnotation annotation: Mapbox.MGLShape) -> CoreGraphics.CGFloat
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, lineWidthForPolylineAnnotation annotation: Mapbox.MGLPolyline) -> CoreGraphics.CGFloat
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, strokeColorForShapeAnnotation annotation: Mapbox.MGLShape) -> UIKit.UIColor
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, fillColorForPolygonAnnotation annotation: Mapbox.MGLPolygon) -> UIKit.UIColor
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, calloutViewFor annotation: Mapbox.MGLAnnotation) -> Mapbox.MGLCalloutView?
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, annotationCanShowCallout annotation: Mapbox.MGLAnnotation) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, didSelect annotation: Mapbox.MGLAnnotation)
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, regionWillChangeAnimated animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc open func mapViewDidBecomeIdle(_ mapView: Mapbox.MGLMapView)
+  @_Concurrency.MainActor(unsafe) @objc open func mapViewWillStartRenderingFrame(_ mapView: Mapbox.MGLMapView)
+  @_Concurrency.MainActor(unsafe) @objc open func mapViewDidFinishRenderingFrame(_ mapView: Mapbox.MGLMapView, fullyRendered: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc public func mapView(_ mapView: Mapbox.MGLMapView, regionIsChangingWith reason: Mapbox.MGLCameraChangeReason)
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, didSelect annotationView: Mapbox.MGLAnnotationView)
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, viewFor annotation: Mapbox.MGLAnnotation) -> Mapbox.MGLAnnotationView?
+  @_Concurrency.MainActor(unsafe) @objc open func mapView(_ mapView: Mapbox.MGLMapView, didAdd annotationViews: [Mapbox.MGLAnnotationView])
+  @_Concurrency.MainActor(unsafe) public func setVisibleCoordinateBounds(_ bounds: PangeaSDK.GeoBoundingBox, insets: UIKit.UIEdgeInsets, animated: Swift.Bool, reloadData: Swift.Bool = true, completionHandler: (() -> Swift.Void)?)
+  @objc deinit
+  @_Concurrency.MainActor(unsafe) public func getBoundsZoomLevel(_ bounds: PangeaSDK.GeoBoundingBox) -> Swift.Double
+  @_Concurrency.MainActor(unsafe) public var cacheCapacity: Swift.Int
+  @_Concurrency.MainActor(unsafe) public func clearCache()
+  @_Concurrency.MainActor(unsafe) open func setMaximumAmbientCacheSize(_ cacheSize: Swift.UInt, withCompletionHandler completion: @escaping (Swift.Error?) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) open func invalidateAmbientCache(completionHandler completion: @escaping (Swift.Error?) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) open func clearAmbientCache(completionHandler completion: @escaping (Swift.Error?) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) open func resetDatabase(completionHandler completion: @escaping (Swift.Error?) -> Swift.Void)
+}
+@_inheritsConvenienceInitializers @objc open class TilerDataProvider : PangeaSDK.TilerProductDataProvider {
+  open var productInfo: PangeaSDK.TilerProductInfo {
+    get
+    set
+  }
+  final public let productGroup: PangeaSDK.TilerProductGroup?
+  public var tileDataProvider: PangeaSDK.TileDataProvider?
+  @objc public init(productGroup: PangeaSDK.TilerProductGroup, config: PangeaSDK.PangeaConfig, productInfoProvider: PangeaSDK.TilerProductInfoProvider = TilerProductInfoProvider())
+  @objc override dynamic public init()
+  @objc convenience public init(productKey: Swift.String, config: PangeaSDK.PangeaConfig, productInfoProvider: PangeaSDK.TilerProductInfoProvider = TilerProductInfoProvider())
+  @objc convenience public init(productKeys: [Swift.String], config: PangeaSDK.PangeaConfig, productInfoProvider: PangeaSDK.TilerProductInfoProvider = TilerProductInfoProvider())
+  @objc deinit
+  open func load(_ handler: @escaping (PangeaSDK.Result<[Swift.String : PangeaSDK.TilerProductInfo], Swift.Error>) -> ())
+  open var isTilerExtras: Swift.Bool {
+    get
+    set
+  }
+  public func mapElementDownloadURL(for tile: PangeaSDK.TileMetaData) -> Foundation.URL?
+  open func getNearestTime(time: Swift.Int64, times: [Swift.Int64]) -> Swift.Int64?
+}
+@objc public class OfflineProduct : ObjectiveC.NSObject, Swift.Codable {
+  final public let productType: PangeaSDK.ProductType
+  final public let productName: Swift.String
+  @objc public init(productType: PangeaSDK.ProductType, productName: Swift.String)
+  public func encode(to encoder: Swift.Encoder) throws
+  required convenience public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class TesseraRasterProductInfoProvider : PangeaSDK.RasterProductInfoProvider {
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class TesseraFeatureProductInfoProvider : PangeaSDK.FDSProductInfoProvider {
+  @objc override public init(regionName: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class ChoroplethBoundaryRule : ObjectiveC.NSObject {
+  public var identifier: Swift.String
+  public var minimumZoom: Swift.Float
+  public var maximumZoom: Swift.Float
+  public var boundaryStyle: PangeaSDK.BoundaryStyle
+  public var adminLevel: PangeaSDK.AdminLevel
+  public var excludeWithChildren: Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class StylerHelper : ObjectiveC.NSObject {
+  @objc open var dataToDisplayMap: [Swift.AnyHashable : Any]
+  @objc open var attributeName: Swift.String {
+    @objc get
+    @objc set
+  }
+  @objc open var attributeNames: [Swift.String] {
+    @objc get
+    @objc set
+  }
+  @objc open var defaultValue: Any?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc open class FDSDataProvider : PangeaSDK.MapDataProvider {
+  final public let config: PangeaSDK.PangeaConfig
+  final public let productKey: Swift.String
+  public var productInfo: PangeaSDK.FDSProductInfo {
+    get
+    set
+  }
+  @objc public init(productKey: Swift.String, config: PangeaSDK.PangeaConfig, productInfoProvider: PangeaSDK.FDSProductInfoProvider = .shared)
+  @objc deinit
+  open func load(_ handler: @escaping (PangeaSDK.Result<PangeaSDK.FDSProductInfo, Swift.Error>) -> ())
+  public func updateProductInfo(_ handler: @escaping (PangeaSDK.Result<PangeaSDK.FDSProductInfo, Swift.Error>) -> ())
+  open func mapElementDownloadURL(for tile: PangeaSDK.TileMetaData) -> Foundation.URL?
+  open func mapElements(from tileData: [PangeaSDK.TileMetaData : Foundation.Data]) -> [PangeaSDK.DefaultFeature]
+  public var enableFiltering: Swift.Bool
+  open var filters: [PangeaSDK.SpatialFilter] {
+    get
+  }
+  open func setCustomValidity(_ customValidity: Swift.Int)
+}
+@objc public protocol FeatureStyler {
+  @objc func style(feature: PangeaSDK.DefaultFeature) -> PangeaSDK.Overlay?
+}
+public protocol Feature : PangeaSDK.Locatable {
+  var type: PangeaSDK.FeatureType { get set }
+  var featureID: Swift.String { get set }
+  var validTime: Swift.Double { get set }
+  var backwardValidity: Swift.Double { get set }
+  var forwardValidity: Swift.Double { get set }
+  var properties: Swift.Dictionary<Swift.String, Any> { get set }
+  var overlay: PangeaSDK.Overlay? { get set }
+  var computed: Any? { get set }
+  var layerID: Swift.String? { get set }
+  var geoCenter: CoreLocation.CLLocationCoordinate2D { get set }
+}
+@objc @_inheritsConvenienceInitializers open class DefaultFeature : ObjectiveC.NSObject, PangeaSDK.Feature, PangeaSDK.Clusterable {
+  public var lod: Swift.Int32 {
+    get
+  }
+  public var time: Swift.String {
+    get
+  }
+  public var type: PangeaSDK.FeatureType
+  @objc public var featureID: Swift.String {
+    @objc get
+    @objc set
+  }
+  public var layerID: Swift.String?
+  @objc public var validTime: Swift.Double
+  @objc public var backwardValidity: Swift.Double
+  @objc public var forwardValidity: Swift.Double
+  @objc public var properties: [Swift.String : Any]
+  @objc public var overlay: PangeaSDK.Overlay?
+  @objc public var computed: Any?
+  @objc public var geoCenter: CoreLocation.CLLocationCoordinate2D
+  @objc public var idKey: Swift.String
+  @objc override dynamic public init()
+  @objc public init?(geoJson: [Swift.String : Any], featureIDKey: Swift.String = "id")
+  @objc convenience public init(metadata: PangeaSDK.TileMetaData, size: Swift.Int32 = Int32(FDSProductMetaData.defaultTileHeight))
+  @objc open func loadFromGeoJson(_ json: [Swift.String : Any])
+  @objc override dynamic open var hash: Swift.Int {
+    @objc get
+  }
+  @objc public static func getTypeFromGeoJson(_ json: [Swift.String : Any]) -> PangeaSDK.FeatureType
+  public static func == (lhs: PangeaSDK.DefaultFeature, rhs: PangeaSDK.DefaultFeature) -> Swift.Bool
+  @objc override dynamic open func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers public class OfflineRegionRequest : ObjectiveC.NSObject, Swift.Codable {
+  @objc final public let name: Swift.String
+  final public let stencil: Swift.String
+  final public let fromTime: Swift.Int64
+  final public let toTime: Swift.Int64
+  final public let geoRegions: [PangeaSDK.GeoRegion]
+  final public let offlineProducts: [PangeaSDK.OfflineProduct]
+  @objc convenience public init(name: Swift.String, fromTime: Swift.Int64, toTime: Swift.Int64, geoRegions: [PangeaSDK.GeoRegion], offlineProducts: [PangeaSDK.OfflineProduct], stencil: PangeaSDK.TilerProductDataProvider.Stencil = .noStencil)
+  @objc override dynamic public var hash: Swift.Int {
+    @objc get
+  }
+  public static func == (lhs: PangeaSDK.OfflineRegionRequest, rhs: PangeaSDK.OfflineRegionRequest) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@_inheritsConvenienceInitializers @objc open class Path : PangeaSDK.DefaultOverlay {
+  @objc public var strokeStyle: PangeaSDK.StrokeStyle
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class PolygonPath : PangeaSDK.Path {
+  @objc public var polygon: PangeaSDK.Polygon
+  @objc override dynamic public init()
+  @objc public var fillStyle: PangeaSDK.FillStyle
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class PolylinePath : PangeaSDK.Path {
+  @objc override dynamic public init()
+  @objc public var polyline: PangeaSDK.Polyline
+  @objc deinit
+}
+@objc public protocol Overlay {
+  @objc var geoCenter: CoreLocation.CLLocationCoordinate2D { get set }
+  @objc var data: Any? { get set }
+  @objc var minimumZoomLevel: Swift.Int { get set }
+  @objc var maximumZoomLevel: Swift.Int { get set }
+}
+@_inheritsConvenienceInitializers @objc open class DefaultOverlay : ObjectiveC.NSObject, PangeaSDK.Overlay {
+  @objc open var identifier: Swift.String
+  @objc open var geoCenter: CoreLocation.CLLocationCoordinate2D
+  @objc open var data: Any?
+  @objc open var minimumZoomLevel: Swift.Int
+  @objc open var maximumZoomLevel: Swift.Int
+  @objc public var predicate: Foundation.NSPredicate?
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct TileGrid {
+  public var left: Swift.Int32
+  public var bottom: Swift.Int32
+  public var right: Swift.Int32
+  public var top: Swift.Int32
+  public var zoom: Swift.Int32
+  public init(left: Swift.Int32 = 0, bottom: Swift.Int32 = 0, right: Swift.Int32 = 0, top: Swift.Int32 = 0, zoom: Swift.Int32 = 0)
+}
+extension PangeaSDK.TileGrid : Swift.Sequence {
+  public var count: Swift.Int {
+    get
+  }
+  public func contains(_ tileCoordinate: (Swift.Int32, Swift.Int32)) -> Swift.Bool
+  public func makeIterator() -> Swift.AnyIterator<(Swift.Int32, Swift.Int32)>
+  public func zeroBasedOffset(x: Swift.Int32, y: Swift.Int32) -> (x: Swift.Int, y: Swift.Int)
+  public func gridWidthHeight() -> (numTilesX: Swift.Int, numTilesY: Swift.Int)
+  public typealias Element = (Swift.Int32, Swift.Int32)
+  public typealias Iterator = Swift.AnyIterator<(Swift.Int32, Swift.Int32)>
+}
+@objc public class GeoRegion : ObjectiveC.NSObject, Swift.Codable {
+  final public let lods: [Swift.Int]
+  final public let boundingBox: PangeaSDK.GeoBoundingBox
+  @objc public init(boundingBox: PangeaSDK.GeoBoundingBox, lods: [Swift.Int])
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class NonHierarchicalDistanceBasedAlgorithm : PangeaSDK.ClusteringAlgorithm {
+  public func cluster<ItemType>(items: [ItemType], zoom: Swift.Double) -> [PangeaSDK.Cluster<ItemType>] where ItemType : PangeaSDK.Clusterable
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class PangeaConfig : ObjectiveC.NSObject {
+  @objc public var apiKey: Swift.String
+  @objc public var isQAEnvironment: Swift.Bool
+  @objc public var language: Swift.String
+  @objc public var logLevel: PangeaSDK.LogLevel {
+    @objc get
+    @objc set
+  }
+  @objc public var isShardingEnabled: Swift.Bool
+  public var maxTimes: Swift.Int?
+  public var baseGeoPackageURLString: Swift.String {
+    get
+    set
+  }
+  @objc public var tesseraMemberKey: Swift.String
+  @objc public var tesseraMapKey: Swift.String
+  @objc public var tesseraBaseUrl: Swift.String
+  @objc public var productSet: Swift.String
+  @objc override dynamic public init()
+  public init(productSet: Swift.String)
+  public func version() -> Swift.String
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class RasterProductInfo : ObjectiveC.NSObject {
+  public typealias MetaDataType = PangeaSDK.RasterProductMetaData
+  public var metaData: PangeaSDK.RasterProductInfo.MetaDataType
+  public var productKey: Swift.String {
+    get
+  }
+  public var config: PangeaSDK.PangeaConfig? {
+    get
+    set
+  }
+  open var validTimes: [Swift.Int64] {
+    get
+  }
+  public var needsTime: Swift.Bool
+  public var modelRunTime: Swift.Int64? {
+    get
+    set
+  }
+  final public let validRunTimes: [Swift.Int64]
+  @objc override dynamic public init()
+  public init(productKey: Swift.String, metaData: PangeaSDK.RasterProductInfo.MetaDataType, modelRunTime: Swift.Int64, allValidTimes: [Swift.Int64 : [Swift.Int64]])
+  public init(productKey: Swift.String, metaData: PangeaSDK.RasterProductInfo.MetaDataType, validTimes: [Swift.Int64])
+  public init(productKey: Swift.String)
+  public func validTime(for timeStamp: Swift.Int64) -> Swift.String?
+  @objc deinit
+}
+extension PangeaSDK.RasterProductInfo {
+  public static func == (lhs: PangeaSDK.RasterProductInfo, rhs: PangeaSDK.RasterProductInfo) -> Swift.Bool
+  @objc override dynamic open func isEqual(_ object: Any?) -> Swift.Bool
+}
+public struct MapRect {
+  public var left: CoreGraphics.CGFloat
+  public var bottom: CoreGraphics.CGFloat
+  public var right: CoreGraphics.CGFloat
+  public var top: CoreGraphics.CGFloat
+}
+@objc public enum StrokeCap : Swift.Int {
+  case Butt
+  case Round
+  case Square
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum StrokeJoin : Swift.Int {
+  case Bevel
+  case Round
+  case Miter
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class StrokeStyle : ObjectiveC.NSObject {
+  @objc public var strokeWidth: CoreGraphics.CGFloat
+  @objc public var strokeOpacity: CoreGraphics.CGFloat
+  @objc public var strokeColor: UIKit.UIColor
+  @objc public var strokeCap: PangeaSDK.StrokeCap
+  @objc public var strokeJoin: PangeaSDK.StrokeJoin
+  @objc public var strokeJoinLimit: CoreGraphics.CGFloat
+  @objc public var strokeDash: [Foundation.NSNumber]
+  @objc open var strokeColorProp: PangeaSDK.StylerHelper {
+    @objc get
+    @objc set
+  }
+  @objc public var lineGapWidth: Swift.Double
+  @objc public var strokeBlur: Swift.Double
+  @objc public var strokeOffset: CoreGraphics.CGFloat
+  @objc public var strokeOffsetProp: PangeaSDK.StylerHelper {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol Locatable : AnyObject {
+  var bounds: PangeaSDK.GeoBoundingBox { get set }
+}
+extension PangeaSDK.Locatable {
+  public func contains(_ bounds: PangeaSDK.GeoBoundingBox) -> Swift.Bool
+  public func intersects(_ bounds: PangeaSDK.GeoBoundingBox) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc public class Speed : ObjectiveC.NSObject {
+  @objc public enum Unit : Swift.Int {
+    case milesPerHour
+    case kilometersPerHour
+    case metersPerSecond
+    case centimetersPerSecond
+    case unknown
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class TileGridRequest : Swift.Hashable {
+  final public var tileRequests: [PangeaSDK.TileRequest] {
+    get
+  }
+  final public var fulfiled: Swift.Bool {
+    get
+  }
+  public static func == (lhs: PangeaSDK.TileGridRequest, rhs: PangeaSDK.TileGridRequest) -> Swift.Bool
+  final public func hash(into hasher: inout Swift.Hasher)
+  @objc deinit
+  final public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PangeaSDK.TileGridRequest {
+  final public func fulfil(request: PangeaSDK.TileRequest, result: PangeaSDK.TileRequestResult)
+}
+public enum Result<Value, ErrorType> where ErrorType : Swift.Error {
+  case success(Value)
+  case failure(ErrorType)
+}
+@objc public enum TilerCombinerError : Swift.Int, Swift.Error {
+  case invalidSpeed
+  case invalidDirection
+  case invalidTemperature
+  case invalidU
+  case invalidV
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public static var _nsErrorDomain: Swift.String {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class TilerCombiner : ObjectiveC.NSObject {
+  public static let DefaultSpeedRange: Swift.ClosedRange<Swift.Float>
+  public static let DefaultTemperatureRange: Swift.ClosedRange<Swift.Float>
+  public var speedRange: Swift.ClosedRange<Swift.Float> {
+    get
+    set
+  }
+  public var temperatureRange: Swift.ClosedRange<Swift.Float> {
+    get
+    set
+  }
+  public static let tileSize: Swift.Int
+  public static let floatsPerResultDatum: Swift.Int
+  public static let inputCount: Swift.Int
+  public static let resultCount: Swift.Int
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc extension PangeaSDK.TilerCombiner {
+  @objc dynamic public var speedLowerBound: Swift.Float {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public var speedUpperBound: Swift.Float {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public var temperatureLowerBound: Swift.Float {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public var temperatureUpperBound: Swift.Float {
+    @objc get
+    @objc set
+  }
+}
+@objc @_inheritsConvenienceInitializers public class BoundaryStyle : ObjectiveC.NSObject {
+  public var strokeStyle: PangeaSDK.StrokeStyle
+  public var fillStyle: PangeaSDK.FillStyle
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class TilerProductInfo : ObjectiveC.NSObject {
+  public var needsTime: Swift.Bool
+  final public let productKey: Swift.String
+  public typealias MetaDataType = PangeaSDK.TilerProductMetaData
+  public var metaData: PangeaSDK.TilerProductInfo.MetaDataType
+  final public let dimensions: [PangeaSDK.Dimension]
+  public var modelRunTime: Swift.Int64?
+  public var config: PangeaSDK.PangeaConfig? {
+    get
+    set
+  }
+  @objc override dynamic public init()
+  public init(productKey: Swift.String, metaData: PangeaSDK.TilerProductInfo.MetaDataType, modelRunTime: Swift.Int64, dimensions: [PangeaSDK.Dimension])
+  public init(productKey: Swift.String, metaData: PangeaSDK.TilerProductInfo.MetaDataType, dimensions: [PangeaSDK.Dimension])
+  public var validTimes: [Swift.Int64] {
+    get
+  }
+  public func validTime(for timeStamp: Swift.Int64) -> Swift.String?
+  @objc deinit
+}
+extension PangeaSDK.TilerProductInfo {
+  public static func == (lhs: PangeaSDK.TilerProductInfo, rhs: PangeaSDK.TilerProductInfo) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+}
+@objc @_hasMissingDesignatedInitializers public class NetworkOperation : Foundation.Operation {
+  @objc override dynamic public var isExecuting: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public var isFinished: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public func start()
+  public var urlSession: Foundation.URLSession
+  @objc override dynamic public func cancel()
+  @objc deinit
+}
+@objc public protocol FDSMVTLayerStylingDelegate {
+  @objc func style()
+}
+@_inheritsConvenienceInitializers @objc open class FDSMVTLayer : PangeaSDK.FDSLayer {
+  @objc weak public var stylingDelegate: PangeaSDK.FDSMVTLayerStylingDelegate?
+  @objc override public init(_ dataProvider: PangeaSDK.FDSDataProvider)
+  @objc override open var currentTime: Swift.Int64 {
+    @objc get
+    @objc set
+  }
+  override open func reloadData()
+  @objc override open func load(completionHandler: ((Swift.Error?) -> Swift.Void)? = nil)
+  open func features(in rect: CoreGraphics.CGRect) -> [PangeaSDK.Feature]
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class FDSProductInfoProvider : ObjectiveC.NSObject {
+  @objc public static let shared: PangeaSDK.FDSProductInfoProvider
+  @objc public init(regionName: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class TilerProductInfoProvider : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class FDSChoroplethLayer : PangeaSDK.FDSTileLayer {
+  public var properties: [Any]
+  public var rules: [PangeaSDK.ChoroplethBoundaryRule]
+  public var noDataImageName: Swift.String
+  public var fillPalette: PangeaSDK.PangeaPalette?
+  public var targetPropertyName: Swift.String {
+    get
+    set
+  }
+  public var converter: ((PangeaSDK.Feature) -> Swift.Double)? {
+    get
+    set
+  }
+  public var anchorLayerName: Swift.String
+  public func highlight(geoPoint: CoreLocation.CLLocationCoordinate2D, adminLevel: PangeaSDK.AdminLevel, style: PangeaSDK.BoundaryStyle)
+  public func clearHighlights()
+  public func findLocation(geoPoint: CoreLocation.CLLocationCoordinate2D, adminLevel: PangeaSDK.AdminLevel) -> Swift.String
+  public func findFeatures(geoPoint: CoreLocation.CLLocationCoordinate2D, adminLevel: PangeaSDK.AdminLevel) -> [PangeaSDK.DefaultFeature]
+  public func inspect(geoPoint: CoreLocation.CLLocationCoordinate2D, adminLevel: PangeaSDK.AdminLevel) -> [[Swift.String : Any]]
+  public func findBounds(geoPoint: CoreLocation.CLLocationCoordinate2D, adminLevel: PangeaSDK.AdminLevel) -> PangeaSDK.GeoBoundingBox
+  override open func reloadData()
+  @objc override open var currentTime: Swift.Int64 {
+    @objc get
+    @objc set
+  }
+  @objc override open func load(completionHandler: ((Swift.Error?) -> Swift.Void)? = nil)
+  override open func loadedForTime(_ time: Swift.Int64) -> Swift.Bool
+  open func features(in rect: CoreGraphics.CGRect) -> [PangeaSDK.DefaultFeature]
+  @objc override public init(_ dataProvider: PangeaSDK.FDSDataProvider)
+  @objc deinit
+}
+public enum AdminLevel : Swift.String, Swift.CaseIterable {
+  case country
+  case state
+  case county
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [PangeaSDK.AdminLevel]
+  public typealias RawValue = Swift.String
+  public static var allCases: [PangeaSDK.AdminLevel] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class FeatureValidator : ObjectiveC.NSObject {
+  open var forwardValidityOverride: Swift.Double?
+  open var backwardValidityOverride: Swift.Double?
+  @objc override dynamic public init()
+  open func isValid(_ feature: PangeaSDK.Feature, currentTime: Swift.Double) -> Swift.Bool
+  @objc deinit
+}
+@objc public class RasterProductMetaData : ObjectiveC.NSObject {
+  final public let coverage: PangeaSDK.GeoBoundingBox
+  final public let validity: Swift.Int
+  public var config: PangeaSDK.PangeaConfig? {
+    get
+    set
+  }
+  public init(coverage: PangeaSDK.GeoBoundingBox, maxZoom: Swift.Int, nativeZoom: Swift.Int, dataUrl: Swift.String, validity: Swift.Int)
+  @objc deinit
+}
+extension PangeaSDK.RasterProductMetaData {
+  public func dataUrl() -> Swift.String
+  public var minLOD: Swift.Int {
+    get
+  }
+  public var maxLOD: Swift.Int {
+    get
+  }
+  public var tileWidth: Swift.Int {
+    get
+  }
+  public var tileHeight: Swift.Int {
+    get
+  }
+}
+extension PangeaSDK.RasterProductMetaData {
+  public static func == (lhs: PangeaSDK.RasterProductMetaData, rhs: PangeaSDK.RasterProductMetaData) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class RasterProductInfoProvider : ObjectiveC.NSObject {
+  @objc public static let shared: PangeaSDK.RasterProductInfoProvider
+  @objc convenience public init(regionName: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol ParticleSystemXMLWritable {
+  func add(_ object: PangeaSDK.ParticleSystemXMLWritable)
+  func writeToXML() -> Swift.String?
+}
+extension PangeaSDK.ParticleSystemXMLWritable {
+  public func add(_ object: PangeaSDK.ParticleSystemXMLWritable)
+  public func writeToXML() -> Swift.String?
+}
+@objc @_inheritsConvenienceInitializers public class ParticleSystemXMLWriter : ObjectiveC.NSObject, PangeaSDK.ParticleSystemXMLWritable {
+  public func add(_ object: PangeaSDK.ParticleSystemXMLWritable)
+  public func writeToXML() -> Swift.String?
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension PangeaSDK.ParticleSystemXMLWriter {
+  public static func defaultWriter() -> PangeaSDK.ParticleSystemXMLWriter
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class ParticleSystemObject : ObjectiveC.NSObject {
+  public var enabled: Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class TileMetaData : ObjectiveC.NSObject, Swift.Codable {
+  @objc final public let x: Swift.Int32
+  @objc final public let y: Swift.Int32
+  @objc final public let lod: Swift.Int32
+  @objc final public let time: Swift.String
+  @objc public init(x: Swift.Int32, y: Swift.Int32, lod: Swift.Int32, time: Swift.String, stencil: Swift.String = "")
+  public func encode(to encoder: Swift.Encoder) throws
+  required convenience public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+}
+extension PangeaSDK.TileMetaData {
+  @objc override dynamic public var hash: Swift.Int {
+    @objc get
+  }
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  public static func == (lhs: PangeaSDK.TileMetaData, rhs: PangeaSDK.TileMetaData) -> Swift.Bool
+}
+extension PangeaSDK.TileMetaData {
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+}
+@objc public class FDSProductMetaDataProperty : ObjectiveC.NSObject {
+  final public let title: Swift.String?
+  final public let unit: Swift.String?
+  final public let propertyDescription: Swift.String?
+  public init(title: Swift.String?, unit: Swift.String?, propertyDescription: Swift.String?)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class FDSProductMetaData : ObjectiveC.NSObject {
+  @objc public static let defaultTileWidth: Swift.Int
+  @objc public static let defaultTileHeight: Swift.Int
+  final public let subdomains: [Swift.String]
+  final public let pyramid: [Swift.Int]
+  final public let validity: Swift.Int
+  final public let coverage: PangeaSDK.GeoBoundingBox
+  final public let properties: [Swift.String : PangeaSDK.FDSProductMetaDataProperty]?
+  public var config: PangeaSDK.PangeaConfig? {
+    get
+    set
+  }
+  public init(subdomains: [Swift.String], pyramid: [Swift.Int], detailsUrl: Swift.String, dataUrl: Swift.String, defaultValidity: Swift.Int, coverage: PangeaSDK.GeoBoundingBox, properties: [Swift.String : PangeaSDK.FDSProductMetaDataProperty]? = nil)
+  @objc override dynamic open func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+extension PangeaSDK.FDSProductMetaData {
+  public func dataUrl() -> Swift.String
+  public var minLOD: Swift.Int {
+    get
+  }
+  public var maxLOD: Swift.Int {
+    get
+  }
+}
+extension PangeaSDK.FDSProductMetaData {
+  public static func == (lhs: PangeaSDK.FDSProductMetaData, rhs: PangeaSDK.FDSProductMetaData) -> Swift.Bool
+}
+public protocol ClusteringAlgorithm {
+  func cluster<ItemType>(items: [ItemType], zoom: Swift.Double) -> [PangeaSDK.Cluster<ItemType>] where ItemType : PangeaSDK.Clusterable
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc open class LayerManager : ObjectiveC.NSObject {
+  @objc deinit
+  @objc public func addCustomMapboxLayerPlaceholder(_ layerID: Swift.String)
+  open func layer(with layerID: Swift.String) -> PangeaSDK.Layer?
+  @discardableResult
+  open func addLayer(_ layer: PangeaSDK.Layer) -> Swift.Bool
+  @discardableResult
+  open func insertLayer(_ layer: PangeaSDK.Layer, belowLayerName: Swift.String?) -> Swift.Bool
+  @discardableResult
+  open func insertLayer(_ layer: PangeaSDK.Layer, above aboveLayer: PangeaSDK.Layer) -> Swift.Bool
+  @discardableResult
+  open func insertLayer(_ layer: PangeaSDK.Layer, below belowLayer: PangeaSDK.Layer) -> Swift.Bool
+  open func setTime(_ time: Swift.Int64)
+}
+@_inheritsConvenienceInitializers @objc public class MultiPolygonFeature : PangeaSDK.DefaultFeature {
+  @objc public var polygons: [PangeaSDK.Polygon]?
+  @objc override dynamic public init()
+  @objc deinit
+  @objc override public init?(geoJson: [Swift.String : Any], featureIDKey: Swift.String = "id")
+  @objc override public func loadFromGeoJson(_ json: [Swift.String : Any])
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  public static func == (lhs: PangeaSDK.MultiPolygonFeature, rhs: PangeaSDK.MultiPolygonFeature) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+}
+public struct ColorStep : Swift.Codable, Swift.Equatable {
+  public var step: Foundation.Decimal
+  public var color: PangeaSDK.Color
+  public static func == (lhs: PangeaSDK.ColorStep, rhs: PangeaSDK.ColorStep) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct Color : Swift.Codable, Swift.Equatable {
+  public var red: Swift.Int, green: Swift.Int, blue: Swift.Int, alpha: Swift.Int
+  public static func == (lhs: PangeaSDK.Color, rhs: PangeaSDK.Color) -> Swift.Bool
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct PangeaPaletteConstants {
+  public static let sdkBundleIdentifier: Swift.String
+  public static let sdkBundlePath: Swift.String
+}
+@objc open class PangeaPalette : ObjectiveC.NSObject {
+  open var kind: PangeaRenderer2.Palette.Kind
+  public var steps: [PangeaSDK.ColorStep]
+  public var dataRange: Swift.ClosedRange<Swift.Float> {
+    get
+  }
+  @objc override dynamic open func isEqual(_ object: Any?) -> Swift.Bool
+  @objc public init(fromBundle: Foundation.Bundle? = nil, bundleJsonResource: Swift.String, ofType ext: Swift.String = "json", bundlePath: Swift.String = PangeaPaletteConstants.sdkBundlePath)
+  @objc public init(fromJsonString: Swift.String)
+  @objc public func loadFrom(bundle: Foundation.Bundle? = nil, bundleJsonResource: Swift.String, ofType ext: Swift.String = "json", bundlePath: Swift.String = PangeaPaletteConstants.sdkBundlePath) throws
+  @objc public func loadFrom(jsonString: Swift.String) throws
+  @objc public func loadFrom(jsonData: Foundation.Data) throws
+  @objc public func asJsonString() -> Swift.String
+  @objc deinit
+}
+@objc open class FeatureStylePipeline : ObjectiveC.NSObject {
+  public var sortBlock: (PangeaSDK.Feature, PangeaSDK.Feature) -> Swift.Bool {
+    get
+    set
+  }
+  public init(stylerObject: PangeaSDK.FeatureStyler)
+  public init(filteringBlock: @escaping (PangeaSDK.Feature) -> Swift.Bool, sortingBlock: @escaping (PangeaSDK.Feature, PangeaSDK.Feature) -> Swift.Bool, stylerObject: PangeaSDK.FeatureStyler)
+  public func process(features: Swift.Array<PangeaSDK.DefaultFeature>) -> Swift.Array<PangeaSDK.Overlay>
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class TilerProductDataProvider : PangeaSDK.MapDataProvider {
+  @objc public enum Stencil : Swift.Int, Swift.RawRepresentable {
+    case noStencil
+    case overLand
+    case overWater
+    public typealias RawValue = Swift.String
+    public var rawValue: PangeaSDK.TilerProductDataProvider.Stencil.RawValue {
+      get
+    }
+    public init?(rawValue: PangeaSDK.TilerProductDataProvider.Stencil.RawValue)
+  }
+  public var stencil: PangeaSDK.TilerProductDataProvider.Stencil
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol FeatureComputer {
+  func compute(feature: PangeaSDK.Feature) -> Any
+}
+extension Foundation.Thread {
+  open class func runOnMainThread(closure: @escaping () -> Swift.Void)
+}
+public protocol ParticleSystemHeader : PangeaSDK.ParticleSystemXMLWritable {
+}
+@objc @_hasMissingDesignatedInitializers final public class EmissionRateHeader : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  public init(value: Swift.Float)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class FollowCameraViewHeader : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  @objc override dynamic public init()
+  final public func add(_ object: PangeaSDK.ParticleSystemXMLWritable)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class FollowCameraViewClippingRegionAttribute : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  public init(region: PangeaSDK.MeasurementTuple)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class DataHeader : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  public init(capacity: Swift.Int)
+  final public func add(_ attribute: PangeaSDK.ParticleSystemHeader)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class DataScaleAttribute : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class DataColorAttribute : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class DataVelocityAttribute : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class DataPastPositionAttribute : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  public init(count: Swift.Int)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class DataTemperatureAttribute : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class DataFadeAttribute : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemHeader {
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class Polyline : PangeaSDK.MultiPoint {
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class MultiPolylineFeature : PangeaSDK.DefaultFeature {
+  @objc public var polylines: [PangeaSDK.Polyline]?
+  @objc override dynamic public init()
+  @objc override public init?(geoJson: [Swift.String : Any], featureIDKey: Swift.String = "id")
+  @objc override public func loadFromGeoJson(_ json: [Swift.String : Any])
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  public static func == (lhs: PangeaSDK.MultiPolylineFeature, rhs: PangeaSDK.MultiPolylineFeature) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class MapDataProvider : ObjectiveC.NSObject {
+  @objc public static let refreshProductNotificationName: Foundation.Notification.Name
+  @objc public static let productInfoDidChangeNotification: Foundation.NSNotification.Name
+  @_inheritsConvenienceInitializers @objc public class ProductInfoNotificationUserInfoKeys : ObjectiveC.NSObject {
+    public static let metaDataKey: Swift.String
+    public static let validTimesKey: Swift.String
+    public static let modelRunTimeKey: Swift.String
+    public static let layerKey: Swift.String
+    @objc override dynamic public init()
+    @objc deinit
+  }
+  @objc open var refreshRate: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+precedencegroup PowerPrecedence {
+  higherThan: MultiplicationPrecedence
+}
+infix operator ^^ : PowerPrecedence
+@_inheritsConvenienceInitializers @objc public class FillStyle : ObjectiveC.NSObject {
+  @objc public var fillOpacity: CoreGraphics.CGFloat
+  @objc public var fillColor: UIKit.UIColor
+  @objc public var fillPattern: PangeaSDK.Icon
+  @objc open var fillColorProp: PangeaSDK.StylerHelper {
+    @objc get
+    @objc set
+  }
+  @objc open var fillOpacityProp: PangeaSDK.StylerHelper {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum ProductType : Swift.Int {
+  case raster
+  case feature
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum OfflineRegionStatus : Swift.Int {
+  case unknown
+  case buildingRequest
+  case gettingPackageId
+  case waitingForServer
+  case downloading
+  case unpacking
+  case completed
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers public class PangeaOfflineManager : ObjectiveC.NSObject {
+  public static let statusNotificationKey: Swift.String
+  @objc public static let requestNotificationKey: Swift.String
+  public static let progressNotificationKey: Swift.String
+  public static let regionNameNotificationKey: Swift.String
+  public static let storageNotificationKey: Swift.String
+  public static let tileCountNotificationKey: Swift.String
+  @objc public static let errorNotificationKey: Swift.String
+  @objc public static let errorDescriptionKey: Swift.String
+  @objc public static let shared: PangeaSDK.PangeaOfflineManager
+  @objc public func initSession(with config: PangeaSDK.PangeaConfig)
+  public var pollingTimeout: Swift.Int
+  public var accessToken: Swift.String? {
+    get
+    set
+  }
+  public func handleEventForBackgroundDownloadSession(with identifier: Swift.String, completionHandler: @escaping () -> ())
+  public func downloadBasemapTiles(lodRange: Swift.CountableClosedRange<Swift.Int>, name: Swift.String, styleURL: Foundation.URL, bounds: PangeaSDK.GeoBoundingBox? = nil, completion: @escaping (Swift.Int) -> Swift.Void, progress: @escaping (Swift.Float) -> Swift.Void, error: @escaping (Swift.Error) -> Swift.Void)
+  public func removeBasemapTiles(_ name: Swift.String)
+  public func downloadedBasemapTiles() -> [Swift.String : Swift.Int]
+  public func cancelBasemapDownload(_ name: Swift.String)
+  @objc public func cancelRegionDownload(_ name: Swift.String) throws
+  @objc public func removeOfflineRegion(_ name: Swift.String) throws
+  public static let BasemapTilesLoadedNotification: Foundation.NSNotification.Name
+  public static let BasemapTilesLoadingErrorNotification: Foundation.NSNotification.Name
+  public func downloadOfflineRegion(regionRequest: PangeaSDK.OfflineRegionRequest, completion: @escaping (Swift.Int?, Swift.Int?, Swift.Error?) -> Swift.Void, progress: @escaping (PangeaSDK.OfflineRegionStatus, Swift.Int?, Foundation.Progress) -> Swift.Void)
+  @objc public func objc_downloadOfflineRegion(regionRequest: PangeaSDK.OfflineRegionRequest, completion: @escaping (Swift.Int, Swift.Int, Swift.Error?) -> Swift.Void, progress: @escaping (PangeaSDK.OfflineRegionStatus, Swift.Int, Foundation.Progress) -> Swift.Void)
+  public func downloadOfflineFeatureRegion(regionRequest: PangeaSDK.OfflineRegionRequest, completion: @escaping (Swift.Int?, Swift.Int?, Swift.Error?) -> Swift.Void, progress: @escaping (PangeaSDK.OfflineRegionStatus, Foundation.Progress) -> Swift.Void)
+  @objc public func objc_downloadOfflineFeatureRegion(regionRequest: PangeaSDK.OfflineRegionRequest, completion: @escaping (Swift.Int, Swift.Int, Swift.Error?) -> Swift.Void, progress: @escaping (PangeaSDK.OfflineRegionStatus, Foundation.Progress) -> Swift.Void)
+  @objc public var regions: [Swift.String : [Swift.String : Any]] {
+    @objc get
+  }
+  public func statusUrlForPollingRegion(_ regionName: Swift.String) -> Foundation.URL?
+  public func statusForRegion(_ region: Swift.String) -> [Swift.String : Any]
+  @objc public static let OfflineRegionLoadedNotification: Foundation.NSNotification.Name
+  @objc public static let OfflineRegionLoadingErrorNotification: Foundation.NSNotification.Name
+  @objc public static let OfflineRegionStatusChangedNotification: Foundation.NSNotification.Name
+  public static let OfflineRegionProgressChangedNotification: Foundation.NSNotification.Name
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers open class RasterTileLayer : PangeaSDK.Layer {
+  @available(*, deprecated, renamed: "Layer.loadedForTimeNotification", message: "RasterTileLayer.layerLoadedForTimeNotification is deprecated. Use Layer.loadedForTimeNotification instead")
+  public static let layerLoadedForTimeNotification: Foundation.Notification.Name
+  @objc override weak open var mapView: PangeaSDK.PangeaMapView? {
+    @objc get
+    @objc set
+  }
+  @objc public var dataProvider: PangeaSDK.RasterDataProvider {
+    get
+  }
+  @objc override open var opacity: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc override open var currentTime: Swift.Int64 {
+    @objc get
+    @objc set
+  }
+  @objc override open var tileCacheCapacity: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc override open var productKey: Swift.String {
+    @objc get
+  }
+  @objc public init(_ dataProvider: PangeaSDK.RasterDataProvider)
+  @objc deinit
+  override public func setMinMaxZoomLevel(minLOD: Swift.Int32? = nil, maxLOD: Swift.Int32? = nil) throws
+  public func showTime(_ tileTime: Swift.Int64)
+  override open func reloadData()
+  public func fetchRasterTilesFor(visibleCoordinateBounds: PangeaSDK.GeoBoundingBox, lod: Swift.Int32 = 2, completionHandler: @escaping ((PangeaSDK.Result<[PangeaSDK.TileMetaData : Foundation.Data], Swift.Error>) -> ()))
+  override open func loadedForTime(_ time: Swift.Int64) -> Swift.Bool
+  open func tileTime(_ targetTime: Swift.Int64) -> Swift.Int64
+  @objc override open func load(completionHandler: ((Swift.Error?) -> Swift.Void)? = nil)
+  @objc open func productInfoDidChange(_ notification: Foundation.NSNotification)
+}
+@objc public enum LogLevel : Swift.Int {
+  case info = 3, debug = 2, error = 1, none = 0
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol SpatialFilter {
+  func filter<T>(_ items: [T]) -> [T] where T : PangeaSDK.Locatable
+}
+@objc public class TilerProductMetaData : ObjectiveC.NSObject {
+  final public let validity: Swift.Int
+  final public let attributes: [Swift.String : Swift.String]
+  public var config: PangeaSDK.PangeaConfig? {
+    get
+    set
+  }
+  public init(validity: Swift.Int, data_href: Swift.String = "", data_aggregate_href: Swift.String, minLOD: Swift.Int = 0, maxLOD: Swift.Int = 14, attributes: [Swift.String : Swift.String])
+  public func unit() -> Swift.String?
+  @objc deinit
+}
+extension PangeaSDK.TilerProductMetaData {
+  public func dataUrl() -> Swift.String
+  public var tileWidth: Swift.Int {
+    get
+  }
+  public var tileHeight: Swift.Int {
+    get
+  }
+}
+extension PangeaSDK.TilerProductMetaData {
+  public static func == (lhs: PangeaSDK.TilerProductMetaData, rhs: PangeaSDK.TilerProductMetaData) -> Swift.Bool
+}
+public let PangeaSDKErrorDomain: Foundation.NSErrorDomain
+@objc public enum PangeaSDKErrorCode : Swift.Int {
+  case PangeaOfflineManagerTimeOutPollingForGeopackage = 1
+  case PangeaOfflineManagerUnexpectedResponse = 2
+  case PangeaOfflineManagerRequestFailed = 3
+  case PangeaOfflineManagerDiskError = 4
+  case PangeaNetworkError = 5
+  case PangeaOfflineManagerRequestRejected = 6
+  case PangeaOfflineMissingProductsError = 7
+  case PangeaOfflineWrongProductTypeError = 8
+  case PangeaOfflineProductInfoError = 9
+  case PangeaOfflineTileDownloadError = 10
+  case PangeaSQLiteDatabaseError = 11
+  case PangeaInvalidSelfInClosure = 12
+  case PangeaInvalidTileGridOrTimeRangeInClosure = 13
+  case PangeaInvalidZoomLevel = 14
+  case PangeaInvalidVisibleCoordinateBounds = 15
+  case LayerCurrentTimeIsNotSetError = 16
+  case MapLayerDataProviderNoURLForTileError = 17
+  case MapLayerDataProviderDownloadRequestFailedWithError = 18
+  case MapLayerDataProviderNoResponseFromDownloadRequest = 19
+  case MapLayerDataProviderDownloadOperationWasCancelled = 20
+  case MapLayerDataProviderNotValidTimestamp = 21
+  case MapLayerDataProviderCouldNotBuildMapElementFrom = 22
+  case MapLayerDataProviderNoDataFor = 23
+  case MapLayerDataProviderDataProviderError = 24
+  case ProductInfoProviderCouldntRetrieveProduct = 25
+  case ProductInfoProviderInvalidConfigurationObject = 26
+  case ProductInfoProviderCouldntRetrieveKeyProduct = 27
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol PangeaMapDelegate : ObjectiveC.NSObjectProtocol, PangeaSDK.AnimatorDelegate {
+  @available(*, deprecated, message: "use onMapRegionDidChange(_ screenCoordBounds: GeoBoundingBox, lod: Int)")
+  @objc optional func onMapRegionChanged(_ screenCoordBounds: Mapbox.MGLCoordinateBounds, lod: Swift.Int)
+  @objc optional func onMapRegionDidChange(_ screenCoordBounds: PangeaSDK.GeoBoundingBox, lod: Swift.Int)
+  @objc optional func onMapViewCanAnimate()
+}
+public protocol PangeaCoordProvider : AnyObject {
+  @available(*, deprecated, message: "use getProjectedRectForBoundingBox(_ bounds: GeoBoundingBox) -> MapRect")
+  func getProjectedRectForCoordBounds(_ bounds: Mapbox.MGLCoordinateBounds) -> PangeaSDK.MapRect
+  func getProjectedRectForBoundingBox(_ bounds: PangeaSDK.GeoBoundingBox) -> PangeaSDK.MapRect
+  func getCoordForProjectedPoint(x: Swift.Float, y: Swift.Float) -> CoreLocation.CLLocationCoordinate2D
+  func getMetersPerMapPointAtLatitude(_ latitude: Swift.Double) -> Swift.Double
+}
+@objc public protocol AnimatorDelegate {
+  @objc optional func stateChanged(animator: PangeaSDK.Animator, state: PangeaSDK.Animator.AnimatorState)
+  @objc optional func timeModeChanged(animator: PangeaSDK.Animator, timeMode: PangeaSDK.Animator.TimeMode)
+  @objc optional func frameChanging(animator: PangeaSDK.Animator, previousFrame: Swift.Int64, time: Swift.Double, frame: Swift.Int64)
+  @objc optional func frameChanged(animator: PangeaSDK.Animator, time: Swift.Double, frame: Swift.Int64)
+  @objc optional func frameCountChanged(animator: PangeaSDK.Animator, frameCount: Swift.Int64, periodPerFrame: Swift.Int64)
+  @objc optional func timeChanged(animator: PangeaSDK.Animator, time: Swift.Double, percentage: Swift.Double)
+  @objc optional func startTimeChanged(animator: PangeaSDK.Animator, time: Swift.Double)
+  @objc optional func endTimeChanged(animator: PangeaSDK.Animator, time: Swift.Double)
+  @objc optional func timeRangeChanged(animator: PangeaSDK.Animator, startTime: Swift.Double, endTime: Swift.Double)
+  @objc optional func playRateChanged(animator: PangeaSDK.Animator, playRate: Swift.Int64)
+  @objc optional func periodPerFrameChanged(animator: PangeaSDK.Animator, frameCount: Swift.Int64, periodPerFrame: Swift.Int64)
+  @objc optional func dwellChanged(animator: PangeaSDK.Animator, dwell: Swift.Int64)
+  @objc optional func enableLoopingChanged(animator: PangeaSDK.Animator, enableLooping: Swift.Bool)
+}
+@objc @_hasMissingDesignatedInitializers open class Animator : ObjectiveC.NSObject {
+  public static let animatorStateChangedNotification: Foundation.Notification.Name
+  public static let animatorTimeModeChangedNotification: Foundation.Notification.Name
+  public static let animatorFrameChangingNotification: Foundation.Notification.Name
+  public static let animatorFrameChangedNotification: Foundation.Notification.Name
+  public static let animatorFrameCountChangedNotification: Foundation.Notification.Name
+  public static let animatorTimeChangedNotification: Foundation.Notification.Name
+  public static let animatorStartTimeChangedNotification: Foundation.Notification.Name
+  public static let animatorEndTimeChangedNotification: Foundation.Notification.Name
+  public static let animatorTimeRangeChangedNotification: Foundation.Notification.Name
+  public static let animatorPlayRateChangedNotification: Foundation.Notification.Name
+  public static let animatorPeriodPerFrameChangedNotification: Foundation.Notification.Name
+  public static let animatorDwellChangedNotification: Foundation.Notification.Name
+  public static let animatorEnableLoopingChangedNotification: Foundation.Notification.Name
+  @objc public enum TimeMode : Swift.Int {
+    case relative
+    case `static`
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public enum AnimatorState : Swift.Int {
+    case loading
+    case loaded
+    case starting
+    case started
+    case stopping
+    case stopped
+    case paused
+    case waiting
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc weak open var delegate: PangeaSDK.AnimatorDelegate?
+  @objc open var startTime: Swift.Double {
+    @objc get
+    @objc set
+  }
+  @objc open var endTime: Foundation.TimeInterval {
+    @objc get
+    @objc set
+  }
+  @objc open var currentTime: Swift.Double {
+    @objc get
+  }
+  open var dwell: Swift.Int64 {
+    get
+    set
+  }
+  open var timeMode: PangeaSDK.Animator.TimeMode {
+    get
+    set
+  }
+  open var state: PangeaSDK.Animator.AnimatorState {
+    get
+    set
+  }
+  open var frame: Swift.Int64 {
+    get
+    set
+  }
+  open var periodPerFrame: Swift.Int64 {
+    get
+    set
+  }
+  open var playRate: Swift.Int64 {
+    get
+    set
+  }
+  open var enableLooping: Swift.Bool {
+    get
+    set
+  }
+  open var animationPercentage: Swift.Double {
+    get
+    set
+  }
+  @objc open func update()
+  open func skipToStart()
+  open func skipToEnd()
+  open func skipToNow()
+  open func skipToTime(_ time: Swift.Double)
+  open func skipBackward(_ numberOfFrames: Swift.Int64)
+  open func skipForward(_ numberOfFrames: Swift.Int64)
+  open func skipToFrame(_ frame: Swift.Int64)
+  public func frameForTime(_ time: Swift.Double) -> Swift.Int64
+  @objc open func play()
+  open func pause(_ timeSpan: Swift.Double)
+  @objc open func unPause()
+  open func stop()
+  open func reset()
+  open func forward()
+  open func backward()
+  open func modifyRange(_ startTime: Swift.Double, endTime: Swift.Double)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class FDSProductInfo : ObjectiveC.NSObject {
+  public typealias MapElementType = PangeaSDK.DefaultFeature
+  public typealias MetaDataType = PangeaSDK.FDSProductMetaData
+  final public let metaData: PangeaSDK.FDSProductInfo.MetaDataType
+  public var productKey: Swift.String
+  public var validTimes: [Swift.Int64] {
+    get
+  }
+  public var config: PangeaSDK.PangeaConfig? {
+    get
+    set
+  }
+  final public let validRunTimes: [Swift.Int64]
+  public var allValidTimes: [Swift.Int64 : [Swift.Int64]] {
+    get
+  }
+  @objc public var decluttered: Swift.Bool
+  final public let validTimeRangesAndIterations: [Swift.String]
+  public var customValidity: Swift.Int
+  public var needsTime: Swift.Bool
+  public var modelRunTime: Swift.Int64?
+  public init(productKey: Swift.String, metaData: PangeaSDK.FDSProductInfo.MetaDataType, modelRunTime: Swift.Int64, allValidTimes: [Swift.Int64 : [Swift.Int64]], featuresUrl: Swift.String, detailsUrl: Swift.String)
+  public init(productKey: Swift.String, metaData: PangeaSDK.FDSProductMetaData, validTimeRangesAndIterations: [Swift.String], featuresUrl: Swift.String, detailsUrl: Swift.String)
+  public init(productKey: Swift.String)
+  public func validTime(for timeStamp: Swift.Int64) -> Swift.String?
+  public func iteration(for validTime: Swift.Int64) -> Swift.Int?
+  public func timeRangeWithIteration(for validTime: Swift.Int64) -> Swift.String?
+  @objc deinit
+}
+extension PangeaSDK.FDSProductInfo {
+  public static func == (lhs: PangeaSDK.FDSProductInfo, rhs: PangeaSDK.FDSProductInfo) -> Swift.Bool
+  @objc override dynamic open func isEqual(_ object: Any?) -> Swift.Bool
+}
+extension Foundation.FileManager {
+  public func allocatedSizeOfDirectory(atUrl url: Foundation.URL) throws -> Swift.UInt64
+}
+@objc public class TesseraFeatureDataProvider : PangeaSDK.FDSDataProvider {
+  @objc public init?(productKey: Swift.String, config: PangeaSDK.PangeaConfig, idKey: Swift.String, productInfoProvider: PangeaSDK.FDSProductInfoProvider = TesseraFeatureProductInfoProvider())
+  override open func mapElementDownloadURL(for tile: PangeaSDK.TileMetaData) -> Foundation.URL?
+  override open func mapElements(from tileData: [PangeaSDK.TileMetaData : Foundation.Data]) -> [PangeaSDK.DefaultFeature]
+  @objc deinit
+}
+public protocol Clusterable : PangeaSDK.Locatable, Swift.Hashable {
+  var geoCenter: CoreLocation.CLLocationCoordinate2D { get }
+}
+public func == <T>(lhs: T, rhs: T) -> Swift.Bool where T : PangeaSDK.Clusterable
+public protocol ParticleSystemGenerator : PangeaSDK.ParticleSystemXMLWritable {
+}
+@objc @_hasMissingDesignatedInitializers final public class ColorGenerator : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemGenerator {
+  public init(random: Swift.Bool, color: UIKit.UIColor? = nil)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class RandomPositionGenerator : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemGenerator {
+  public init(center: CoreGraphics.CGPoint, extent: CoreGraphics.CGPoint)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class PastPositionGenerator : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemGenerator {
+  @objc override dynamic public init()
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc public enum FeatureType : Swift.Int {
+  case None
+  case Point
+  case Polyline
+  case Polygon
+  case MultiPolygon
+  case MultiPolyline
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class StylerConstants : ObjectiveC.NSObject {
+  @_inheritsConvenienceInitializers @objc public class IconMarkerConstants : ObjectiveC.NSObject {
+    public static let gMarkerTextStyleKey: Swift.String
+    public static let gMarkerTextKey: Swift.String
+    public static let gMarkerIconNameKey: Swift.String
+    public static let gMarkerIconOffsetKey: Swift.String
+    public static let gAllowOverlapKey: Swift.String
+    public static let gAllowCollisionKey: Swift.String
+    public static let gDisplayTextWithoutIconKey: Swift.String
+    public static let gTouchPaddingKey: Swift.String
+    public static let gRotationKey: Swift.String
+    public static let gScaleForTextKey: Swift.String
+    public static let gScaleFactorKey: Swift.String
+    public static let gTextFitPaddingKey: Swift.String
+    @objc override dynamic public init()
+    @objc deinit
+  }
+  @_inheritsConvenienceInitializers @objc public class CommonShapeConstants : ObjectiveC.NSObject {
+    public static let gFillColorKey: Swift.String
+    public static let gFillOpacityKey: Swift.String
+    public static let gStrokeWidthKey: Swift.String
+    public static let gStrokeColorKey: Swift.String
+    public static let gStrokeOpacityKey: Swift.String
+    public static let gStrokeCapKey: Swift.String
+    public static let gStrokeJoinKey: Swift.String
+    public static let gStrokeJoinLimitKey: Swift.String
+    public static let gStrokeDashKey: Swift.String
+    @objc override dynamic public init()
+    @objc deinit
+  }
+  @_inheritsConvenienceInitializers @objc public class CircleMarkerConstants : ObjectiveC.NSObject {
+    public static let gMarkerRadiusKey: Swift.String
+    public static let gFillBlurKey: Swift.String
+    @objc override dynamic public init()
+    @objc deinit
+  }
+  @_inheritsConvenienceInitializers @objc public class PolygonConstants : ObjectiveC.NSObject {
+    public static let gFillPatternKey: Swift.String
+    @objc override dynamic public init()
+    @objc deinit
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc open class Layer : ObjectiveC.NSObject {
+  @objc weak open var mapView: PangeaSDK.PangeaMapView?
+  open var tileGrid: PangeaSDK.TileGrid {
+    get
+    set
+  }
+  open var fixedTileGrid: PangeaSDK.TileGrid?
+  @objc open var layerID: Swift.String {
+    get
+  }
+  open var productKey: Swift.String {
+    get
+  }
+  @objc open var minimumZoom: Swift.Int32
+  @objc open var maximumZoom: Swift.Int32
+  @objc open var opacity: CoreGraphics.CGFloat
+  public var maxCacheAgeInSeconds: Swift.Double
+  @objc open var isAnimated: Swift.Bool
+  public static let loadedForTimeNotification: Foundation.Notification.Name
+  @objc open var currentTime: Swift.Int64 {
+    @objc get
+    @objc set
+  }
+  open var startTime: Swift.Int64?
+  open var endTime: Swift.Int64?
+  open var tileCacheCapacity: Swift.Int
+  @objc open func load(completionHandler: ((Swift.Error?) -> Swift.Void)? = nil)
+  open func loadedForTime(_ time: Swift.Int64) -> Swift.Bool
+  open func isTimeInValidRange(_ time: Swift.Int64) -> Swift.Bool
+  open func reloadData()
+  public func setMinMaxZoomLevel(minLOD: Swift.Int32? = nil, maxLOD: Swift.Int32? = nil) throws
+  open func setLayerTimeRange(startTime: Swift.Int64, endTime: Swift.Int64)
+  @objc override dynamic open func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class OverlayGroup : PangeaSDK.DefaultOverlay {
+  @objc open var overlays: [PangeaSDK.Overlay]
+  @objc override dynamic public init()
+  @objc public init(_ overlays: [PangeaSDK.Overlay])
+  @objc deinit
+}
+extension PangeaSDK.TileGrid : Swift.Hashable {
+  public static func == (lhs: PangeaSDK.TileGrid, rhs: PangeaSDK.TileGrid) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class Polygon : PangeaSDK.MultiPoint {
+  @objc public var interiorPolygons: [PangeaSDK.Polygon]
+  @objc public var stylingProperties: [Swift.String : Any]
+  @objc deinit
+  @objc override dynamic public var hash: Swift.Int {
+    @objc get
+  }
+  public static func == (lhs: PangeaSDK.Polygon, rhs: PangeaSDK.Polygon) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc override dynamic public init()
+}
+public enum ProductInfoValidity : Swift.Int {
+  case infinite
+  case observedRaster
+  case futureRaster
+  public static func validity(_ infoValidity: PangeaSDK.ProductInfoValidity) -> Swift.Int
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class MultiPolylinePath : PangeaSDK.Path {
+  @objc override dynamic public init()
+  @objc public var polylines: [PangeaSDK.Polyline]
+  @objc deinit
+}
+public class Cluster<ItemType> where ItemType : PangeaSDK.Clusterable {
+  public var hashValue: Swift.Int
+  public var bounds: PangeaSDK.GeoBoundingBox {
+    get
+    set
+  }
+  public var geoCenter: CoreLocation.CLLocationCoordinate2D {
+    get
+  }
+  public var items: [ItemType] {
+    get
+  }
+  public init(_ item: ItemType)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc open class NetworkManager : ObjectiveC.NSObject {
+  @discardableResult
+  public func requestUrl(_ url: Foundation.URL, retryCount: Swift.Int = 3, completionHandler: @escaping (Foundation.Data?, Swift.Error?) -> Swift.Void) -> PangeaSDK.NetworkOperation
+  public func requestJson(_ url: Foundation.URL, retryCount: Swift.Int = 1, completionHandler: @escaping (Any?, Swift.Error?) -> Swift.Void)
+  public func cancel()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class PolylineFeature : PangeaSDK.DefaultFeature {
+  @objc open var polyline: PangeaSDK.Polyline?
+  @objc public static var idlAdjuster: PangeaSDK.InternationalDateLineAdjuster
+  @objc override dynamic public init()
+  @objc override public init?(geoJson: [Swift.String : Any], featureIDKey: Swift.String = "id")
+  @objc override open func loadFromGeoJson(_ json: [Swift.String : Any])
+  @objc override dynamic open var debugDescription: Swift.String {
+    @objc get
+  }
+  public static func == (lhs: PangeaSDK.PolylineFeature, rhs: PangeaSDK.PolylineFeature) -> Swift.Bool
+  @objc override dynamic open func isEqual(_ object: Any?) -> Swift.Bool
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class TextMarker : PangeaSDK.Marker {
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc open class RasterDataProvider : PangeaSDK.TilerProductDataProvider {
+  public var enableOverscanning: Swift.Bool
+  public var enablePlaceholders: Swift.Bool
+  open var productInfo: PangeaSDK.RasterProductInfo {
+    get
+    set
+  }
+  public var tileDataProvider: PangeaSDK.TileDataProvider?
+  public var tileDataCache: PangeaSDK.TileDataProvider?
+  final public let config: PangeaSDK.PangeaConfig
+  final public let productKey: Swift.String
+  @objc public init(productKey: Swift.String, config: PangeaSDK.PangeaConfig, productInfoProvider: PangeaSDK.RasterProductInfoProvider = RasterProductInfoProvider.shared)
+  @objc deinit
+  open func load(_ handler: @escaping (PangeaSDK.Result<PangeaSDK.RasterProductInfo, Swift.Error>) -> ())
+  public func updateProductInfo(_ handler: @escaping (PangeaSDK.Result<PangeaSDK.RasterProductInfo, Swift.Error>) -> ())
+  public var preloadCount: Swift.Int {
+    get
+  }
+  open func mapElementDownloadURL(for tile: PangeaSDK.TileMetaData) -> Foundation.URL?
+}
+@_inheritsConvenienceInitializers @objc public class PolygonFeature : PangeaSDK.DefaultFeature {
+  @objc public var polygon: PangeaSDK.Polygon?
+  @objc public var idlAdjuster: PangeaSDK.InternationalDateLineAdjuster
+  @objc override dynamic public init()
+  @objc deinit
+  @objc override public init?(geoJson: [Swift.String : Any], featureIDKey: Swift.String = "id")
+  @objc override public func loadFromGeoJson(_ json: [Swift.String : Any])
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  public static func == (lhs: PangeaSDK.PolygonFeature, rhs: PangeaSDK.PolygonFeature) -> Swift.Bool
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+}
+@objc public class TilerProductGroup : ObjectiveC.NSObject {
+  public var speedKey: Swift.String? {
+    get
+  }
+  public var directionKey: Swift.String? {
+    get
+  }
+  public var uKey: Swift.String? {
+    get
+  }
+  public var vKey: Swift.String? {
+    get
+  }
+  public var colorProductKey: Swift.String? {
+    get
+  }
+  public var genericKeys: [Swift.String] {
+    get
+  }
+  public var z: Swift.Int {
+    get
+  }
+  public var UUID: Swift.String {
+    get
+  }
+  @objc public init(speedKey: Swift.String, directionKey: Swift.String, colorProductKey: Swift.String? = nil, z: Swift.Int = 0)
+  @objc public init(uKey: Swift.String, vKey: Swift.String, colorProductKey: Swift.String? = nil, z: Swift.Int = 0)
+  @objc convenience public init(productKey: Swift.String)
+  @objc public init(productKeys: [Swift.String])
+  public var mainProductKey: Swift.String? {
+    get
+  }
+  public var productKeys: [Swift.String] {
+    get
+  }
+  @objc deinit
+}
+public typealias TileRequestResult = PangeaSDK.Result<Foundation.Data, Swift.Error>
+@_hasMissingDesignatedInitializers final public class TileRequest : Swift.Hashable {
+  final public let tile: PangeaSDK.TileMetaData
+  final public func fulfil(_ result: PangeaSDK.TileRequestResult)
+  final public var fulfiled: Swift.Bool {
+    get
+  }
+  public static func == (lhs: PangeaSDK.TileRequest, rhs: PangeaSDK.TileRequest) -> Swift.Bool
+  final public func hash(into hasher: inout Swift.Hasher)
+  @objc deinit
+  final public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc open class TilerParticleLayer : PangeaSDK.Layer {
+  @objc override open var currentTime: Swift.Int64 {
+    @objc get
+    @objc set
+  }
+  @objc public var tileSize: Swift.Double
+  @objc override weak open var mapView: PangeaSDK.PangeaMapView? {
+    @objc get
+    @objc set
+  }
+  @objc override open var opacity: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc public var tilerDataProvider: PangeaSDK.TilerDataProvider {
+    get
+  }
+  @objc public var clippingRegion: PangeaSDK.GeoBoundingBox? {
+    @objc get
+    @objc set
+  }
+  @objc public var extent: CoreGraphics.CGSize {
+    @objc get
+    @objc set
+  }
+  @available(*, deprecated, message: "particleInertia does not have any effect and will be removed soon")
+  @objc public var particleInertia: Swift.Float {
+    @objc get
+    @objc set
+  }
+  @objc public var particleTailLength: Swift.Float {
+    @objc get
+    @objc set
+  }
+  @objc public var particleTailSpringConstant: Swift.Float {
+    @objc get
+    @objc set
+  }
+  @objc public var showParticles: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public var maxDuration: Swift.Float {
+    @objc get
+    @objc set
+  }
+  @objc override open var productKey: Swift.String {
+    @objc get
+  }
+  public var speedRange: Swift.ClosedRange<CoreGraphics.CGFloat> {
+    get
+    set
+  }
+  @objc public var spriteImage: UIKit.UIImage {
+    @objc get
+    @objc set
+  }
+  public static let DefaultTemperaturePalette: UIKit.UIImage
+  public static let DefaultSpeedPalette: UIKit.UIImage
+  @objc public var colorPaletteImage: UIKit.UIImage {
+    @objc get
+    @objc set
+  }
+  @objc public var particleColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  @objc public var colorWeight: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  @objc public var colorSource: PangeaRenderer2.PRColorSource {
+    @objc get
+    @objc set
+  }
+  @objc public var maxParticles: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc public var emissionRate: Swift.Float {
+    @objc get
+    @objc set
+  }
+  @objc public init(dataProvider: PangeaSDK.TilerDataProvider, xmlWriter: PangeaSDK.ParticleSystemXMLWriter? = nil)
+  @objc deinit
+  @objc override open var layerID: Swift.String {
+    @objc get
+  }
+  @objc override open func load(completionHandler: ((Swift.Error?) -> Swift.Void)? = nil)
+  override public func setMinMaxZoomLevel(minLOD: Swift.Int32? = nil, maxLOD: Swift.Int32? = nil) throws
+  open func tileTime(_ targetTime: Swift.Int64) -> Swift.Int64
+  @objc override open func reloadData()
+  @objc public func setDurationScale(_ scaleFactor: Swift.Float)
+  @objc public func setFadeInStart(_ start: Swift.Float, stop: Swift.Float)
+  @objc public func setFadeOutStart(_ start: Swift.Float, stop: Swift.Float)
+  public func debug(_ enable: Swift.Bool)
+}
+@_hasMissingDesignatedInitializers public class TilerSpeedUnit {
+  @objc deinit
+}
+public let clusterCountKey: Swift.String
+public let clusterItemsKey: Swift.String
+@objc @_hasMissingDesignatedInitializers open class FDSLayer : PangeaSDK.Layer {
+  public var clusteringEnabled: Swift.Bool {
+    get
+    set
+  }
+  @objc override weak open var mapView: PangeaSDK.PangeaMapView? {
+    @objc get
+    @objc set
+  }
+  @objc override open var currentTime: Swift.Int64 {
+    @objc get
+    @objc set
+  }
+  public var clusteringAlgorithm: PangeaSDK.ClusteringAlgorithm
+  public var clusteringDistance: Swift.Int
+  @objc open var featureDataProvider: PangeaSDK.FDSDataProvider {
+    get
+  }
+  @objc public var decluttered: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc open var featureValidator: PangeaSDK.FeatureValidator
+  public var features: [PangeaSDK.Feature] {
+    get
+  }
+  public static let featuresDidDrawNotification: Foundation.Notification.Name
+  public static let featuresDidChangeNotification: Foundation.Notification.Name
+  @objc override open var opacity: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc override open var productKey: Swift.String {
+    @objc get
+  }
+  @objc public var styler: PangeaSDK.FeatureStyler {
+    @objc get
+    @objc set
+  }
+  @objc public var stylingPipeline: PangeaSDK.FeatureStylePipeline
+  @objc override open var isAnimated: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  public init(_ dataProvider: PangeaSDK.FDSDataProvider)
+  @objc deinit
+  override public func setMinMaxZoomLevel(minLOD: Swift.Int32? = nil, maxLOD: Swift.Int32? = nil) throws
+  @objc override open func load(completionHandler: ((Swift.Error?) -> Swift.Void)? = nil)
+  open func addFeature(_ feature: PangeaSDK.Feature, completion: (() -> Swift.Void)? = nil)
+  open func addFeatures(_ newFeatures: [PangeaSDK.Feature], completion: (() -> Swift.Void)? = nil)
+  open func setFeatures(_ newFeatures: [PangeaSDK.Feature], replaceOldFeatures: Swift.Bool = true, completion: (() -> Swift.Void)? = nil)
+  @objc open func redraw()
+  open func clearFeatures(completion: (() -> Swift.Void)? = nil)
+  open func removeFeature(_ feature: PangeaSDK.Feature, completion: (() -> Swift.Void)? = nil)
+  open func removeFeatures(_ featuresToRemove: [PangeaSDK.Feature], completion: (() -> Swift.Void)? = nil)
+  open func filterNonVisibleFeatures(featuresToFilter: [PangeaSDK.DefaultFeature]) -> [PangeaSDK.DefaultFeature]
+  open func removeExistingFeatures(incomingFeatures: [PangeaSDK.DefaultFeature], completion: (([PangeaSDK.DefaultFeature]) -> Swift.Void)? = nil)
+  open func removeNonValidFeatures(completion: (() -> Swift.Void)? = nil)
+  public func updateIconForOverlay(_ identifier: Swift.String, icon: PangeaSDK.Icon)
+  override open func loadedForTime(_ time: Swift.Int64) -> Swift.Bool
+}
+public class UrlBuilder {
+  public var productListUrl: Foundation.URL? {
+    get
+  }
+  public var seriesUrl: Foundation.URL? {
+    get
+  }
+  public var tesseraCapabilityUrl: Foundation.URL? {
+    get
+  }
+  public init()
+  public init(config: PangeaSDK.PangeaConfig!)
+  public func getMapTileDownloadParameters(x: Swift.Int32, y: Swift.Int32, lod: Swift.Int32, time: Swift.Int64) -> [Swift.String : Swift.String]
+  public func buildMapTileDownloadUrl(_ url: Swift.String, x: Swift.Int32, y: Swift.Int32, lod: Swift.Int32, time: Swift.Int64) -> Foundation.URL?
+  public func getAggregateDownloadUrl(_ downloadUrls: [[Swift.String : [Swift.String : Swift.String]]]) -> Foundation.URL?
+  public func buildSSDSVectorURL(route: Swift.String, params: [Swift.String : Swift.String]?) -> Foundation.URL?
+  public func urlWithParams(_ urlString: Swift.String, paramDict: [Swift.String : Swift.String]?) -> Foundation.URL?
+  @objc deinit
+}
+public protocol ParticleSystemRenderer : PangeaSDK.ParticleSystemXMLWritable {
+}
+@objc @_hasMissingDesignatedInitializers final public class QuadRenderer : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemRenderer {
+  public init(color: UIKit.UIColor, useSpriteExtent: Swift.Bool, fade: Swift.Float, extent: CoreGraphics.CGSize = CGSize.zero)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class LineRenderer : PangeaSDK.ParticleSystemObject, PangeaSDK.ParticleSystemRenderer {
+  public init(color: UIKit.UIColor, lineWidth: Swift.ClosedRange<Swift.Int>, fade: Swift.Float)
+  final public func writeToXML() -> Swift.String?
+  @objc deinit
+}
+extension PangeaSDK.PangeaMapView {
+  @_Concurrency.MainActor(unsafe) open func setOpacity(_ opacity: CoreGraphics.CGFloat, fdsLayer: PangeaSDK.FDSLayer)
+  @_Concurrency.MainActor(unsafe) open func features(in rect: CoreGraphics.CGRect) -> [PangeaSDK.Feature]
+  @objc @_Concurrency.MainActor(unsafe) dynamic public func addStyling(overlay: PangeaSDK.DefaultOverlay, mvtLayer: PangeaSDK.FDSMVTLayer, predicate: Foundation.NSPredicate? = nil)
+}
+extension PangeaSDK.DurationUpdater : PangeaSDK.ParticleSystemXMLWritable {}
+extension PangeaSDK.TemperatureUpdater : PangeaSDK.ParticleSystemXMLWritable {}
+extension PangeaSDK.ColorUpdater : PangeaSDK.ParticleSystemXMLWritable {}
+extension PangeaSDK.ColorUpdater.Source : Swift.Equatable {}
+extension PangeaSDK.ColorUpdater.Source : Swift.Hashable {}
+extension PangeaSDK.FadeUpdater : PangeaSDK.ParticleSystemXMLWritable {}
+extension PangeaSDK.VelocityUpdater : PangeaSDK.ParticleSystemXMLWritable {}
+extension PangeaSDK.StillParticlesRemovalUpdater : PangeaSDK.ParticleSystemXMLWritable {}
+extension PangeaSDK.PositionUpdater : PangeaSDK.ParticleSystemXMLWritable {}
+extension PangeaSDK.TailUpdater : PangeaSDK.ParticleSystemXMLWritable {}
+extension PangeaSDK.TextJustify : Swift.Equatable {}
+extension PangeaSDK.TextJustify : Swift.Hashable {}
+extension PangeaSDK.TextJustify : Swift.RawRepresentable {}
+extension PangeaSDK.TextAnchor : Swift.Equatable {}
+extension PangeaSDK.TextAnchor : Swift.Hashable {}
+extension PangeaSDK.TextAnchor : Swift.RawRepresentable {}
+extension PangeaSDK.TextTransform : Swift.Equatable {}
+extension PangeaSDK.TextTransform : Swift.Hashable {}
+extension PangeaSDK.TextTransform : Swift.RawRepresentable {}
+extension PangeaSDK.IconAnchor : Swift.Equatable {}
+extension PangeaSDK.IconAnchor : Swift.Hashable {}
+extension PangeaSDK.IconAnchor : Swift.RawRepresentable {}
+extension PangeaSDK.StrokeCap : Swift.Equatable {}
+extension PangeaSDK.StrokeCap : Swift.Hashable {}
+extension PangeaSDK.StrokeCap : Swift.RawRepresentable {}
+extension PangeaSDK.StrokeJoin : Swift.Equatable {}
+extension PangeaSDK.StrokeJoin : Swift.Hashable {}
+extension PangeaSDK.StrokeJoin : Swift.RawRepresentable {}
+extension PangeaSDK.Speed.Unit : Swift.Equatable {}
+extension PangeaSDK.Speed.Unit : Swift.Hashable {}
+extension PangeaSDK.Speed.Unit : Swift.RawRepresentable {}
+extension PangeaSDK.TilerCombinerError : Swift.Equatable {}
+extension PangeaSDK.TilerCombinerError : Swift.Hashable {}
+extension PangeaSDK.TilerCombinerError : Swift.RawRepresentable {}
+extension PangeaSDK.AdminLevel : Swift.Equatable {}
+extension PangeaSDK.AdminLevel : Swift.Hashable {}
+extension PangeaSDK.AdminLevel : Swift.RawRepresentable {}
+extension PangeaSDK.TilerProductDataProvider.Stencil : Swift.Equatable {}
+extension PangeaSDK.TilerProductDataProvider.Stencil : Swift.Hashable {}
+extension PangeaSDK.ProductType : Swift.Equatable {}
+extension PangeaSDK.ProductType : Swift.Hashable {}
+extension PangeaSDK.ProductType : Swift.RawRepresentable {}
+extension PangeaSDK.OfflineRegionStatus : Swift.Equatable {}
+extension PangeaSDK.OfflineRegionStatus : Swift.Hashable {}
+extension PangeaSDK.OfflineRegionStatus : Swift.RawRepresentable {}
+extension PangeaSDK.LogLevel : Swift.Equatable {}
+extension PangeaSDK.LogLevel : Swift.Hashable {}
+extension PangeaSDK.LogLevel : Swift.RawRepresentable {}
+extension PangeaSDK.PangeaSDKErrorCode : Swift.Equatable {}
+extension PangeaSDK.PangeaSDKErrorCode : Swift.Hashable {}
+extension PangeaSDK.PangeaSDKErrorCode : Swift.RawRepresentable {}
+extension PangeaSDK.Animator.TimeMode : Swift.Equatable {}
+extension PangeaSDK.Animator.TimeMode : Swift.Hashable {}
+extension PangeaSDK.Animator.TimeMode : Swift.RawRepresentable {}
+extension PangeaSDK.Animator.AnimatorState : Swift.Equatable {}
+extension PangeaSDK.Animator.AnimatorState : Swift.Hashable {}
+extension PangeaSDK.Animator.AnimatorState : Swift.RawRepresentable {}
+extension PangeaSDK.FeatureType : Swift.Equatable {}
+extension PangeaSDK.FeatureType : Swift.Hashable {}
+extension PangeaSDK.FeatureType : Swift.RawRepresentable {}
+extension PangeaSDK.ProductInfoValidity : Swift.Equatable {}
+extension PangeaSDK.ProductInfoValidity : Swift.Hashable {}
+extension PangeaSDK.ProductInfoValidity : Swift.RawRepresentable {}

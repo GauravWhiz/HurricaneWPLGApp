@@ -1,0 +1,43 @@
+<?xml version='1.0'?>
+<LocalRadars>
+    <LocalRadar
+        LayerID="wal2"
+        LegendID="PrecipRadar"
+        ProductKey="wal2-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="wal2"
+        TransparencyPercent="0"
+        Latitude="34.270"
+        Longitude="-118.245"
+        RadiusMiles="106"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1"
+        SweepArmImageName="Sweeping_Arm_Green" />
+    <LocalRadar
+        LayerID="wny4"
+        LegendID="PrecipRadar"
+        ProductKey="wny4-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="wny4"
+        TransparencyPercent="0"
+        Latitude="33.800"
+        Longitude="-117.625"
+        RadiusMiles="106"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1"
+        SweepArmImageName="Sweeping_Arm_Green" />
+    <LocalRadar
+        LayerID="wla5"
+        LegendID="PrecipRadar"
+        ProductKey="wla5-refl"
+        ProductSet="priradSiteRadarRefl"
+        LocalizedName="wla5"
+        TransparencyPercent="0"
+        Latitude="32.690"
+        Longitude="-116.940"
+        RadiusMiles="124"
+        SweepTimeSeconds="12"
+        SweepArmOpacity="1"
+        SweepArmImageName="Sweeping_Arm_Green" />
+</LocalRadars>
+

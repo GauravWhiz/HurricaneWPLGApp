@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+In general, traffic flow goes on top of roads, if there are
+any but below road labels and shields for I-95 etc.
+WnW and raster layers go below roads and lines, if there are
+any. Specific WnW polygons will also be ordered by severity
+so tornadoes appear above any other WnW polygons (and most
+raster layers).
+Within any "group", layers are sorted in the order in which
+they appear below. For example, raster layers will generally
+go under any WnW layers, with the possible exception of
+the satellite layer which might some apps might want to have
+above *all* layers.
+-->
+<LayerOrderConfiguration>
+    <!-- uppermost layers -->
+    <LayerID>wsi_OverlayCurrentConditions</LayerID>
+    <LayerID>wsi_OverlayEarthquakes</LayerID>
+    <LayerID>wsi_OverlayLightning</LayerID>
+    <LayerID>wsi_OverlayStormTracks</LayerID>
+    <LayerID>wsi_OverlayTemperaturePlots</LayerID>
+    <LayerID>wsi_OverlayTrafficIncidents</LayerID>
+    <LayerID>wsi_OverlayTropicalTracks</LayerID>
+    <LayerID>wsi_OverlayTropicalTracksTest</LayerID>
+    <LayerID>MapLayerLabelsAndShields</LayerID>             <!-- baked-in map layer - may not always exist -->
+    <LayerID>wsi_OverlayTrafficFlow</LayerID>
+    <LayerID>MapLayerRoadsAndLines</LayerID>                <!-- baked-in map layer - may not always exist -->
+    <!--
+    The ordering of specific alert types within the alerts layer
+    is controlled by the ordering of the alerts in map_alert_styles.xml.
+    Usually these are ordered with the highest priority rank (more
+    severe) alerts on top of alerts with lower priority rank across all
+    possible alert categories.
+    -->
+    <LayerID>wsi_WeatherAlertsAll</LayerID>
+    <LayerID>MapLocalRadarLayers</LayerID>                     <!-- any local radar layers will be inserted at this location -->
+    <LayerID>wsi_LayerRadar</LayerID>
+    <LayerID>wsi_LayerRadarSmooth</LayerID>
+    <LayerID>wsi_LayerRadarOverSatellite</LayerID>
+    <LayerID>wsi_LayerRadarOverSatelliteSmooth</LayerID>
+    <LayerID>wsi_LayerRoadWeather</LayerID>
+    <LayerID>wsi_LayerSatellite</LayerID>
+    <LayerID>wsi_LayerSnowfall</LayerID>
+    <LayerID>wsi_LayerSurfaceTemperatureAll</LayerID>
+    <LayerID>wsi_LayerSurfaceTemperatureLand</LayerID>
+    <LayerID>wsi_LayerSurfaceTemperatureWater</LayerID>
+    <LayerID>wsi_LayerWindSpeed</LayerID>
+    <!-- base map -->
+</LayerOrderConfiguration>

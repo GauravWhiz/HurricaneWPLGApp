@@ -1,0 +1,11 @@
+framework module PangeaRenderer2 {
+  umbrella header "PangeaRenderer2-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module PangeaRenderer2.Swift {
+    header "PangeaRenderer2-Swift.h"
+    requires objc
+}

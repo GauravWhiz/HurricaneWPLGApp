@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="LocalRadars">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="LocalRadar" minOccurs="0" maxOccurs="unbounded">                              <!-- defaults -->
+                    <xs:complexType>
+                        <xs:attribute type="xs:string"  name="LayerID" use="required" />
+                        <xs:attribute type="xs:string"  name="LegendID" use="optional" />                       <!-- PrecipRadar -->
+                        <xs:attribute type="xs:string"  name="PastProductKey" use="required" />
+                        <xs:attribute type="xs:string"  name="ProductSet" use="optional" />                     <!-- priradSiteRadarRefl -->
+                        <xs:attribute type="xs:string"  name="LocalizedName" use="optional" />                  <!-- if provided, used to set localized name, otherwise uses LayerID -->
+                        <xs:attribute type="xs:integer" name="DataRangeObservedMinutes" use="optional" />       <!-- 60 -->
+                        <xs:attribute type="xs:integer" name="DataStepSizeSeconds" use="optional" />            <!-- 300 -->
+                        <xs:attribute type="xs:integer" name="TransparencyPercent" use="optional" />            <!-- 20 -->
+                        <xs:attribute type="xs:double"  name="Latitude" use="optional" />                       <!-- -180 ==> get from SmartRadar service -->
+                        <xs:attribute type="xs:double"  name="Longitude" use="optional" />                      <!-- -180 ==> get from SmartRadar service -->
+                        <xs:attribute type="xs:double"  name="RadiusMiles" use="optional" />                    <!-- 0.0 ==> get from SmartRadar service -->
+                        <xs:attribute type="xs:double"  name="SweepTimeSeconds" use="required" />
+                        <xs:attribute type="xs:double"  name="SweepArmOpacity" use="required" />
+                        <xs:attribute type="xs:string"  name="SweepArmImageName" use="optional" />              <!-- Sweeping_Arm_White_40_Perc -->
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

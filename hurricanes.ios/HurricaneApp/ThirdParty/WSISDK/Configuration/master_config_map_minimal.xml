@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<Configuration>
+    <!-- layers and overlays -->
+
+    <LayerDefinitions>
+        <Layer>
+            <LayerID>wsi_LayerRadar</LayerID>
+            <LegendID>PrecipRadar</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+        <Layer>
+            <LayerID>wsi_LayerRoadWeather</LayerID>
+            <LegendID>RoadWeather</LegendID>
+            <TransparencyPercent>10</TransparencyPercent>
+        </Layer>
+    </LayerDefinitions>
+        
+</Configuration>

@@ -1,0 +1,10 @@
+.DS_Store
+xcuserdata
+xcshareddata
+xcworkspacedata
+*.xcworkspacedata
+Podfile.lock
+Pods/
+build/
+build_script/
+DerivedData/

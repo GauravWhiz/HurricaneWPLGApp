@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RadarLayerViewController" customModule="Demo" customModuleProvider="target">
+            <connections>
+                <outlet property="bgView" destination="cTo-b3-ANH" id="8YH-SH-NYk"/>
+                <outlet property="radarLayerTableView" destination="pcB-cm-Rd6" id="Fg9-gG-oJv"/>
+                <outlet property="tableViewYCordinate" destination="n8N-Qt-rrg" id="ciD-jH-ToW"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTo-b3-ANH">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pcB-cm-Rd6">
+                    <rect key="frame" x="0.0" y="100" width="414" height="796"/>
+                    <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="sectionIndexColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="pcB-cm-Rd6" secondAttribute="trailing" id="2Gj-Bd-3Qx"/>
+                <constraint firstAttribute="bottom" secondItem="cTo-b3-ANH" secondAttribute="bottom" id="8h0-yu-dyy"/>
+                <constraint firstAttribute="bottom" secondItem="pcB-cm-Rd6" secondAttribute="bottom" id="IK9-Fu-sfM"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cTo-b3-ANH" secondAttribute="trailing" id="YDQ-0Z-f7a"/>
+                <constraint firstItem="pcB-cm-Rd6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="n8N-Qt-rrg"/>
+                <constraint firstItem="cTo-b3-ANH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ssr-6i-pMe"/>
+                <constraint firstItem="pcB-cm-Rd6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="tkf-2m-qpc"/>
+                <constraint firstItem="cTo-b3-ANH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="x1a-fb-t35"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="135.9375"/>
+        </view>
+    </objects>
+</document>

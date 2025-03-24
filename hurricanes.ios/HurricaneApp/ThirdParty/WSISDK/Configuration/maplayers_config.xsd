@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:include schemaLocation="./_Base/_types_maplayers.xsd" />
+
+    <xs:element name="MapLayersConfiguration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="WSIRasterLayerConfiguration" type="WSIRasterLayerConfigurationType" />
+                <xs:element name="WSIOverlayConfiguration" type="WSIOverlayConfigurationType" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

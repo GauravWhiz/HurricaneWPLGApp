@@ -1,0 +1,77 @@
+<html>
+    <head>
+
+        <link rel="stylesheet" href="http://static.itk.wxc.com/2.2.0.3/map/wxc_map.css" />
+
+        <style>
+            * { margin:0; padding:0; }
+            #wxcMap { max-width:1920px; max-height:1080px; width:100%; height:100%; }
+            body { background:#666;}
+            .leaflet-control-container { display:none; }
+        
+            @media (max-device-height: 568px) {
+                body { zoom:.5; }
+            }
+        </style>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+        <script type="text/javascript" src="http://static.itk.wxc.com/2.2.0.3/wxc_itk.js"></script>
+        <script type="text/javascript" src="http://static.itk.wxc.com/2.2.0.3/map/wxc_map.js"></script>
+    </head>
+    <body>
+        <div id="wxcMap"></div>
+
+        <script type='text/javascript'>
+            var MAP, radar;
+
+            function mapHandler(code, args) {
+                if (MAP) {
+                    MAP.trigger(code, args);
+                }
+            }
+
+            function renderMap(lat, lon, config) {
+                $.wxc({
+                    "host":"mywx",
+                    "passkey":"33842a5617dde9ec0963597739385ba8"
+                });
+
+                MAP = $("#wxcMap").wxcMap({
+                    "baseMapType": $.wxcMap.HYBRID,
+                    "center": {"lat": lat, "lon": lon},
+                    "zoom": 10,
+                    "eventHandler": mapHandler,
+                    "isWxcListener": true,
+                    "minZoom": 1,
+                    "maxZoom": 20
+                });
+
+                MAP.wxcMap("addMarkerIcon", {
+                    "id": "icon1",
+                    "tooltip": "Your location",
+                    "latlon": {"lat": lat, "lon": lon},
+                    "anchorPoint": $.wxcMap.MIDDLE_CENTER,
+                    "iconUrl": config.path,
+                    "minZoom": 3,
+                    "maxZoom": 20,
+                    "zIndex": 100
+                });
+
+                MAP.wxcMap("addLayer", $.wxcMap.RADAR);
+
+                MAP.on("MAP_MOVE_END MAP_DRAG_END", function (e, args) {
+                    var radar = MAP.wxcMap("getLayer", $.wxcMap.RADAR);
+                    if (!radar._animationFrames.length) {
+                        radar.play();
+                    }
+                });
+
+                MAP.on("MAP_LAYER_STATE_CHANGED", function(e, args) {
+                    if (!radar && args.id === "radar" && args.state === "IDLE") {
+                        radar = MAP.wxcMap("getLayer", $.wxcMap.RADAR).play();
+                    }
+                })
+            }
+            </script>
+    </body>
+</html>
