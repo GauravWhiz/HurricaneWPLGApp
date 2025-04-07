@@ -66,10 +66,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
 
     override func loadView() {
         super.loadView()
-        
-        let statusBarHeight = UIApplication.shared.statusBarHeight
-        
-//        closeButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 40, y: self.view.safeAreaInsets.top + statusBarHeight + 20, width: 40, height: 40))
+    
         closeButton.setImage(UIImage(systemName: "xmark.circle.fill")?.withTintColor(UIColor.white,renderingMode: .alwaysOriginal), for: .normal)
         closeButton.backgroundColor = UIColor.clear
         closeButton.setTitleColor(UIColor.white, for: .normal)
@@ -131,6 +128,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         self.mapImageView.center = self.animatedImageView.center
         self.mapImageView.image = self.animatedImageView.image
         self.animatedImageView.isHidden = true
+        self.mapImageView.center = self.view.center
         
         if self.loop_gif != nil {
             // Usage Example
@@ -241,7 +239,46 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         self.imageScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height - AppDefaults.getBottomPadding())
 
     }
+    
+    // Called when the device rotates (portrait <-> landscape)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        coordinator.animate(alongsideTransition: { _ in
+            // Update the scroll view and image view frame when rotating
+            self.adjustImageViewFrame()
+            
+            
+        })
+    }
+    
+    // Function to resize the imageView while preserving aspect ratio
+        func adjustImageViewFrame() {
+            let scrollViewWidth = imageScrollView.bounds.width
+            let scrollViewHeight = imageScrollView.bounds.height
 
+            // Aspect ratio of the image
+            let aspectRatio = self.mapImageView.image!.size.width / self.mapImageView.image!.size.height
+
+            // Resize image view based on current scroll view size
+            var imageViewWidth = scrollViewWidth
+            var imageViewHeight = imageViewWidth / aspectRatio
+
+            // If the image height is greater than the scroll view height, adjust accordingly
+            if imageViewHeight > scrollViewHeight {
+                imageViewHeight = scrollViewHeight
+                imageViewWidth = imageViewHeight * aspectRatio
+            }
+
+            // Set the image view's frame
+            self.mapImageView.frame = CGRect(x: (scrollViewWidth - imageViewWidth) / 2,
+                                     y: (scrollViewHeight - imageViewHeight) / 2,
+                                     width: imageViewWidth,
+                                     height: imageViewHeight)
+            
+          
+        }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -408,14 +445,17 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         self.mapImageView.isHidden = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + timeToWait) {
-            self.imageScrollView.setZoomScale(self.imageScrollView.minimumZoomScale*3, animated: false)
+            self.imageScrollView.setZoomScale(self.imageScrollView.minimumZoomScale*2.5, animated: false)
             
             // 30% from the left edge of the content
             let offsetX = self.imageScrollView.contentSize.width * 0.3
             // After setting the zoom scale, adjust the content offset to ensure the zoom starts from the specified point
             let newOffsetX = offsetX - self.imageScrollView.bounds.size.width * 0.3
             
-            self.imageScrollView.setContentOffset(CGPoint(x: newOffsetX, y: self.imageScrollView.contentOffset.y), animated: false)
+            let offsetY = (self.imageScrollView.contentSize.height - self.imageScrollView.bounds.size.height) / 2
+
+            
+            self.imageScrollView.setContentOffset(CGPoint(x: newOffsetX, y: offsetY), animated: false)
 
            // self.imageScrollView.isHidden = false
             self.mapImageView.isHidden = false

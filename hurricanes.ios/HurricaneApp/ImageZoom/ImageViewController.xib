@@ -34,9 +34,8 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Button"/>
                 </button>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="459"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                     <subviews>
                         <imageView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                             <rect key="frame" x="0.0" y="0.0" width="1730" height="3112"/>
@@ -51,7 +50,13 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="28" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="9OO-bq-JDM"/>
                 <constraint firstAttribute="trailing" secondItem="1eP-Qg-DeG" secondAttribute="trailing" constant="10" id="N2n-Cz-fDR"/>
+                <constraint firstItem="28" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="QXu-J2-Dnf"/>
+                <constraint firstAttribute="bottom" secondItem="28" secondAttribute="bottom" id="XP4-rF-yq5"/>
+                <constraint firstAttribute="trailing" secondItem="28" secondAttribute="trailing" id="hyw-L1-OIZ"/>
+                <constraint firstItem="28" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="k1z-Ly-KrL"/>
+                <constraint firstItem="28" firstAttribute="top" secondItem="1" secondAttribute="top" id="koM-dC-Te6"/>
                 <constraint firstItem="1eP-Qg-DeG" firstAttribute="top" secondItem="1" secondAttribute="top" constant="35" id="tZ6-Fn-HoO"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
