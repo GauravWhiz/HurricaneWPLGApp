@@ -22,12 +22,12 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var animatedImageView: UIImageView!
     var relativeY: CGFloat = 0.0
     var animationImageViewArray: NSArray?
-    @IBOutlet var imageScrollView: UIScrollView!
+    @IBOutlet weak var imageScrollView: UIScrollView!
     
     var imageInitialScale: CGFloat = 0.0
     var isDoubledTap: Bool = false
     var selectedImage: UIImageView!
-    var closeButton:UIButton!
+    @IBOutlet weak var closeButton:UIButton!
     var loop_gif: String?
     
     @IBAction func closeButtonTapped(_ sender: AnyObject) {
@@ -69,7 +69,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
         let statusBarHeight = UIApplication.shared.statusBarHeight
         
-        closeButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 40, y: self.view.safeAreaInsets.top + statusBarHeight + 20, width: 40, height: 40))
+//        closeButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 40, y: self.view.safeAreaInsets.top + statusBarHeight + 20, width: 40, height: 40))
         closeButton.setImage(UIImage(systemName: "xmark.circle.fill")?.withTintColor(UIColor.white,renderingMode: .alwaysOriginal), for: .normal)
         closeButton.backgroundColor = UIColor.clear
         closeButton.setTitleColor(UIColor.white, for: .normal)
@@ -217,7 +217,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             self.navigationController!.isNavigationBarHidden = true
         }
         
-        switch UIDevice.current.orientation {
+      /*  switch UIDevice.current.orientation {
             case .landscapeLeft:
                 self.closeButton.isHidden = true
                 break
@@ -232,7 +232,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                 break
             default:
                 print("Default")
-            }
+            }*/
     }
 
     override func viewDidLayoutSubviews() {
