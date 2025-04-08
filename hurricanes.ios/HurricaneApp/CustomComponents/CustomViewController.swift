@@ -39,10 +39,10 @@ protocol CustomViewControllerDelegate: AnyObject {
 class CustomViewController: GAITrackedViewController, MBProgressHUDDelegate, ImageViewControllerDelegate, DataDownloadManagerDelegate, AdMobViewControllerDelegate, HurricaneCellDelegate, ErrorHandler, UITableViewDelegate, UITableViewDataSource {
     var stormCenterDetailArray: [AnyObject]?
     weak var delegate: CustomViewControllerDelegate?
-    @IBOutlet var customTableView: UITableView!
-    @IBOutlet var segmentedControl: UISegmentedControl!
-    @IBOutlet var headerLabel: UILabel!
-    @IBOutlet var subHeaderLabel: UILabel!
+    @IBOutlet weak var customTableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var subHeaderLabel: UILabel!
 
     var currentIdx: String?
     var rightBarButtonItem: UIButton?
@@ -68,6 +68,8 @@ class CustomViewController: GAITrackedViewController, MBProgressHUDDelegate, Ima
     private var stormSurgeURL = ""
     
     private var loop_gif: String?
+   
+    var isPortraitMode: Bool = true
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -78,10 +80,6 @@ class CustomViewController: GAITrackedViewController, MBProgressHUDDelegate, Ima
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        self.customTableView.reloadData()
     }
 
     func setTableViewAppearence() {
@@ -783,14 +781,26 @@ class CustomViewController: GAITrackedViewController, MBProgressHUDDelegate, Ima
             self.view.frame = screenFrame
         } else {
             var screenFrame: CGRect = UIScreen.main.bounds
-            screenFrame.origin.y = kTopPadding
-            screenFrame.size.height = screenFrame.size.height - screenFrame.origin.y// HAPP-522
+            
+            if !self.isPortraitMode {
+                
+                let wdh = screenFrame.size.width
+                let ht = screenFrame.size.height
+                
+                screenFrame.size.height = wdh
+                screenFrame.size.width = ht
+            }
+            
+            screenFrame.origin.y = 48 + kTopPadding/3
+            screenFrame.size.height = screenFrame.size.height - screenFrame.origin.y - (IS_IPAD ? (self.tabBarController?.tabBar.frame.size.height ?? 0) : 0) - AppDefaults.getBottomPadding() - 20
             self.view.frame = screenFrame
         }
         self.navigationController!.isNavigationBarHidden = false
         isStatusBarHidden = false
         self.setNeedsStatusBarAppearanceUpdate()
         self.delegate?.imageViewDidClose()
+        
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 
     @objc func handleTapGesture(_ sender: UITapGestureRecognizer) {
@@ -819,8 +829,12 @@ class CustomViewController: GAITrackedViewController, MBProgressHUDDelegate, Ima
         self.imageViewController!.selectedImage = cell.stormImageView
         self.imageViewController!.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(self.imageViewController!, animated: false)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationChanged), name: UIDevice.orientationDidChangeNotification, object: nil)
 
     }
+    
+    
 
     @IBAction func segmentIndexChanged(_ sender: AnyObject) {
        self.reloadData()
@@ -1040,9 +1054,25 @@ class CustomViewController: GAITrackedViewController, MBProgressHUDDelegate, Ima
         super.viewWillDisappear(animated)
         
         self.takeSnapShotOfView()
+       
     }
 
     override var prefersStatusBarHidden: Bool {
         return isStatusBarHidden
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    @objc func orientationChanged() {
+        let currentOrientation = UIDevice.current.orientation
+        print("oriiii \(currentOrientation)")
+        if currentOrientation == .landscapeLeft || currentOrientation == .landscapeRight {
+            self.isPortraitMode = false
+        } else if currentOrientation == .portrait || currentOrientation == .portraitUpsideDown {
+            self.isPortraitMode = true
+        }
+            
     }
 }

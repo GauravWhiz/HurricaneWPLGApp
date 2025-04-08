@@ -574,7 +574,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate, UNUs
             let selectedNavController = (self.window!.rootViewController as! UITabBarController).selectedViewController
             if selectedNavController != nil {
                 let presentedViewController = (selectedNavController as! UINavigationController).viewControllers.last! as UIViewController
-                return presentedViewController.supportedInterfaceOrientations
+                print("pred .. \(presentedViewController)")
+                if presentedViewController.isKind(of: ImageViewController.self) {
+                    return .all
+                } else {
+                    return .portrait
+                }
+                
+                
+                
             } else {
                 return UIInterfaceOrientationMask.portrait
             }

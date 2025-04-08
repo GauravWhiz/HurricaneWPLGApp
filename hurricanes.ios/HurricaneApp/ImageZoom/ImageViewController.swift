@@ -64,6 +64,14 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
       }
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+            return .all
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
     override func loadView() {
         super.loadView()
     
@@ -112,6 +120,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        
+        [super.viewWillAppear(animated)];
+        
+      
+        
         self.delegate?.imageViewDidDisplay()
         self.view.frame = UIScreen.main.bounds
         self.mapImageView.frame = UIScreen.main.bounds

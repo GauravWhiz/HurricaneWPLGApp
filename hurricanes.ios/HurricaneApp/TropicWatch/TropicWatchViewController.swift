@@ -42,11 +42,7 @@ class TropicWatchViewController: UIViewController, CustomViewControllerDelegate 
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if !isLandscapeRequired {
-            return [.portrait, .portraitUpsideDown]
-        } else {
-            return .all
-        }
+        return .portrait
     }
 
     override func didReceiveMemoryWarning() {
