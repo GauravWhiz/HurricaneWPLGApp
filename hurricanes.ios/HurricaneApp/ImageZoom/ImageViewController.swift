@@ -121,9 +121,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         
-        [super.viewWillAppear(animated)];
-        
-      
+        super.viewWillAppear(animated);
         
         self.delegate?.imageViewDidDisplay()
         self.view.frame = UIScreen.main.bounds
@@ -259,8 +257,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
         coordinator.animate(alongsideTransition: { _ in
             // Update the scroll view and image view frame when rotating
-            self.adjustImageViewFrame()
-            
+            //self.adjustImageViewFrame()
+            //self.imageScrollView.setZoomScale(self.imageScrollView.zoomScale, animated: false)
+            self.zoomInImage(timeToWait: 1.5)
             
         })
     }
